@@ -1,0 +1,44 @@
+{
+  "name": "vagabondage",
+  "version": "1.0.0",
+  "description": "Jeu de rôle en solitaire, Vagabondage permet d’incarner un protagoniste en fuite dans la campagne française.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel ./src/index.html --out-dir ./.dist",
+    "lint": "eslint --fix src/ || exit 0",
+    "build": "parcel build ./src/index.html --no-source-maps --public-url . --out-dir ./game"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Viglino/vagabondage.git"
+  },
+  "keywords": [
+    "maps",
+    "game",
+    "geoportail",
+    "Openlayers",
+    "ol"
+  ],
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/Viglino/vagabondage/issues"
+  },
+  "homepage": "https://github.com/Viglino/vagabondage#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-clean-dist": "0.0.6",
+    "parcel-plugin-static-files-copy": "^2.6.0"
+  },
+  "staticFiles": {
+    "staticPath": [
+      "./assets"
+    ],
+    "watcherGlob": "**"
+  },
+  "dependencies": {
+    "ol": "^6.13.0",
+    "ol-ext": "^3.2.22"
+  }
+}
