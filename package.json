@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel ./src/index.html --out-dir ./.dist",
     "lint": "eslint --fix src/ || exit 0",
-    "build": "parcel build ./src/index.html --no-source-maps --public-url . --out-dir ./game"
+    "build": "parcel build ./src/index.html --no-source-maps --public-url . --out-dir ./docs"
   },
   "repository": {
     "type": "git",
