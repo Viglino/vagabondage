@@ -15,7 +15,7 @@ const mapDiv = element.create('DIV', {
 const map = new Map({
   target: mapDiv,
   view: new View({
-    zoom: 0,
+    zoom: 5,
     center: [166326, 5992663]
   })
 })
