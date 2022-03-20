@@ -54,7 +54,7 @@ dialog.once('hide', () => {
 // Load regions
 let features;
 Ajax.get({
-  url: '../data/regions.geojson',
+  url: './data/regions.geojson',
   success: (data) => {
     const parser = new GeoJSON;
     features = parser.readFeatures(data, { featureProjection: map.getView().getProjection() });
