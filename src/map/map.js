@@ -7,17 +7,16 @@ import 'ol/src/ol.css'
 import 'ol-ext/dist/ol-ext.css'
 import './map.css'
 
-const mapDiv = element.create('DIV', {
-  className: 'map',
-  parent: document.body
-})
-
 const map = new Map({
-  target: mapDiv,
+  target: element.create('DIV', {
+    className: 'map',
+    parent: document.body
+  }),
   view: new View({
     zoom: 5,
     center: [166326, 5992663]
   })
 })
+map.getView().fit([-555496, 5020049, 1082619, 6665196]);
 
 export default map
