@@ -5,7 +5,7 @@ import 'ol-ext/util/View'
 
 import dialog from '../map/dialog';
 import map from '../map/map'
-import vectorloader from '../map/vectorloader';
+import vectorLoader from '../vectorLoader/vectorLoader';
 import game from '../game'
 
 import intro from './intro.html'
@@ -21,7 +21,7 @@ dialog.show({
 const region = dialog.getContentElement().querySelector('SELECT');
 // region.addEventListener('change', () => dialog.close());
 
-/** Get point inside polygon
+/** Get random point inside polygon
  * @param {ol/geom/Polygon} g
  * @return {ol/coordinate}
  */
@@ -36,19 +36,50 @@ function getCoordinateInside(g) {
   }
 }
 
+function wait(e) {
+  dialog.show({ 
+    content: 'Chargement des données...',
+    progress: e.nb,
+    max: e.max
+  })
+}
+
+
 // Start playing
 dialog.once('hide', () => {
-  const c = getCoordinateInside(features[region.value].getGeometry());
-  vectorloader.getView().setCenter(c)
+  let c = getCoordinateInside(features[region.value].getGeometry());
+  vectorLoader.on('loading', wait)
+  vectorLoader.setCenter(c)
+  vectorLoader.setActive(['route','clc'/*,'bati'*/]);
   // Zoom to start
-  map.getView().flyTo({
-    type: 'moveTo',
-    center: c,
-    zoom: 16,
-    zoomAt: map.getView().getZoom() - .1
-  }, () => {
-    game.dispatchEvent('start');
-  });
+  vectorLoader.once('ready', () =>{
+    // Get closest road
+    let road;
+    let importance = 6;
+    vectorLoader.source.route.getFeatures().forEach(f => {
+      if (/route/i.test(f.get('nature')) && f.get('importance') < importance) {
+        road = f;
+        importance = parseInt(f.get('importance'))
+      }
+    });
+    if (road) {
+      c = road.getGeometry().getFirstCoordinate();
+      console.log(road.getProperties())
+    }
+    // remove handler
+    vectorLoader.un('loading', wait)
+    dialog.hide();
+    vectorLoader.setCenter(c);
+
+    map.getView().flyTo({
+      type: 'moveTo',
+      center: c,
+      zoom: 16,
+      zoomAt: map.getView().getZoom() - .1
+    }, () => {
+      game.dispatchEvent('start');
+    });
+  })
 })
 
 // Load regions
