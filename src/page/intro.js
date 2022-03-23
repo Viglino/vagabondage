@@ -1,16 +1,25 @@
-import GeoJSON from 'ol/format/GeoJSON'
-import Ajax from 'ol-ext/util/Ajax';
-import element from 'ol-ext/util/element';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
 import 'ol-ext/util/View'
+import element from 'ol-ext/util/element';
 
-import dialog from '../map/dialog';
+import dialog, { status } from '../map/dialog';
 import map from '../map/map'
 import vectorLoader from '../vectorLoader/vectorLoader';
 import game from '../game'
+import layer from '../map/layer';
 
 import intro from './intro.html'
+import { clcInfo } from '../vectorLoader/mapLoader';
+
+import regions from '../vectorLoader/regions'
+
+import { computeDestinationPoint } from 'ol-ext/geom/sphere'
+import { fromLonLat, toLonLat } from 'ol/proj';
+import { getCenter } from 'ol/extent';
 
 import './intro.css'
+import { getDistance } from 'ol/sphere';
 
 // Start game
 dialog.show({
@@ -19,102 +28,66 @@ dialog.show({
   buttons: ['Commencer le jeu']
 })
 const region = dialog.getContentElement().querySelector('SELECT');
+
 // region.addEventListener('change', () => dialog.close());
-
-/** Get random point inside polygon
- * @param {ol/geom/Polygon} g
- * @return {ol/coordinate}
- */
-function getCoordinateInside(g) {
-  const extent = g.getExtent();
-  while (true) {
-    const c = [
-      extent[0] + Math.random() * (extent[2]-extent[0]),
-      extent[1] + Math.random() * (extent[3]-extent[1])
-    ]
-    if (g.intersectsCoordinate(c)) return c;
-  }
-}
-
-function wait(e) {
-  dialog.show({ 
-    content: 'Chargement des données...',
-    progress: e.nb,
-    max: e.max
-  })
-}
-
+// Add option
+regions.forEach((f, i) => {
+  element.create('OPTION', { text: f.get('nom'), value: i, parent: region });
+});
+region.value = Math.floor(Math.random() * regions.length);
 
 // Start playing
 dialog.once('hide', () => {
-  let c = getCoordinateInside(features[region.value].getGeometry());
-  vectorLoader.on('loading', wait)
-  vectorLoader.setCenter(c)
-  vectorLoader.setActive(['route','clc'/*,'bati'*/]);
-  // Zoom to start
-  vectorLoader.once('ready', () =>{
-    // Get closest road
-    let road;
-    let importance = 6;
-    vectorLoader.source.route.getFeatures().forEach(f => {
-      if (/route/i.test(f.get('nature')) && f.get('importance') < importance) {
-        road = f;
-        importance = parseInt(f.get('importance'))
+  vectorLoader.getCountryside(region.value, (c) => {
+    vectorLoader.getRoad(c, (road) => {
+      // Found any road?
+      if (road) {
+        c = road.getGeometry().getFirstCoordinate();
+        const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(c);
+        console.log(road.getProperties(), land.getProperties())
+        status.status({
+          route: road.get('cpx_classement_administratif')+' '+road.get('cpx_numero')+' - '+road.get('cpx_gestionnaire'),
+          nature: road.get('nature')+' - '+road.get('sens_de_circulation'),
+          vitesse: road.get('vitesse_moyenne_vl')+' km/h',
+          importance: road.get('importance'),
+          paysage: clcInfo[land.get('code_18')].title + ' ('+land.get('code_18')+')'
+        })
+      } else {
+        console.log('no road...')
       }
-    });
-    if (road) {
-      c = road.getGeometry().getFirstCoordinate();
-      console.log(road.getProperties())
-    }
-    // remove handler
-    vectorLoader.un('loading', wait)
-    dialog.hide();
-    vectorLoader.setCenter(c);
 
-    map.getView().flyTo({
-      type: 'moveTo',
-      center: c,
-      zoom: 16,
-      zoomAt: map.getView().getZoom() - .1
-    }, () => {
-      game.dispatchEvent('start');
-    });
+      // Get destination
+      let finish;
+      vectorLoader.getBuilding(() => {
+        return fromLonLat(computeDestinationPoint(toLonLat(c), 10000 + 5000*Math.random(), Math.random()*2*Math.PI));
+      }, building => {
+        finish = window.finish = getCenter(building.getGeometry().getExtent());
+        layer.getSource().addFeature(building);
+        layer.getSource().addFeature(new Feature(new Point(finish)));
+        //vectorLoader.setCenter(finish)
+//        vectorLoader.setActive(['route','bati']);
+        console.log(getDistance(toLonLat(c), toLonLat(finish)))
+        dialog.hide();
+
+        // Set center
+        layer.getSource().addFeature(new Feature(new Point(c)));
+        // vectorLoader.setCenter(c);
+        dialog.hide();
+
+        // Zoom to start
+        map.getView().flyTo({
+          type: 'moveTo',
+          center: c,
+          zoom: 17,
+          zoomAt: map.getView().getZoom() - .1
+        }, () => {
+          game.dispatchEvent('start');
+        });
+      })
+    })
   })
 })
 
-// Load regions
-let features;
-Ajax.get({
-  url: './data/regions.geojson',
-  success: (data) => {
-    const parser = new GeoJSON;
-    features = parser.readFeatures(data, { featureProjection: map.getView().getProjection() });
-    features = features.sort((a,b) => {
-      const c1 = parseInt(b.get('code'));
-      const c2 = parseInt(a.get('code'));
-      if (c1 < 10 || c2 < 10) return c1 - c2;
-      return (a.get('nom') < b.get('nom') ? -1 : 1);
-    })
-    // Format features
-    features.forEach((f, i) => {
-      // Only metropole
-      if (parseInt(f.get('code')) < 10) return;
-      // Only Polygon (remove islands)
-      const g = f.getGeometry();
-      if (g.getType() !== 'Polygon') {
-        const polys = f.getGeometry().getPolygons();
-        let poly, max=0;
-        polys.forEach(p => {
-          if (p.getFlatCoordinates().length > max) {
-            max = p.getFlatCoordinates().length;
-            poly = p;
-          }
-        })
-        f.setGeometry(poly);
-      }
-      // Add option
-      element.create('OPTION', { text: f.get('nom'), value: i, parent: region });
-    })
-    region.value = Math.floor(Math.random()*12);
-  }
-})
+/* DEBUG */
+window.vectorLoader = vectorLoader
+/**/

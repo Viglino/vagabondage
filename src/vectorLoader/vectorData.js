@@ -5,7 +5,7 @@ import Stroke from 'ol/style/Stroke';
 import mapLoader from './mapLoader';
 
 // Source
-function getSource(key, type, zoom) {
+function _getSource(key, type, zoom) {
   return new TileWFS({
     url: 'https://wxs.ign.fr/'+key+'/geoportail/wfs',
     typeName: type,
@@ -18,7 +18,7 @@ const layers = {}
 const sources = {}
 
 // CLC
-sources.clc = getSource('clc', 'LANDCOVER.CLC18_FR:clc18_fr', 13);
+sources.clc = _getSource('clc', 'LANDCOVER.CLC18_FR:clc18_fr', 13);
 layers.clc = new VectorLayer({
   title: 'CLC',
   source: sources.clc,
@@ -28,7 +28,7 @@ layers.clc = new VectorLayer({
 mapLoader.addLayer(layers.clc);
 
 // ROADS
-sources.route = getSource('essentiels', 'BDTOPO_V3:troncon_de_route', 13);
+sources.route = _getSource('essentiels', 'BDTOPO_V3:troncon_de_route', 13);
 layers.route = new VectorLayer({
   title: 'Routes',
   source: sources.route,
@@ -41,7 +41,7 @@ layers.route = new VectorLayer({
 mapLoader.addLayer(layers.route);
 
 // BUILDINGS
-sources.bati = getSource('essentiels', 'BDTOPO_V3:batiment', 13);
+sources.bati = _getSource('essentiels', 'BDTOPO_V3:batiment', 13);
 layers.bati = new VectorLayer({
   title: 'Bati',
   source: sources.bati,
