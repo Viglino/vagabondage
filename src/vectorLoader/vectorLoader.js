@@ -5,6 +5,10 @@ import dialog from '../map/dialog';
 import mapLoader from './mapLoader';
 import { sources, layers } from './vectorData';
 import regions from './regions';
+import Ajax from 'ol-ext/util/Ajax';
+import { toLonLat } from 'ol/proj';
+import GeoJSON from 'ol/format/GeoJSON'
+import map from '../map/map';
 
 const vectorLoader = new olObject();
 
@@ -126,10 +130,9 @@ vectorLoader.getRoad = function(c, cback) {
     // remove handler
     vectorLoader.un('loading', wait)
     // Get closest road
-    let importance = 6;
     const road = vectorLoader.source.route.getClosestFeatureToCoordinate(c, f => {
-      // Search for 'route' & max importance
-      return f.get('importance') > 5;
+      // Search for 'route' & importance 3 or 4
+      return /route/i.test(f.get('nature')) && f.get('importance') < 5 && f.get('importance') > 2;
     });
     // Found any road?
     cback (road);
@@ -163,6 +166,71 @@ vectorLoader.getBuilding = function(getCoord, cback) {
       console.log('no building')
       vectorLoader.getBuilding(getCoord, cback);
     }
+  })
+}
+
+vectorLoader.loadGame = function(region, cback) {
+  // Get a country side
+  vectorLoader.getCountryside(region.value, c => {
+    // Get the closest road
+    vectorLoader.getRoad(c, road => {
+      // Found any road?
+      if (road) {
+        c = road.getGeometry().getFirstCoordinate();
+        const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(c);
+        vectorLoader.getBuilding(() => {
+          return fromLonLat(computeDestinationPoint(toLonLat(c), 10000 + 5000*Math.random(), Math.random()*2*Math.PI));
+        }, building => {
+          if (building) {
+            return cback({
+              start: c,
+              end: getCenter(building.getGeometry().getExtent()),
+              land: land,
+              road: road,
+              building: buiding
+            })
+          } else {
+            console.log('no building...')
+            return loadGame(region);
+          }
+        });
+      } else {
+        console.log('no road...')
+        return loadGame(region);
+      }
+    })
+  })
+}
+
+/** Load routing
+ * @param {ol/Coordinate} start
+ * @param {ol/Coordinate} end
+ * @param {function} cback a callback that take the routing response
+ */
+vectorLoader.getRouting = function(start, end, cback) {
+  start = toLonLat(start);
+  end = toLonLat(end);
+  Ajax.get({
+    url: 'https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?'
+      + 'resource=bdtopo-osrm'
+      + '&profile=pedestrian'
+      + '&optimization=shortest'
+      + '&start='+start[0]+','+start[1]
+      + '&end='+end[0]+','+end[1]
+      + '&geometryFormat=geojson',
+    success: (resp) => {
+      const parser = new GeoJSON;
+      const f = {
+        type: 'Feature',
+        properties: {
+          type: 'result'
+        },
+        geometry: resp.geometry
+      }
+      resp.feature = parser.readFeature(f, { featureProjection: map.getView().getProjection() });
+      cback(resp);
+    },
+    error: console.log
   })
 }
 

@@ -37,6 +37,10 @@ const vector = new VectorLayer({
         width: 3
       })
     }),
+    stroke: new Stroke({
+      color: [255,0,0,.5],
+      width: 1.5
+    }),
     fill: new Fill({
       color: [255,0,0,.5]
     })

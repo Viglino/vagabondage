@@ -3,7 +3,7 @@ import Point from 'ol/geom/Point';
 import 'ol-ext/util/View'
 import element from 'ol-ext/util/element';
 
-import dialog, { status } from '../map/dialog';
+import dialog, { info } from '../map/dialog';
 import map from '../map/map'
 import vectorLoader from '../vectorLoader/vectorLoader';
 import game from '../game'
@@ -39,19 +39,21 @@ region.value = Math.floor(Math.random() * regions.length);
 // Start playing
 dialog.once('hide', () => {
   vectorLoader.getCountryside(region.value, (c) => {
-    vectorLoader.getRoad(c, (road) => {
+    vectorLoader.getRoad(c, road => {
+      let status = {};
       // Found any road?
       if (road) {
         c = road.getGeometry().getFirstCoordinate();
         const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(c);
         console.log(road.getProperties(), land.getProperties())
-        status.status({
+        status = {
           route: road.get('cpx_classement_administratif')+' '+road.get('cpx_numero')+' - '+road.get('cpx_gestionnaire'),
           nature: road.get('nature')+' - '+road.get('sens_de_circulation'),
           vitesse: road.get('vitesse_moyenne_vl')+' km/h',
           importance: road.get('importance'),
           paysage: clcInfo[land.get('code_18')].title + ' ('+land.get('code_18')+')'
-        })
+        };
+        info.status(status)
       } else {
         console.log('no road...')
       }
@@ -66,7 +68,16 @@ dialog.once('hide', () => {
         layer.getSource().addFeature(new Feature(new Point(finish)));
         //vectorLoader.setCenter(finish)
 //        vectorLoader.setActive(['route','bati']);
-        console.log(getDistance(toLonLat(c), toLonLat(finish)))
+        console.log((getDistance(toLonLat(c), toLonLat(finish))/1000).toFixed(1) + 'km')
+        status.destination = (getDistance(toLonLat(c), toLonLat(finish))/1000).toFixed(1) + 'km';
+        vectorLoader.getRouting(c, finish, result => {
+          layer.getSource().addFeature(result.feature);
+          console.log(result)
+          status['distance'] = (result.distance/1000).toFixed(1)+'km';
+          const h = Math.floor(result.duration / 60)
+          status['temps estimé'] = h+'h'+Math.round(result.duration-h*60);
+          info.status(status)
+        });
         dialog.hide();
 
         // Set center
