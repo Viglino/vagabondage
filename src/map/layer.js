@@ -1,14 +1,22 @@
 import map from './map'
 import Geoportail from 'ol-ext/layer/Geoportail'
-import VectorLayer from 'ol/layer/Vector';
+import VectorLayer from 'ol/layer/VectorImage';
 import VectorSource from 'ol/source/Vector';
 import Style from 'ol/style/Style';
 import Stroke from 'ol/style/Stroke';
-import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
+import Circle from 'ol/style/Circle';
+import Icon from 'ol/style/Icon';
 
 map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 14 }));
-//map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14 }));
+map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
+map.addLayer(new Geoportail({ 
+  layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS', 
+  key: 'om5z6xk76byacxz46km17jkx', 
+  visible: false 
+}, {
+  minZoom: 15
+}));
 
 /* NASA black marble ?
 import TileLayer from 'ol/layer/Tile'
@@ -26,25 +34,39 @@ map.addLayer(nightLayer);
 window.nightLayer = nightLayer
 */
 
+const style = new Style({
+  image: new Circle({
+    radius: 10,
+    stroke: new Stroke({
+      color: '#800',
+      width: 3
+    })
+  }),
+  stroke: new Stroke({
+    color: [255,0,255,.5],
+    width: 5
+  }),
+  fill: new Fill({
+    color: [255,0,0,.5]
+  })
+});
+
 // Drawing layer
 const vector = new VectorLayer({
   source: new VectorSource()  ,
-  style: new Style({
-    image: new Circle({
-      radius: 10,
-      stroke: new Stroke({
-        color: '#800',
-        width: 3
+  style: (f, res) => {
+    if (f.get('car')) {
+      return new Style({
+        image: new Icon({
+          src: './img/car.png',
+          opacity: .7,
+          rotation: f.get('rot'),
+          scale: 0.075 / res
+        })
       })
-    }),
-    stroke: new Stroke({
-      color: [255,0,0,.5],
-      width: 1.5
-    }),
-    fill: new Fill({
-      color: [255,0,0,.5]
-    })
-  })
+    }
+    return style;
+  } 
 });
 map.addLayer(vector);
 

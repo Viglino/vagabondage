@@ -4,11 +4,14 @@ import dialog from '../map/dialog';
 
 import mapLoader from './mapLoader';
 import { sources, layers } from './vectorData';
-import regions from './regions';
 import Ajax from 'ol-ext/util/Ajax';
-import { toLonLat } from 'ol/proj';
+import { computeDestinationPoint } from 'ol-ext/geom/sphere'
+import { fromLonLat, toLonLat } from 'ol/proj';
+import { getCenter } from 'ol/extent';
 import GeoJSON from 'ol/format/GeoJSON'
+
 import map from '../map/map';
+import regions from './regions';
 
 const vectorLoader = new olObject();
 
@@ -139,8 +142,8 @@ vectorLoader.getRoad = function(c, cback) {
   })
 }
 
-/** Get a building around the coord
- * @param {function} getCoord
+/** Get a building around a coord
+ * @param {function} getCoord a function that returns a coordinate to look near 
  * @param {function} cback callback function that takes a road close to the initial position
  */
 vectorLoader.getBuilding = function(getCoord, cback) {
@@ -163,20 +166,24 @@ vectorLoader.getBuilding = function(getCoord, cback) {
     if (building) {
       cback (building);
     } else {
+      // Look for another direction
       console.log('no building')
       vectorLoader.getBuilding(getCoord, cback);
     }
   })
 }
 
+/** Load game info inisde a region
+ * 
+ */
 vectorLoader.loadGame = function(region, cback) {
   // Get a country side
-  vectorLoader.getCountryside(region.value, c => {
+  vectorLoader.getCountryside(region, c => {
     // Get the closest road
     vectorLoader.getRoad(c, road => {
       // Found any road?
       if (road) {
-        c = road.getGeometry().getFirstCoordinate();
+        c = road.getGeometry().getCoordinates()[1];
         const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(c);
         vectorLoader.getBuilding(() => {
           return fromLonLat(computeDestinationPoint(toLonLat(c), 10000 + 5000*Math.random(), Math.random()*2*Math.PI));
@@ -187,16 +194,16 @@ vectorLoader.loadGame = function(region, cback) {
               end: getCenter(building.getGeometry().getExtent()),
               land: land,
               road: road,
-              building: buiding
+              building: building
             })
           } else {
             console.log('no building...')
-            return loadGame(region);
+            return vectorLoader.loadGame(region, cback);
           }
         });
       } else {
         console.log('no road...')
-        return loadGame(region);
+        return vectorLoader.loadGame(region, cback);
       }
     })
   })
