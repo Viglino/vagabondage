@@ -8,7 +8,7 @@ import { getDistance } from 'ol/sphere';
 import dialog, { info } from '../map/dialog';
 import map from '../map/map'
 import vectorLoader from '../vectorLoader/vectorLoader';
-import Game from '../game'
+import game from '../game'
 import layer from '../map/layer';
 
 import { clcInfo } from '../vectorLoader/mapLoader';
@@ -18,10 +18,11 @@ import regions from '../vectorLoader/regions'
 import intro from './intro.html'
 import './intro.css'
 
-// Start game
+// Show g intro
 dialog.show({
   content: intro,
   className: 'intro',
+  closeBox: false,
   buttons: ['Commencer le jeu']
 })
 const region = dialog.getContentElement().querySelector('SELECT');
@@ -35,27 +36,30 @@ region.value = Math.floor(Math.random() * regions.length);
 
 // Start playing
 dialog.once('hide', () => {
-  vectorLoader.loadGame(region.value, game => {
+  vectorLoader.loadGame(region.value, g => {
     const status = {
-      route: game.road.get('cpx_classement_administratif') + ' '
-        + game.road.get('cpx_numero') + ' - '
-        + game.road.get('cpx_gestionnaire'),
-      nature: game.road.get('nature') + ' - ' + game.road.get('sens_de_circulation'),
-      vitesse: game.road.get('vitesse_moyenne_vl') + ' km/h',
-      importance: game.road.get('importance'),
-      paysage: clcInfo[game.land.get('code_18')].title + ' ('+game.land.get('code_18')+')',
-      destination: (getDistance(toLonLat(game.start), toLonLat(game.end))/1000).toFixed(1) + 'km'
+      route: g.road.get('cpx_classement_administratif') + ' '
+        + g.road.get('cpx_numero') + ' - '
+        + g.road.get('cpx_gestionnaire'),
+      nature: g.road.get('nature') + ' - ' + g.road.get('sens_de_circulation'),
+      vitesse: g.road.get('vitesse_moyenne_vl') + ' km/h',
+      importance: g.road.get('importance'),
+      paysage: clcInfo[g.land.get('code_18')].title + ' ('+g.land.get('code_18')+')',
+      destination: (getDistance(toLonLat(g.start), toLonLat(g.end))/1000).toFixed(1) + 'km'
     };
-    //layer.getSource().addFeature(game.road);
-    layer.getSource().addFeature(new Feature(new Point(game.start)));
-    const geom = game.road.getGeometry().getCoordinates();
+    //layer.getSource().addFeature(g.road);
+    layer.getSource().addFeature(new Feature({
+      start: true,
+      geometry: new Point(g.start)
+    }));
+    const geom = g.road.getGeometry().getCoordinates();
     const dx = geom[1][0] - geom[0][0]
     const dy = geom[1][1] - geom[0][1]
     const a = Math.PI/2 + Math.atan2(-dy,dx);
-    const offset = game.road.get('importance') == 3 ? 5 : 3;
+    const offset = g.road.get('importance') == 3 ? 5 : 3;
     const dp = [
-      game.start[0] + offset * Math.cos(a),
-      game.start[1] - offset * Math.sin(a)
+      g.start[0] + offset * Math.cos(a),
+      g.start[1] - offset * Math.sin(a)
     ]
     const f = new Feature({ 
       car: true, 
@@ -63,10 +67,13 @@ dialog.once('hide', () => {
       geometry: new Point(dp)
     });
     layer.getSource().addFeature(f);
-    layer.getSource().addFeature(new Feature(new Point(game.end)));
-    layer.getSource().addFeature(game.building);
+    layer.getSource().addFeature(new Feature({
+      end: true,
+      geometry: new Point(g.end)
+    }));
+    layer.getSource().addFeature(g.building);
 
-    vectorLoader.getRouting(game.start, game.end, result => {
+    vectorLoader.getRouting(g.start, g.end, result => {
       layer.getSource().addFeature(result.feature);
       status['distance'] = (result.distance/1000).toFixed(1)+'km';
       const h = Math.floor(result.duration / 60)
@@ -76,16 +83,16 @@ dialog.once('hide', () => {
     dialog.hide();
 
     // Set center
-    layer.getSource().addFeature(new Feature(new Point(game.start)));
+    layer.getSource().addFeature(new Feature(new Point(g.start)));
 
     // Zoom to start
     map.getView().flyTo({
       type: 'moveTo',
-      center: game.start,
+      center: g.start,
       zoom: 17,
       zoomAt: map.getView().getZoom() - .1
     }, () => {
-      Game.dispatchEvent('start');
+      game.start();
     });
   })
 })

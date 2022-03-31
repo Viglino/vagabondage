@@ -6,8 +6,7 @@ import './page/intro'
 
 import game from './game'
 
-game.on('start', console.log)
-
 /* Debug */
 window.map = map;
+window.game = game;
 /**/

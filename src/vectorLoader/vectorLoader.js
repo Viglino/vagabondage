@@ -37,7 +37,8 @@ Object.keys(sources).forEach(k => {
     }
   })
 })
-/** Is ready to  */
+
+/** Is ready (or loadend)  */
 function checkReady() {
   setTimeout(() => {
     if (toload===0) {
@@ -72,11 +73,19 @@ vectorLoader.setCenter = function(xy) {
 };
 
 /** Activate data
+ * @param {Array<string>} what list of layer id
+ * @param {ol/Coordinate} [center]
  */
-vectorLoader.setActive = function(what) {
+vectorLoader.setActive = function(what, center) {
+  // Hide layers
   for (let i in layers) {
-    layers[i].setVisible(what.indexOf(i) >= 0);
+    layers[i].setVisible(false);
   }
+  // set center
+  if (center) vectorLoader.setCenter(center);
+  // how layer
+  what.forEach(l => layers[l].setVisible(true));
+  // ready?
   checkReady();
 };
 
@@ -85,7 +94,8 @@ function wait(e) {
   dialog.show({ 
     content: 'Chargement des données...',
     progress: e.nb,
-    max: e.max
+    max: e.max,
+    closeBox: false
   })
 }
 
@@ -96,8 +106,7 @@ function wait(e) {
 vectorLoader.getCountryside = function(region, cback) {
   let c = getCoordinateInside(regions[region].getGeometry());
   vectorLoader.on('loading', wait)
-  vectorLoader.setActive(['clc']);
-  vectorLoader.setCenter(c)
+  vectorLoader.setActive(['clc'], c);
   // On load end
   vectorLoader.once('ready', () => {
     // remove handler
@@ -126,8 +135,7 @@ vectorLoader.getCountryside = function(region, cback) {
  */
 vectorLoader.getRoad = function(c, cback) {
   vectorLoader.on('loading', wait)
-  vectorLoader.setActive(['route','clc'/*,'bati'*/]);
-  vectorLoader.setCenter(c)
+  vectorLoader.setActive(['route','clc'/*,'bati'*/], c);
   // Zoom to start
   vectorLoader.once('ready', () =>{
     // remove handler
@@ -149,8 +157,7 @@ vectorLoader.getRoad = function(c, cback) {
 vectorLoader.getBuilding = function(getCoord, cback) {
   const c = getCoord();
   vectorLoader.on('loading', wait)
-  vectorLoader.setActive(['bati']);
-  vectorLoader.setCenter(c);
+  vectorLoader.setActive(['bati'], c);
   vectorLoader.once('ready', () => {
     // remove handler
     vectorLoader.un('loading', wait)

@@ -55,7 +55,25 @@ const style = new Style({
 const vector = new VectorLayer({
   source: new VectorSource()  ,
   style: (f, res) => {
-    if (f.get('car')) {
+    if (f.get('end')) {
+      return [
+        new Style({
+          image: new Icon({
+            src: './img/surround.png',
+            opacity: .7,
+            scale: 1 / res
+          })
+        }),
+        new Style({
+          image: new Icon({
+            src: './img/rendez-vous.png',
+            anchor: [.1,-.1],
+            opacity: .7,
+            scale: .9 / res
+          })
+        })
+      ]
+    } else if (f.get('car')) {
       return new Style({
         image: new Icon({
           src: './img/car.png',
