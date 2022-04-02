@@ -7,32 +7,11 @@ import Stroke from 'ol/style/Stroke';
 import Fill from 'ol/style/Fill';
 import Circle from 'ol/style/Circle';
 import Icon from 'ol/style/Icon';
+import FoldFilter from 'ol-ext/filter/Fold'
+import ToggleControl from 'ol-ext/control/Toggle'
 
 map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 14 }));
-map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
-map.addLayer(new Geoportail({ 
-  layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS', 
-  key: 'om5z6xk76byacxz46km17jkx', 
-  visible: false 
-}, {
-  minZoom: 15
-}));
-
-/* NASA black marble ?
-import TileLayer from 'ol/layer/Tile'
-import XYZ from 'ol/source/XYZ'
-
-const nightLayer = new TileLayer({
-  source: new XYZ ({
-    url: 'https://wms.openstreetmap.fr/tms/1.0.0/nasa_black_marble/{z}/{x}/{y}',
-    maxZoom: 10
-  }),
-  opacity: .3
-})
-map.addLayer(nightLayer);
-//  https://wms.openstreetmap.fr/tms/1.0.0/nasa_black_marble/5/15/9
-window.nightLayer = nightLayer
-*/
+// map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
 
 const style = new Style({
   image: new Circle({
@@ -51,11 +30,20 @@ const style = new Style({
   })
 });
 
-// Drawing layer
-const vector = new VectorLayer({
-  source: new VectorSource()  ,
-  style: (f, res) => {
-    if (f.get('end')) {
+/** Style function
+ */
+function styleFn(f, res) {
+  switch (f.get('style')) {
+    case 'start': {
+      return new Style({
+        image: new Icon({
+          src: './img/cross.png',
+          opacity: .6,
+          scale: .5 / res
+        })
+      })
+    }
+    case 'end': { 
       return [
         new Style({
           image: new Icon({
@@ -73,7 +61,8 @@ const vector = new VectorLayer({
           })
         })
       ]
-    } else if (f.get('car')) {
+    }
+    case 'car': {
       return new Style({
         image: new Icon({
           src: './img/car.png',
@@ -83,10 +72,43 @@ const vector = new VectorLayer({
         })
       })
     }
-    return style;
-  } 
+    default: return style;
+  }
+}
+
+// Drawing layer
+const vector = new VectorLayer({
+  source: new VectorSource(),
+  style: styleFn
 });
 map.addLayer(vector);
+
+// Carte layer
+const carte = new Geoportail({ 
+  layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS', 
+  key: 'om5z6xk76byacxz46km17jkx', 
+  visible: false 
+}, {
+  minZoom: 15
+});
+carte.addFilter(new FoldFilter({ fill: true, padding: 20, opacity: .3 }));
+map.addLayer(carte);
+
+const layerCarte = new VectorLayer({
+  source: new VectorSource(),
+  visible: false,
+  style: styleFn
+});
+map.addLayer(layerCarte);
+
+map.addControl(new ToggleControl({
+  className: 'carte',
+  onToggle: (b) => {
+    layerCarte.setVisible(b);
+    carte.setVisible(b);
+    if (map.getView().getZoom() > 16) map.getView().setZoom(16);
+  }
+}))
 
 /*
 import DayNight from 'ol-ext/source/DayNight'
@@ -106,4 +128,5 @@ map.addLayer(new VectorLayer({
 window.nightDay = nightDay
 */
 
+export { layerCarte }
 export default vector

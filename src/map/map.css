@@ -20,7 +20,7 @@
   */
 }
 .ghostMap:before {
-  content: 'départ';
+  content: 'data';
   background-color: rgba(255,255,255,.6);
   color: #369;
   position: absolute;
@@ -29,4 +29,19 @@
   padding: .3em .5em;
   z-index: 1;
   opacity: .8;
+}
+
+.ol-control.carte {
+  bottom: .5em;
+  right: 2.5em;
+  background-color: transparent;
+}
+.ol-control.carte button {
+  width: 3em;
+  height: 5em;
+  background-color: transparent;
+  background-image: url("../img/carte.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(10deg);
 }
