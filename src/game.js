@@ -3,6 +3,7 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { toLonLat } from 'ol/proj';
 import { getDistance } from 'ol/sphere';
+import element from 'ol-ext/util/element'
 
 import map from './map/map';
 import dialog, { info } from './map/dialog';
@@ -10,13 +11,40 @@ import { clcInfo } from './vectorLoader/mapLoader';
 import vectorLoader from './vectorLoader/vectorLoader';
 import layer, { layerCarte } from './map/layer'
 
+import './game.css'
+
 /** Game object
  */
 class Game extends olObject {
   constructor() {
     super();
     this.map = map
+    // Show destination / 
+    const d = element.create('UL', {
+      className: 'jumper',
+      parent: document.body
+    })
+    element.create('LI', {
+      html: '<i class="fg-position"></i> Position',
+      click: () => this.flyTo(this.get('start')),
+      parent: d
+    })
+    element.create('LI', {
+      html: '<i class="fg-location-arrow"></i> Destination',
+      click: () => this.flyTo(this.get('end')),
+      parent: d
+    })
   }
+}
+
+/** Fly to postion
+ * @param {ol/Coordinate} position
+ */
+Game.prototype.flyTo = function(position) {
+  this.map.getView().flyTo({
+    center: position,
+    zoomAt: Math.max(this.map.getView().getZoom() - .5, 13.01)
+  })
 }
 
 /** Load a new game in region
@@ -24,6 +52,7 @@ class Game extends olObject {
  */
 Game.prototype.load = function(region) {
   vectorLoader.loadGame(region, g => {
+    for (let i in g) this.set(i, g[i]);
     const status = {
       route: g.road.get('cpx_classement_administratif') + ' '
         + g.road.get('cpx_numero') + ' - '
@@ -73,22 +102,33 @@ Game.prototype.load = function(region) {
       geometry: new Point(g.start)
     }));
 
-    // Zoom to start
-    this.map.getView().flyTo({
-      type: 'moveTo',
-      center: g.start,
-      zoom: 17,
-      zoomAt: map.getView().getZoom() - .1
-    }, () => {
-      this.start();
-    });
+    this.start();
   })
 }
 
 /** Start a new game
  */
 Game.prototype.start = function() {
-  this.map.getView().setMinZoom(13.01)
+  // Zoom to start
+  this.map.getView().takeTour([{
+    type: 'flyTo', 
+    center: this.get('start'),
+    zoom: 19,
+    zoomAt: map.getView().getZoom() - .1
+  }], {
+    done: () => {
+      this.map.getView().setMinZoom(13.01)
+    }
+  })
+  /*
+  this.map.getView().flyTo({
+    center: this.get('start'),
+    zoom: 17,
+    zoomAt: map.getView().getZoom() - .1
+  }, () => {
+    this.map.getView().setMinZoom(13.01)
+  });
+  */
 }
 
 const game = new Game;

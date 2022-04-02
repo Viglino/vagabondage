@@ -9,6 +9,7 @@ import Circle from 'ol/style/Circle';
 import Icon from 'ol/style/Icon';
 import FoldFilter from 'ol-ext/filter/Fold'
 import ToggleControl from 'ol-ext/control/Toggle'
+import element from 'ol-ext/util/element'
 
 map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 14 }));
 // map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
@@ -91,9 +92,21 @@ const carte = new Geoportail({
 }, {
   minZoom: 15
 });
-carte.addFilter(new FoldFilter({ fill: true, padding: 20, opacity: .3 }));
+
+// Fold map
+const fold = new FoldFilter({ fill: true, padding: 20, opacity: .3 });
+carte.addFilter(fold);
 map.addLayer(carte);
 
+function setFold() {
+  const size = map.getSize();
+  fold.set('fold', [Math.round(size[0]/180) || 1, Math.round(size[1]/250)] || 1)
+  console.log(fold.get('fold'))
+}
+window.addEventListener('resize', setFold);
+setFold();
+
+// Game layer
 const layerCarte = new VectorLayer({
   source: new VectorSource(),
   visible: false,
@@ -101,12 +114,16 @@ const layerCarte = new VectorLayer({
 });
 map.addLayer(layerCarte);
 
+// Toggle carte layers
 map.addControl(new ToggleControl({
   className: 'carte',
   onToggle: (b) => {
+    document.body.dataset.mode = b ? 'carte' : 'photo';
     layerCarte.setVisible(b);
     carte.setVisible(b);
-    if (map.getView().getZoom() > 16) map.getView().setZoom(16);
+    if (b && map.getView().getZoom() > 14.5) {
+      map.getView().setZoom(14.5);
+    }
   }
 }))
 

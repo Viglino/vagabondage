@@ -1,4 +1,3 @@
-import 'ol-ext/util/View'
 import element from 'ol-ext/util/element';
 
 import dialog from '../map/dialog';

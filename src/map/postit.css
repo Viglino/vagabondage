@@ -1,0 +1,60 @@
+.postit {
+  position: absolute;
+  display: none;
+  top: 40px;
+  right: 45px;
+  background-color: #fffaaa;
+  background-image: linear-gradient(#fffaaa 0%, #fff055 80%);
+  color: #012;
+  font-family: cursive;
+  font-size: 1.5em;
+  font-style: italic;
+  height: 5em;
+  width: 8em;
+  margin: .5em auto;
+  padding: 1.5em .5em 0;
+  text-align: center;
+  text-shadow: 1px 1px 1px #fffaaa;
+  letter-spacing: normal;
+  line-height: 1em;
+  box-shadow: 2px 10px 15px rgba(0,0,0,.5);
+  transform: rotate(3deg);
+  border-radius: 0 0 .6em 0 / 0 0 100% 0;
+  overflow: hidden;
+}
+
+[data-mode="carte"] .postit {
+  display: block;
+}
+
+.postit:before,
+.postit:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 1em;
+}
+.postit:before {
+  box-shadow: 0 25px 25px #000;
+  top: -.45em;
+  right: -1.35em;
+  background: rgba(0,0,0,.4);
+  transform: rotate(17deg);
+}
+.postit:after {
+  top: 0;
+  right: -.9em;
+  transform: rotate(12deg);
+  background-image: 
+    linear-gradient(88deg, transparent 10%, rgba(0,0,0,.5) 50%),
+    radial-gradient(ellipse .3em .5em at -0% 100%, transparent .28em, #fff055 .3em);
+}
+
+.postit > div {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 80%;
+  transform: translate(-50%, -45%) rotate(-10deg);
+  margin: 0;
+}

@@ -6,7 +6,7 @@ html, body {
 select, input, textarea {
   font-size: 1em;
 }
-input:focus, textarea:focus, select:focus{
+input:focus, textarea:focus, select:focus {
   outline: none;
 }
 

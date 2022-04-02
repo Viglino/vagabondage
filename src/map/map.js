@@ -1,5 +1,5 @@
 import Map from 'ol/Map'
-import View from 'ol/View'
+import View from 'ol-ext/util/View'
 
 import element from 'ol-ext/util/element'
 
@@ -20,6 +20,6 @@ const map = new Map({
 })
 map.getView().fit([-555496, 5020049, 1082619, 6665196]);
 
-map.addControl(new ScaleLine)
+map.addControl(new ScaleLine);
 
 export default map

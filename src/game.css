@@ -1,0 +1,29 @@
+.jumper {
+  position: absolute;
+  left: 0;
+  bottom: 70px;
+  margin: 0;
+  padding: 0;
+  transform: translateX(-100%);
+  transition: .5s;
+}
+.jumper li {
+  background-color: #fff;
+  padding: .3em 1em .3em 0;
+  cursor: pointer;
+  margin: .5em 0;
+}
+.jumper li:nth-child(2) {
+  transform: translateX(-100%);
+  transition: .5s;
+}
+.jumper li i {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin: 0 .3em 0 .5em;
+}
+
+[data-mode="carte"] .jumper,
+[data-mode="carte"] .jumper li {
+  transform: translateX(0%);
+}

@@ -122,7 +122,7 @@ vectorLoader.getCountryside = function(region, cback) {
     // Found a country side?
     if (!country) {
       console.log('not country side...')
-      return vectorLoader.getCountryside(region, cback);
+      vectorLoader.getCountryside(region, cback);
     } else {
       cback(c);
     }
