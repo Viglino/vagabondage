@@ -61,7 +61,7 @@ Game.prototype.load = function(region) {
       vitesse: g.road.get('vitesse_moyenne_vl') + ' km/h',
       importance: g.road.get('importance'),
       paysage: clcInfo[g.land.get('code_18')].title + ' ('+g.land.get('code_18')+')',
-      destination: (getDistance(toLonLat(g.start), toLonLat(g.end))/1000).toFixed(1) + 'km'
+      destination: (getDistance(toLonLat(g.start), toLonLat(g.end))/1000).toFixed(1) + ' km'
     };
     //layer.getSource().addFeature(g.road);
     layer.getSource().addFeature(new Feature({
@@ -89,7 +89,7 @@ Game.prototype.load = function(region) {
 
     vectorLoader.getRouting(g.start, g.end, result => {
       layer.getSource().addFeature(result.feature);
-      status['distance'] = (result.distance/1000).toFixed(1)+'km';
+      status['distance'] = (result.distance/1000).toFixed(1)+' km';
       const h = Math.floor(result.duration / 60)
       status['temps estimé'] = h+'h'+('0'+Math.floor(result.duration-h*60)).substr(-2);
       info.status(status)
