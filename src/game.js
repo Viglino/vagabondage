@@ -10,6 +10,7 @@ import dialog, { info } from './map/dialog';
 import { clcInfo } from './vectorLoader/mapLoader';
 import vectorLoader from './vectorLoader/vectorLoader';
 import layer, { layerCarte } from './map/layer'
+import './map/itineraire'
 
 import './game.css'
 
@@ -65,6 +66,7 @@ Game.prototype.load = function(region) {
     };
     //layer.getSource().addFeature(g.road);
     layer.getSource().addFeature(new Feature({
+      type: 'start',
       geometry: new Point(g.start)
     }));
     const geom = g.road.getGeometry().getCoordinates();

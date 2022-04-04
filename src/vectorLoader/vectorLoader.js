@@ -216,36 +216,39 @@ vectorLoader.loadGame = function(region, cback) {
   })
 }
 
+vectorLoader.ajax = new Ajax();
+vectorLoader.ajax.on('success', e => {
+  const resp = e.response;
+  const parser = new GeoJSON;
+  const f = {
+    type: 'Feature',
+    properties: {
+      type: 'result'
+    },
+    geometry: resp.geometry
+  }
+  resp.feature = parser.readFeature(f, { featureProjection: map.getView().getProjection() });
+  vectorLoader.cback(resp);
+})
+vectorLoader.ajax.on('error', console.log);
+
 /** Load routing
  * @param {ol/Coordinate} start
  * @param {ol/Coordinate} end
  * @param {function} cback a callback that take the routing response
  */
 vectorLoader.getRouting = function(start, end, cback) {
+  vectorLoader.cback = cback;
   start = toLonLat(start);
   end = toLonLat(end);
-  Ajax.get({
-    url: 'https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?'
-      + 'resource=bdtopo-osrm'
-      + '&profile=pedestrian'
-      + '&optimization=shortest'
-      + '&start='+start[0]+','+start[1]
-      + '&end='+end[0]+','+end[1]
-      + '&geometryFormat=geojson',
-    success: (resp) => {
-      const parser = new GeoJSON;
-      const f = {
-        type: 'Feature',
-        properties: {
-          type: 'result'
-        },
-        geometry: resp.geometry
-      }
-      resp.feature = parser.readFeature(f, { featureProjection: map.getView().getProjection() });
-      cback(resp);
-    },
-    error: console.log
-  })
+  vectorLoader.ajax.send('https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?'
+    + 'resource=bdtopo-osrm'
+    + '&profile=pedestrian'
+    + '&optimization=shortest'
+    + '&start='+start[0]+','+start[1]
+    + '&end='+end[0]+','+end[1]
+    + '&geometryFormat=geojson'
+  );
 }
 
 export default vectorLoader

@@ -9,7 +9,6 @@ import Circle from 'ol/style/Circle';
 import Icon from 'ol/style/Icon';
 import FoldFilter from 'ol-ext/filter/Fold'
 import ToggleControl from 'ol-ext/control/Toggle'
-import element from 'ol-ext/util/element'
 
 map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 14 }));
 // map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
@@ -20,6 +19,9 @@ const style = new Style({
     stroke: new Stroke({
       color: '#800',
       width: 3
+    }),
+    fill: new Fill({
+      color: [0,0,0,0]
     })
   }),
   stroke: new Stroke({
@@ -101,7 +103,6 @@ map.addLayer(carte);
 function setFold() {
   const size = map.getSize();
   fold.set('fold', [Math.round(size[0]/180) || 1, Math.round(size[1]/250)] || 1)
-  console.log(fold.get('fold'))
 }
 window.addEventListener('resize', setFold);
 setFold();
