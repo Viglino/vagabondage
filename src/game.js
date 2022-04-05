@@ -10,7 +10,7 @@ import dialog, { info } from './map/dialog';
 import { clcInfo } from './vectorLoader/mapLoader';
 import vectorLoader from './vectorLoader/vectorLoader';
 import layer, { layerCarte } from './map/layer'
-import './map/itineraire'
+import routing from './map/routing';'./map/itineraire'
 
 import './game.css'
 
@@ -27,7 +27,7 @@ class Game extends olObject {
     })
     element.create('LI', {
       html: '<i class="fg-position"></i> Position',
-      click: () => this.flyTo(this.get('start')),
+      click: () => this.flyTo(this.get('position')),
       parent: d
     })
     element.create('LI', {
@@ -35,6 +35,7 @@ class Game extends olObject {
       click: () => this.flyTo(this.get('end')),
       parent: d
     })
+    routing.on('routing', e => this.nextStep(e));
   }
 }
 
@@ -48,22 +49,33 @@ Game.prototype.flyTo = function(position) {
   })
 }
 
+/** Set current status
+ * 
+ */
+Game.prototype.getStatus = function(road, land, bati) {
+  const status = {
+    route: road.get('cpx_classement_administratif') + ' '
+      + road.get('cpx_numero') + ' - '
+      + road.get('cpx_gestionnaire'),
+    nature: road.get('nature') + ' - ' + road.get('sens_de_circulation'),
+    vitesse: road.get('vitesse_moyenne_vl') + ' km/h',
+    importance: road.get('importance'),
+    paysage: clcInfo[land.get('code_18')].title + ' ('+land.get('code_18')+')',
+    destination: (getDistance(toLonLat(this.get('position')), toLonLat(this.get('end')))/1000).toFixed(1) + ' km'
+  };
+  info.status(status);
+  return status;
+}
+
 /** Load a new game in region
  * @param {string} region region id
  */
 Game.prototype.load = function(region) {
   vectorLoader.loadGame(region, g => {
     for (let i in g) this.set(i, g[i]);
-    const status = {
-      route: g.road.get('cpx_classement_administratif') + ' '
-        + g.road.get('cpx_numero') + ' - '
-        + g.road.get('cpx_gestionnaire'),
-      nature: g.road.get('nature') + ' - ' + g.road.get('sens_de_circulation'),
-      vitesse: g.road.get('vitesse_moyenne_vl') + ' km/h',
-      importance: g.road.get('importance'),
-      paysage: clcInfo[g.land.get('code_18')].title + ' ('+g.land.get('code_18')+')',
-      destination: (getDistance(toLonLat(g.start), toLonLat(g.end))/1000).toFixed(1) + ' km'
-    };
+    this.set('position', this.get('start'));
+    // Status
+    const status = this.getStatus(g.road, g.land);
     //layer.getSource().addFeature(g.road);
     layer.getSource().addFeature(new Feature({
       type: 'start',
@@ -119,18 +131,31 @@ Game.prototype.start = function() {
     zoomAt: map.getView().getZoom() - .1
   }], {
     done: () => {
-      this.map.getView().setMinZoom(13.01)
+      this.map.getView().setMinZoom(13.01);
+      vectorLoader.setActive(['clc','bati','route'], this.get('start'));
     }
   })
-  /*
-  this.map.getView().flyTo({
-    center: this.get('start'),
-    zoom: 17,
-    zoomAt: map.getView().getZoom() - .1
-  }, () => {
-    this.map.getView().setMinZoom(13.01)
-  });
-  */
+}
+
+Game.prototype.nextStep = function(e) {
+  const position = e.end;
+  this.set('position', position);
+  //
+  e.routing.feature.set('style', 'route');
+  layer.getSource().addFeature(e.routing.feature);
+  layer.getSource().addFeature(new Feature({
+    style: 'poi',
+    geometry: new Point(position)
+  }));
+  layerCarte.getSource().addFeature(e.routing.feature);
+  //
+  vectorLoader.setActive(['clc','bati','route'], position);
+  vectorLoader.once('ready', () => {
+    const building = vectorLoader.source.bati.getClosestFeatureToCoordinate(position);
+    const road = vectorLoader.source.route.getClosestFeatureToCoordinate(position);
+    const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(position);
+    this.getStatus(road, land, building);
+  })
 }
 
 const game = new Game;

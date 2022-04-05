@@ -9,6 +9,7 @@ import Circle from 'ol/style/Circle';
 import Icon from 'ol/style/Icon';
 import FoldFilter from 'ol-ext/filter/Fold'
 import ToggleControl from 'ol-ext/control/Toggle'
+import FontSymbol from 'ol-ext/style/FontSymbol'
 
 map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 14 }));
 // map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
@@ -25,7 +26,7 @@ const style = new Style({
     })
   }),
   stroke: new Stroke({
-    color: [255,0,255,.5],
+    color: [0,0,255,.5],
     width: 5
   }),
   fill: new Fill({
@@ -65,6 +66,18 @@ function styleFn(f, res) {
         })
       ]
     }
+    case 'poi': {
+      return new Style({
+        image: new FontSymbol({
+          form: 'marker',
+          radius: 10,
+          offsetY: -5,
+          fill: new Fill({ color: [0,0,255] }),
+          stroke: new Stroke({ color: [255,255,255], width: 2 })
+        }),
+        zIndex: 1
+      });
+    }
     case 'car': {
       return new Style({
         image: new Icon({
@@ -73,6 +86,15 @@ function styleFn(f, res) {
           rotation: f.get('rot'),
           scale: 0.075 / res
         })
+      })
+    }
+    case 'route': {
+      return new Style({
+        stroke: new Stroke({
+          color: [255,0,255,.5],
+          width: 5
+        }),
+        zIndex: 1
       })
     }
     default: return style;

@@ -119,9 +119,9 @@ vectorLoader.getCountryside = function(region, cback) {
         country = false;
       }
     });
-    // Found a country side?
+    // Found a countryside?
     if (!country) {
-      console.log('not country side...')
+      console.log('not countryside...')
       vectorLoader.getCountryside(region, cback);
     } else {
       cback(c);
@@ -184,7 +184,7 @@ vectorLoader.getBuilding = function(getCoord, cback) {
  * 
  */
 vectorLoader.loadGame = function(region, cback) {
-  // Get a country side
+  // Get a countryside
   vectorLoader.getCountryside(region, c => {
     // Get the closest road
     vectorLoader.getRoad(c, road => {

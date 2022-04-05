@@ -13,3 +13,10 @@ input:focus, textarea:focus, select:focus {
 select {
   padding: .5em
 }
+
+
+.ol-ext-dialog .ol-progress-bar,
+.ol-ext-dialog .ol-progress-bar > div {
+  padding: 0;
+  border-radius: 1em;
+}
