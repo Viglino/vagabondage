@@ -18,7 +18,7 @@
   bottom: 0;
 }
 .ghostMap:before {
-  content: 'data';
+  content: "data";
   background-color: rgba(255,255,255,.6);
   color: #369;
   position: absolute;
@@ -27,6 +27,14 @@
   padding: .3em .5em;
   z-index: 1;
   opacity: .8;
+}
+
+.ghostMap.vtile {
+  left: 256px;
+  z-index: 1000;
+}
+.ghostMap.vtile:before {
+  content: "carte";
 }
 
 .ol-control.carte {

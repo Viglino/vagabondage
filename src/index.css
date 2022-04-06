@@ -15,8 +15,28 @@ select {
 }
 
 
+.ol-ext-dialog select {
+  max-width: 100%;
+}
+
 .ol-ext-dialog .ol-progress-bar,
 .ol-ext-dialog .ol-progress-bar > div {
   padding: 0;
   border-radius: 1em;
+  border: 0;
+}
+.ol-ext-dialog .ol-progress-bar {
+  background-color: #eee;
+  margin: 1em 1em 0;
+}
+.ol-ext-dialog .ol-progress-bar > div {
+  background-color: #3993f3;
+}
+.ol-ext-dialog .ol-progress-message {
+  padding: 0;
+}
+.ol-ext-dialog .ol-progress-message i {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin-right: 0.2em;
 }

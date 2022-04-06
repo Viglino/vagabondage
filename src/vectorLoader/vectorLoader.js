@@ -91,12 +91,15 @@ vectorLoader.setActive = function(what, center) {
 
 // Show laoding info
 function wait(e) {
+  /*
   dialog.show({ 
     content: 'Chargement des données...',
     progress: e.nb,
     max: e.max,
     closeBox: false
   })
+  */
+ dialog.setProgress(e.nb, e.max, dialog._progressMessage.innerHTML);
 }
 
 /** Get a countryside place in the region
@@ -104,6 +107,12 @@ function wait(e) {
  * @param {function} cback callback function that takes a coordinate
  */
 vectorLoader.getCountryside = function(region, cback) {
+  dialog.show({ 
+    content: 'Chargement des données...',
+    closeBox: false
+  })
+  dialog.setProgress(0,1,'<i class="fg-layer-alt-o"></i> loading countryside...')
+
   let c = getCoordinateInside(regions[region].getGeometry());
   vectorLoader.on('loading', wait)
   vectorLoader.setActive(['clc'], c);
@@ -134,6 +143,8 @@ vectorLoader.getCountryside = function(region, cback) {
  * @param {function} cback callback function that takes a road close to the initial position
  */
 vectorLoader.getRoad = function(c, cback) {
+  dialog.setProgress(0,1,'<i class="fg-layer-alt-o"></i> loading road...')
+
   vectorLoader.on('loading', wait)
   vectorLoader.setActive(['route','clc'/*,'bati'*/], c);
   // Zoom to start
@@ -155,6 +166,8 @@ vectorLoader.getRoad = function(c, cback) {
  * @param {function} cback callback function that takes a road close to the initial position
  */
 vectorLoader.getBuilding = function(getCoord, cback) {
+  dialog.setProgress(0,1,'<i class="fg-layer-stack-o"></i> loading building...')
+
   const c = getCoord();
   vectorLoader.on('loading', wait)
   vectorLoader.setActive(['bati'], c);

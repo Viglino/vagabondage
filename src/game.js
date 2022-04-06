@@ -3,6 +3,7 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { toLonLat } from 'ol/proj';
 import { getDistance } from 'ol/sphere';
+import VectorLayer from 'ol/layer/Vector';
 import element from 'ol-ext/util/element'
 
 import map from './map/map';
@@ -11,6 +12,8 @@ import { clcInfo } from './vectorLoader/mapLoader';
 import vectorLoader from './vectorLoader/vectorLoader';
 import layer, { layerCarte } from './map/layer'
 import routing from './map/routing';'./map/itineraire'
+
+import './vectorLoader/vtlayer'
 
 import './game.css'
 
@@ -36,6 +39,23 @@ class Game extends olObject {
       parent: d
     })
     routing.on('routing', e => this.nextStep(e));
+    // Add layers
+    this.layer = {
+      building: new VectorLayer({
+        title: 'building',
+        source: vectorLoader.source.bati,
+        minZoom: 15,
+        style: []
+      }),
+      road: new VectorLayer({
+        title: 'road',
+        source: vectorLoader.source.route,
+        minZoom: 14,
+        style: []
+      })
+    };
+    this.map.addLayer(this.layer.building);
+    this.map.addLayer(this.layer.road);
   }
 }
 
@@ -156,6 +176,33 @@ Game.prototype.nextStep = function(e) {
     const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(position);
     this.getStatus(road, land, building);
   })
+}
+
+/** Set debug mode
+ * @param {boolean} b
+ */
+Game.prototype.debug = function(b) {
+  // Switch debug mode
+  if (document.body.dataset.hasOwnProperty('debug')) {
+    delete document.body.dataset.debug;
+  } else {
+    document.body.dataset.debug = '';
+  }
+  game.layer.building.setStyle();
+  game.layer.road.setStyle();
+  game.map.on('click', e => {
+    const f = game.map.getFeaturesAtPixel(e.pixel);
+    if (f.length) {
+      const p = f[0].getProperties();
+      delete p.geometry;
+      delete p.bbox;
+      Object.keys(p).forEach(k => {
+        if (p[k]===null) delete p[k];
+      })
+      console.table(p)
+    }
+  })
+  window.vectorLoader = vectorLoader;
 }
 
 const game = new Game;
