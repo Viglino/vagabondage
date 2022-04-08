@@ -33,6 +33,10 @@ const mapLoader = new Map({
   controls: [],
 });
 
+// Handle loading
+mapLoader.on('loadstart', mapLoader.set('loading', true))
+mapLoader.on('loadend', mapLoader.set('loading', false))
+
 const style = {
   fond_opaque: [],
   oro_courbe: [],
@@ -56,6 +60,9 @@ const style = {
   routier_chemin: new Style({
     stroke: new Stroke({ color: [255,255,1], width: 2 })
   }), 
+  routier_surf: new Style({
+    fill: new Fill({ color: [0,0,0,.5] })
+  }),
   hydro_ponc: new Style({
     image: new Circle({
       radius: 5,
@@ -75,7 +82,8 @@ const style = {
     image: new Shape({
       points: 4,
       rotation: Math.PI/4,
-      fill: new Fill({ color: '#ccc' })
+      radius: 5,
+      fill: new Fill({ color: '#333' })
     })
   }),
   bati_surf: new Style({
@@ -91,6 +99,8 @@ const style = {
     fill: new Fill({ color: [0,80,0,.5] })
   })
 }
+
+// Vector tile layer
 const vtLayer = new VectorTileLayer({
   declutter: true,
   source: new VectorTileSource({
@@ -99,21 +109,15 @@ const vtLayer = new VectorTileLayer({
     url: 'https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf',
   }),
   style: (f) => {
-    if (/toponyme/.test(f.get('layer'))) return [];
+    if (/^toponyme(.*)lin$/.test(f.get('layer'))) return [];
     return style[f.get('layer')] || createDefaultStyle(f);
   }
 });
 
-mapLoader.on('click', e => {
-  const features = mapLoader.getFeaturesAtPixel(e.pixel);
-  features.forEach(f => {
-    console.table (f.getProperties());
-  })
-})
 map.on('moveend', () => {
   mapLoader.getView().setCenter(map.getView().getCenter());
 })
 
-window.loader = mapLoader
+mapLoader.addLayer(vtLayer);
 
-mapLoader.addLayer(vtLayer)
+export default mapLoader

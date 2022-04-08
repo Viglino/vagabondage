@@ -11,9 +11,10 @@ import dialog, { info } from './map/dialog';
 import { clcInfo } from './vectorLoader/mapLoader';
 import vectorLoader from './vectorLoader/vectorLoader';
 import layer, { layerCarte } from './map/layer'
-import routing from './map/routing';'./map/itineraire'
+import routing from './map/routing';
 
-import './vectorLoader/vtlayer'
+import vtlayer from './vectorLoader/vtMap'
+import mapInfo from './vectorLoader/mapInfo'
 
 import './game.css'
 
@@ -160,7 +161,7 @@ Game.prototype.start = function() {
 Game.prototype.nextStep = function(e) {
   const position = e.end;
   this.set('position', position);
-  //
+  // Add features to the map
   e.routing.feature.set('style', 'route');
   layer.getSource().addFeature(e.routing.feature);
   layer.getSource().addFeature(new Feature({
@@ -168,7 +169,9 @@ Game.prototype.nextStep = function(e) {
     geometry: new Point(position)
   }));
   layerCarte.getSource().addFeature(e.routing.feature);
-  //
+  // Get around
+  this.map.getView().setCenter(position);
+  setTimeout(() => console.table(mapInfo.getAround(20, position)));
   vectorLoader.setActive(['clc','bati','route'], position);
   vectorLoader.once('ready', () => {
     const building = vectorLoader.source.bati.getClosestFeatureToCoordinate(position);
@@ -183,26 +186,55 @@ Game.prototype.nextStep = function(e) {
  */
 Game.prototype.debug = function(b) {
   // Switch debug mode
-  if (document.body.dataset.hasOwnProperty('debug')) {
-    delete document.body.dataset.debug;
-  } else {
+  if (b!==false) {
     document.body.dataset.debug = '';
+    game.layer.building.setStyle();
+    game.layer.road.setStyle();
+  } else {
+    delete document.body.dataset.debug;
+    game.layer.building.setStyle(() => { return [] });
+    game.layer.road.setStyle(() => { return [] });
   }
-  game.layer.building.setStyle();
-  game.layer.road.setStyle();
-  game.map.on('click', e => {
-    const f = game.map.getFeaturesAtPixel(e.pixel);
-    if (f.length) {
-      const p = f[0].getProperties();
-      delete p.geometry;
-      delete p.bbox;
-      Object.keys(p).forEach(k => {
-        if (p[k]===null) delete p[k];
-      })
-      console.table(p)
-    }
-  })
-  window.vectorLoader = vectorLoader;
+  if (!window.vectorLoader) {
+    game.map.on('click', e => {
+      const f = game.map.getFeaturesAtPixel(e.pixel);
+      if (f.length) {
+        const p = f[0].getProperties();
+        delete p.geometry;
+        delete p.bbox;
+        Object.keys(p).forEach(k => {
+          if (p[k]===null) delete p[k];
+        })
+        console.table(p)
+      }
+    })
+    //
+    window.vectorLoader = vectorLoader;
+    window.mapInfo = mapInfo;
+    // Open debug in a new window
+    const win = window.open('', 'DEBUG', 'menubar=no,location=no,resizable=no,scrollbars=no,status=no')
+    win.document.title = 'DEBUG';
+    const d = win.document.createElement('DIV');
+    win.document.body.innerHTML = '';
+    win.document.body.appendChild(d);
+    vtlayer.getTarget().remove();
+    vtlayer.setTarget(d);
+    const target = element.create('DIV', {
+      style: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        pointerEvent: 'none',
+        borderRadius: '50%',
+        background: 'rgba(255,0,0,.3)',
+        width: '0px',
+        height: '0px'
+      },
+      parent: d
+    });
+    vtlayer.set('targetDiv', target);
+  }
 }
 
 const game = new Game;

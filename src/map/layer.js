@@ -122,12 +122,6 @@ const fold = new FoldFilter({ fill: true, padding: 20, opacity: .3 });
 carte.addFilter(fold);
 map.addLayer(carte);
 
-function setFold() {
-  const size = map.getSize();
-  fold.set('fold', [Math.round(size[0]/180) || 1, Math.round(size[1]/250)] || 1)
-}
-window.addEventListener('resize', setFold);
-setFold();
 
 // Game layer
 const layerCarte = new VectorLayer({
@@ -135,7 +129,17 @@ const layerCarte = new VectorLayer({
   visible: false,
   style: styleFn
 });
+const fold2 = new FoldFilter({ fill: false, padding: 20, opacity: 0 });
+layerCarte.addFilter(fold2);
 map.addLayer(layerCarte);
+
+function setFold() {
+  const size = map.getSize();
+  fold.set('fold', [Math.round(size[0]/180) || 1, Math.round(size[1]/250)] || 1)
+  fold2.set('fold', [Math.round(size[0]/180) || 1, Math.round(size[1]/250)] || 1)
+}
+window.addEventListener('resize', setFold);
+setFold();
 
 // Toggle carte layers
 map.addControl(new ToggleControl({
@@ -149,24 +153,6 @@ map.addControl(new ToggleControl({
     }
   }
 }))
-
-/*
-import DayNight from 'ol-ext/source/DayNight'
-import VectorLayer from 'ol/layer/Vector';
-import Style from 'ol/style/Style';
-import Fill from 'ol/style/Fill';
-var nightDay = new DayNight({ });
-map.addLayer(new VectorLayer({
-  className: 'night',
-  source: nightDay,
-  style: new Style({
-    fill: new Fill({
-      color: [0,0,50,.8]
-    })
-  })
-}));
-window.nightDay = nightDay
-*/
 
 export { layerCarte }
 export default vector

@@ -5,6 +5,18 @@ import vector, { layerCarte } from './layer'
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import vectorLoader from '../vectorLoader/vectorLoader';
+import { getDistance } from 'ol/sphere'
+import { toLonLat } from 'ol/proj';
+
+import Tooltip from 'ol-ext/overlay/Tooltip'
+
+// Max distance:  1.5km
+const maxDist = 1500;
+
+const tooltip = new Tooltip({
+  offsetBox: [15, 0]
+});
+map.addOverlay(tooltip);
 
 /**
  * 
@@ -35,7 +47,7 @@ class Drag extends PointerInteraction {
  * @param {import("../src/ol/MapBrowserEvent.js").default} evt Map browser event.
  * @return {boolean} `true` to start the drag sequence.
  */
- Drag.prototype.handleDownEvent = function(evt) {
+Drag.prototype.handleDownEvent = function(evt) {
   if (document.body.dataset.mode === 'carte') return;
 
   const feature = getFeatureAt(evt.map, evt.pixel, this.layer_)
@@ -47,15 +59,18 @@ class Drag extends PointerInteraction {
   return !!feature;
 }
 
-import { getDistance } from 'ol/sphere'
-import { toLonLat } from 'ol/proj';
+
 /**
  * @param {import("../src/ol/MapBrowserEvent.js").default} evt Map browser event.
  */
  Drag.prototype.handleDragEvent = function(evt) {
   const d = getDistance(toLonLat(this.start_), toLonLat(evt.coordinate));
-  // Less than 2km?
-  if (d > 2000) return;
+  // Toolong
+  if (d > maxDist) {
+    tooltip.setInfo('Etape trop longue...')
+    return;
+  }
+  tooltip.setInfo('Aller jusqu\'ici...')
 
   this.coordinate_[0] = evt.coordinate[0];
   this.coordinate_[1] = evt.coordinate[1];
@@ -82,6 +97,7 @@ function getFeatureAt (map, pixel, layer) {
  * @param {import("../src/ol/MapBrowserEvent.js").default} evt Event.
  */
 Drag.prototype.handleMoveEvent = function(evt) {
+  tooltip.setInfo('Déplacez le point')
   if (this.cursor_) {
     const feature = getFeatureAt(evt.map, evt.pixel, this.layer_);
     const element = evt.map.getTargetElement();
