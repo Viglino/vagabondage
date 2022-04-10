@@ -8,8 +8,8 @@ const mapLoader = new Map({
   target: ol_ext_element.create('DIV', { 
     className: 'ghostMap', 
     style: {
-      width: '255px',
-      height: '255px'
+      width: '256px',
+      height: '256px'
     },
     parent: document.body 
   }),
@@ -76,6 +76,7 @@ const clcInfo = {
 /* DEBUG: Show info on hover */
 import Hover from 'ol-ext/interaction/Hover'
 import Tooltip from 'ol-ext/overlay/Tooltip'
+import map from '../map/map';
 // import geoportailStyle from 'ol-ext/style/geoportailStyle'
 
 // const clcInfo = geoportailStyle.clcColors;

@@ -25,6 +25,8 @@ function getFeaturesProp(features) {
     delete p.terminaison;
     delete p.alti_sol;
     delete p.rotation;
+    delete p.fictif;
+    delete p.rond_point;
     info.push(p)
   })
   return info;

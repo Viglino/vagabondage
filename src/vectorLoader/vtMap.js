@@ -33,7 +33,7 @@ const mapLoader = new Map({
   controls: [],
 });
 
-// Handle loading
+// Handle map loading
 mapLoader.on('loadstart', mapLoader.set('loading', true))
 mapLoader.on('loadend', mapLoader.set('loading', false))
 

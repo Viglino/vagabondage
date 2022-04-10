@@ -1,0 +1,33 @@
+.legendDialog h2 {
+  margin: 0 0 .5em 0;
+}
+.legendDialog h3 {
+  margin: .5em 10px 5px;
+}
+.legendDialog .ol-content > div {
+  margin-top: 1.5em;
+  clear: both;
+}
+.legendDialog .ol-content > div:first-child {
+  margin: 0;
+}
+
+.legendDialog img {
+  width: 150px;
+  float: left;
+  margin: 0 10px;
+}
+.legendDialog ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding-left: 180px;
+}
+.legendDialog li {
+  line-height: 33.5px;
+  white-space: nowrap;
+}
+.legendDialog li.br {
+  line-height: unset;
+  height: 33.5px;
+}

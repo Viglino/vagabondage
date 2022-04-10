@@ -6,6 +6,7 @@ import { getDistance } from 'ol/sphere';
 import VectorLayer from 'ol/layer/Vector';
 import element from 'ol-ext/util/element'
 
+import pages from './page/pages'
 import map from './map/map';
 import dialog, { info } from './map/dialog';
 import { clcInfo } from './vectorLoader/mapLoader';
@@ -37,6 +38,11 @@ class Game extends olObject {
     element.create('LI', {
       html: '<i class="fg-location-arrow"></i> Destination',
       click: () => this.flyTo(this.get('end')),
+      parent: d
+    })
+    element.create('LI', {
+      html: '<i class="fg-map-legend"></i> Legende',
+      click: () => pages.showLegend(),
       parent: d
     })
     routing.on('routing', e => this.nextStep(e));
@@ -186,7 +192,7 @@ Game.prototype.nextStep = function(e) {
  */
 Game.prototype.debug = function(b) {
   // Switch debug mode
-  if (b!==false) {
+  if (b) {
     document.body.dataset.debug = '';
     game.layer.building.setStyle();
     game.layer.road.setStyle();
