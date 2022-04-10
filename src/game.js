@@ -14,6 +14,8 @@ import vectorLoader from './vectorLoader/vectorLoader';
 import layer, { layerCarte } from './map/layer'
 import routing from './map/routing';
 
+import { style as redStyle } from './map/layer'
+
 import vtlayer from './vectorLoader/vtMap'
 import mapInfo from './vectorLoader/mapInfo'
 
@@ -48,6 +50,12 @@ class Game extends olObject {
     routing.on('routing', e => this.nextStep(e));
     // Add layers
     this.layer = {
+      zai: new VectorLayer({
+        title: 'zai',
+        source: vectorLoader.source.zai,
+        minZoom: 15,
+        style: []
+      }),
       building: new VectorLayer({
         title: 'building',
         source: vectorLoader.source.bati,
@@ -61,8 +69,9 @@ class Game extends olObject {
         style: []
       })
     };
-    this.map.addLayer(this.layer.building);
-    this.map.addLayer(this.layer.road);
+    for (let l in this.layer) {
+      this.map.addLayer(this.layer[l]);
+    }
   }
 }
 
@@ -194,16 +203,18 @@ Game.prototype.debug = function(b) {
   // Switch debug mode
   if (b) {
     document.body.dataset.debug = '';
-    game.layer.building.setStyle();
-    game.layer.road.setStyle();
+    this.layer.zai.setStyle(redStyle);
+//    this.layer.building.setStyle();
+    this.layer.road.setStyle();
   } else {
     delete document.body.dataset.debug;
-    game.layer.building.setStyle(() => { return [] });
-    game.layer.road.setStyle(() => { return [] });
+    this.layer.zai.setStyle(() => { return [] });
+    this.layer.building.setStyle(() => { return [] });
+    this.layer.road.setStyle(() => { return [] });
   }
   if (!window.vectorLoader) {
-    game.map.on('click', e => {
-      const f = game.map.getFeaturesAtPixel(e.pixel);
+    this.map.on('click', e => {
+      const f = this.map.getFeaturesAtPixel(e.pixel);
       if (f.length) {
         const p = f[0].getProperties();
         delete p.geometry;

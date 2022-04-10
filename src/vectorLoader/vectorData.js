@@ -53,4 +53,14 @@ layers.bati = new VectorLayer({
 })
 mapLoader.addLayer(layers.bati);
 
+// ZAI
+sources.zai = _getSource('topographie', 'BDTOPO_V3:zone_d_activite_ou_d_interet', 13);
+layers.zai = new VectorLayer({
+  title: 'ZAI',
+  source: sources.zai,
+  maxResolution: 10,  // prevent load on small zoom 
+  visible: false,
+})
+mapLoader.addLayer(layers.zai);
+
 export { sources, layers }

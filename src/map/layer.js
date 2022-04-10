@@ -154,5 +154,6 @@ map.addControl(new ToggleControl({
   }
 }))
 
+export { style }
 export { layerCarte }
 export default vector
