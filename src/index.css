@@ -28,6 +28,7 @@ select {
 .ol-ext-dialog .ol-progress-bar {
   background-color: #eee;
   margin: 1em 1em 0;
+  max-width: calc(100% - 2em);
 }
 .ol-ext-dialog .ol-progress-bar > div {
   background-color: #3993f3;

@@ -173,6 +173,8 @@ Game.prototype.start = function() {
   })
 }
 
+/** Goto next step
+ */
 Game.prototype.nextStep = function(e) {
   const position = e.end;
   this.set('position', position);
@@ -204,7 +206,7 @@ Game.prototype.debug = function(b) {
   if (b) {
     document.body.dataset.debug = '';
     this.layer.zai.setStyle(redStyle);
-//    this.layer.building.setStyle();
+    this.layer.building.setStyle();
     this.layer.road.setStyle();
   } else {
     delete document.body.dataset.debug;

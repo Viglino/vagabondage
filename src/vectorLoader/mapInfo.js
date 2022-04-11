@@ -5,12 +5,15 @@ const mapInfo = {};
 /** Get info
  * @param {number} around pixel around
  * @param {ol/Coordinate} coord
+ * @return {object}
  */
 mapInfo.getAround = function(around=20, coord) {
   if (!coord) coord = vtMap.getView().getCenter();
   const pixel = vtMap.getPixelFromCoordinate(coord);
   const features = vtMap.getFeaturesAtPixel(pixel, { hitTolerance: around });
-  vtMap.get('targetDiv').style.width = vtMap.get('targetDiv').style.height = (2*around)+'px';
+  if (vtMap.get('tagetDiv')) {
+    vtMap.get('targetDiv').style.width = vtMap.get('targetDiv').style.height = (2*around)+'px';
+  } 
   return getFeaturesProp(features);
 }
 
@@ -27,11 +30,17 @@ function getFeaturesProp(features) {
     delete p.rotation;
     delete p.fictif;
     delete p.rond_point;
+    delete p.isole;
+    delete p.sens_circu;
     info.push(p)
   })
   return info;
 }
 
+/** Get features at pixel
+ * @param {ol/Pixel} [pixel] pixel coords, default the map view center
+ * @returns {object}
+ */
 mapInfo.getFeaturesAtPixel = function(pixel) {
   if (pixel) {
     pixel = vtMap.getPixelFromCoordinate(vtMap.getView().getCenter());

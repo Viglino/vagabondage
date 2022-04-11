@@ -13,42 +13,65 @@ import GeoJSON from 'ol/format/GeoJSON'
 import map from '../map/map';
 import regions from './regions';
 
-const vectorLoader = new olObject();
+/** Class to load data in a tile WFS format
+ */
+class VectorLoader extends olObject {
+  constructor() {
+    super();
+    this.map = mapLoader;
+    this.source = sources;
+    this.layer = layers;
+    // Ajax load for routing
+    this.ajax = new Ajax();
+    this.ajax.on('success', e => {
+      const resp = e.response;
+      const parser = new GeoJSON;
+      const f = {
+        type: 'Feature',
+        properties: {
+          type: 'result'
+        },
+        geometry: resp.geometry
+      }
+      resp.feature = parser.readFeature(f, { featureProjection: map.getView().getProjection() });
+      this.cback(resp);
+    })
+    this.ajax.on('error', console.log);
+    // Handle load
+    this.toload = 0;
+    let maxload = 0;
+    Object.keys(sources).forEach(k => {
+      sources[k].on('tileloadstart', () => {
+        this.toload++;
+        maxload++;
+        this.dispatchEvent({ type: 'loading', nb: maxload - this.toload, max: maxload });
+      });
+    })
+    Object.keys(sources).forEach(k => {
+      sources[k].on(['tileloadend', 'tileloaderror'], () => {
+        this.toload--;
+        this.dispatchEvent({ type: 'loading', nb: maxload - this.toload, max: maxload });
+        if (this.toload===0) {
+          setTimeout(() => this.dispatchEvent('ready'));
+          maxload = 0;
+        }
+      })
+    })
+  }
+}
 
-vectorLoader.map = mapLoader;
 
-// Handle load
-let toload = 0;
-let maxload = 0;
-Object.keys(sources).forEach(k => {
-  sources[k].on('tileloadstart', () => {
-    toload++;
-    maxload++;
-    vectorLoader.dispatchEvent({ type: 'loading', nb: maxload - toload, max: maxload });
-  });
-})
-Object.keys(sources).forEach(k => {
-  sources[k].on(['tileloadend', 'tileloaderror'], () => {
-    toload--;
-    vectorLoader.dispatchEvent({ type: 'loading', nb: maxload - toload, max: maxload });
-    if (toload===0) {
-      setTimeout(() => vectorLoader.dispatchEvent('ready'));
-      maxload = 0;
-    }
-  })
-})
-
-/** Is ready (or loadend)  */
-function checkReady() {
+/** Dispatch a ready event. Check if the loader is ready or wait for loadend.
+ * @fires ready
+ */
+VectorLoader.prototype.checkReady = function() {
   setTimeout(() => {
-    if (toload===0) {
-      vectorLoader.dispatchEvent('ready');
+    if (this.toload === 0) {
+      this.dispatchEvent('ready');
     }
   })
 }
 
-vectorLoader.source = sources;
-vectorLoader.layer = layers;
 
 /** Get random point inside polygon
  * @param {ol/geom/Polygon} g
@@ -67,26 +90,26 @@ function getCoordinateInside(g) {
 
 /** Center data on xy
  */
-vectorLoader.setCenter = function(xy) {
-  mapLoader.getView().setCenter(xy);
-  checkReady();
+VectorLoader.prototype.setCenter = function(xy) {
+  this.map.getView().setCenter(xy);
+  this.checkReady();
 };
 
 /** Activate data
  * @param {Array<string>} what list of layer id
  * @param {ol/Coordinate} [center]
  */
-vectorLoader.setActive = function(what, center) {
+VectorLoader.prototype.setActive = function(what, center) {
   // Hide layers
   for (let i in layers) {
     layers[i].setVisible(false);
   }
   // set center
-  if (center) vectorLoader.setCenter(center);
+  if (center) this.setCenter(center);
   // how layer
   what.forEach(l => layers[l].setVisible(true));
   // ready?
-  checkReady();
+  this.checkReady();
 };
 
 // Show laoding info
@@ -106,7 +129,7 @@ function wait(e) {
  * @param {number} region region index
  * @param {function} cback callback function that takes a coordinate
  */
-vectorLoader.getCountryside = function(region, cback) {
+VectorLoader.prototype.getCountryside = function(region, cback) {
   dialog.show({ 
     content: 'Chargement des données...',
     closeBox: false
@@ -114,16 +137,16 @@ vectorLoader.getCountryside = function(region, cback) {
   dialog.setProgress(0,1,'<i class="fg-layer-alt-o"></i> loading countryside...')
 
   let c = getCoordinateInside(regions[region].getGeometry());
-  vectorLoader.on('loading', wait)
-  vectorLoader.setActive(['clc'], c);
+  this.on('loading', wait)
+  this.setActive(['clc'], c);
   // On load end
-  vectorLoader.once('ready', () => {
+  this.once('ready', () => {
     // remove handler
-    vectorLoader.un('loading', wait)
+    this.un('loading', wait)
     // Look for country code (no urban area)
     let country = true;
     const extent = buffer(boundingExtent([c]),1000);
-    vectorLoader.source.clc.forEachFeatureInExtent(extent, (f) => {
+    this.source.clc.forEachFeatureInExtent(extent, (f) => {
       if (f.get('code_18') < 200) {
         country = false;
       }
@@ -131,7 +154,7 @@ vectorLoader.getCountryside = function(region, cback) {
     // Found a countryside?
     if (!country) {
       console.log('not countryside...')
-      vectorLoader.getCountryside(region, cback);
+      this.getCountryside(region, cback);
     } else {
       cback(c);
     }
@@ -142,17 +165,17 @@ vectorLoader.getCountryside = function(region, cback) {
  * @param {ol/Coordinate} c
  * @param {function} cback callback function that takes a road close to the initial position
  */
-vectorLoader.getRoad = function(c, cback) {
+VectorLoader.prototype.getRoad = function(c, cback) {
   dialog.setProgress(0,1,'<i class="fg-layer-alt-o"></i> loading road...')
 
-  vectorLoader.on('loading', wait)
-  vectorLoader.setActive(['route','clc'/*,'bati'*/], c);
+  this.on('loading', wait)
+  this.setActive(['route','clc'/*,'bati'*/], c);
   // Zoom to start
-  vectorLoader.once('ready', () =>{
+  this.once('ready', () =>{
     // remove handler
-    vectorLoader.un('loading', wait)
+    this.un('loading', wait)
     // Get closest road
-    const road = vectorLoader.source.route.getClosestFeatureToCoordinate(c, f => {
+    const road = this.source.route.getClosestFeatureToCoordinate(c, f => {
       // Search for 'route' & importance 3 or 4
       return /route/i.test(f.get('nature')) && f.get('importance') < 5 && f.get('importance') > 2;
     });
@@ -165,17 +188,17 @@ vectorLoader.getRoad = function(c, cback) {
  * @param {function} getCoord a function that returns a coordinate to look near 
  * @param {function} cback callback function that takes a road close to the initial position
  */
-vectorLoader.getBuilding = function(getCoord, cback) {
+VectorLoader.prototype.getBuilding = function(getCoord, cback) {
   dialog.setProgress(0,1,'<i class="fg-layer-stack-o"></i> loading building...')
 
   const c = getCoord();
-  vectorLoader.on('loading', wait)
-  vectorLoader.setActive(['bati'], c);
-  vectorLoader.once('ready', () => {
+  this.on('loading', wait)
+  this.setActive(['bati'], c);
+  this.once('ready', () => {
     // remove handler
-    vectorLoader.un('loading', wait)
+    this.un('loading', wait)
     // Get closest road
-    const building = vectorLoader.source.bati.getClosestFeatureToCoordinate(c, f => {
+    const building = this.source.bati.getClosestFeatureToCoordinate(c, f => {
       // Search for 'bati' & usage_1 = Résidentiel
       if (/r.sidentiel/i.test(f.get('usage_1'))) {
         return true;
@@ -188,7 +211,7 @@ vectorLoader.getBuilding = function(getCoord, cback) {
     } else {
       // Look for another direction
       console.log('no building')
-      vectorLoader.getBuilding(getCoord, cback);
+      this.getBuilding(getCoord, cback);
     }
   })
 }
@@ -196,16 +219,16 @@ vectorLoader.getBuilding = function(getCoord, cback) {
 /** Load game info inisde a region
  * 
  */
-vectorLoader.loadGame = function(region, cback) {
+VectorLoader.prototype.loadGame = function(region, cback) {
   // Get a countryside
-  vectorLoader.getCountryside(region, c => {
+  this.getCountryside(region, c => {
     // Get the closest road
-    vectorLoader.getRoad(c, road => {
+    this.getRoad(c, road => {
       // Found any road?
       if (road) {
         c = road.getGeometry().getCoordinates()[1];
-        const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(c);
-        vectorLoader.getBuilding(() => {
+        const land = this.source.clc.getClosestFeatureToCoordinate(c);
+        this.getBuilding(() => {
           return fromLonLat(computeDestinationPoint(toLonLat(c), 10000 + 5000*Math.random(), Math.random()*2*Math.PI));
         }, building => {
           if (building) {
@@ -218,43 +241,28 @@ vectorLoader.loadGame = function(region, cback) {
             })
           } else {
             console.log('no building...')
-            return vectorLoader.loadGame(region, cback);
+            return this.loadGame(region, cback);
           }
         });
       } else {
         console.log('no road...')
-        return vectorLoader.loadGame(region, cback);
+        return this.loadGame(region, cback);
       }
     })
   })
 }
 
-vectorLoader.ajax = new Ajax();
-vectorLoader.ajax.on('success', e => {
-  const resp = e.response;
-  const parser = new GeoJSON;
-  const f = {
-    type: 'Feature',
-    properties: {
-      type: 'result'
-    },
-    geometry: resp.geometry
-  }
-  resp.feature = parser.readFeature(f, { featureProjection: map.getView().getProjection() });
-  vectorLoader.cback(resp);
-})
-vectorLoader.ajax.on('error', console.log);
 
 /** Load routing
  * @param {ol/Coordinate} start
  * @param {ol/Coordinate} end
  * @param {function} cback a callback that take the routing response
  */
-vectorLoader.getRouting = function(start, end, cback) {
-  vectorLoader.cback = cback;
+VectorLoader.prototype.getRouting = function(start, end, cback) {
+  this.cback = cback;
   start = toLonLat(start);
   end = toLonLat(end);
-  vectorLoader.ajax.send('https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?'
+  this.ajax.send('https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?'
     + 'resource=bdtopo-osrm'
     + '&profile=pedestrian'
     + '&optimization=shortest'
@@ -263,5 +271,7 @@ vectorLoader.getRouting = function(start, end, cback) {
     + '&geometryFormat=geojson'
   );
 }
+
+const vectorLoader = new VectorLoader();
 
 export default vectorLoader
