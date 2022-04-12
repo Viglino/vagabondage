@@ -12,6 +12,10 @@ import Circle from 'ol/style/Circle';
 import Shape from 'ol/style/RegularShape'
 
 import map from '../map/map'
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Feature from 'ol/Feature';
+import { ol_geom_createFromType } from 'ol-ext/geom/GeomUtils'
 
 /** Ghost map to preload layers on extent */
 const mapLoader = new Map({
@@ -33,11 +37,49 @@ const mapLoader = new Map({
   controls: [],
 });
 
+
 // Handle map loading
 mapLoader.on('loadstart', mapLoader.set('loading', true))
 mapLoader.on('loadend', mapLoader.set('loading', false))
 
 const style = {
+  // BDTOPO
+  adresse: [],
+  arrondissement: [],
+  bassin_versant_topographique: [],
+  "collectivite_territoriale": [],
+  "commune": [],
+  "departement": [],
+  "Communauté d'agglomération": [],
+  "region": [],
+  "epci": [],
+  "toponymie_lieux_nommes": [],
+  "haie": [],
+  "voie_nommee": [],
+  zone_de_vegetation: new Style({
+    fill: new Fill({ color: [0,80,0,.5] })
+  }),
+  "surface_hydrographique": new Style({
+    fill: new Fill({ color: [100,150,255,1] })
+  }), 
+  "troncon_hydrographique": new Style({
+    stroke: new Stroke({ color: [100,150,255,1], width: 2 })
+  }), 
+  "troncon_de_route": new Style({
+    stroke: new Stroke({ color: [255,128,1], width: 2 })
+  }), 
+  batiment: new Style({
+    fill: new Fill({ color: [128,80,80,1] })
+  }),
+  zone_d_habitation: new Style({
+    fill: new Fill({ color: [128,0,0,.1] })
+  }),
+
+  "zone_d_activite_ou_d_interet": new Style({
+    fill: new Fill({ color: [255,0,255,.3] })
+  }),
+
+  // CARTE
   fond_opaque: [],
   oro_courbe: [],
   oro_ponc: [],
@@ -102,12 +144,12 @@ const style = {
 
 // Vector tile layer
 const vtLayer = new VectorTileLayer({
-  declutter: true,
+  // declutter: true,
   source: new VectorTileSource({
     // maxZoom: 15,
     format: new MVT,
-    // url: 'https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf',
-    url: 'https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf',
+    url: 'https://wxs.ign.fr/latuile/geoportail/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf',
+    // url: 'https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf',
   }),
   style: (f) => {
     if (/^toponyme(.*)lin$/.test(f.get('layer'))) return [];
@@ -115,10 +157,52 @@ const vtLayer = new VectorTileLayer({
   }
 });
 
+// Center on map
 map.on('moveend', () => {
   mapLoader.getView().setCenter(map.getView().getCenter());
 })
 
 mapLoader.addLayer(vtLayer);
+
+/** DEBUG: show object on click */
+const select = new VectorLayer({ 
+  source: new VectorSource(),
+  style: new Style({
+    stroke: new Stroke({ color: [255,0,0], width: 3 })
+  })
+});
+mapLoader.addLayer(select);
+mapLoader.on('click', e => {
+  select.getSource().clear();
+  const feature = mapLoader.getFeaturesAtPixel(e.pixel)[0]
+  if (feature && !(feature instanceof Feature)) {
+    var coords = [];
+    var c = feature.getFlatCoordinates();
+    for (var i=0; i<c.length; i+=2) {
+      coords.push ([c[i],c[i+1]]);
+    }
+    // console.log(feature.getType())
+    switch (feature.getType()) {
+      case 'Point': {
+        coords = coords.pop();
+        break;
+      }
+      case 'LineString' : {
+        coords = coords;
+        break;
+      }
+      case 'MultiLineString' : 
+      case 'Polygon' : {
+        coords = [coords];
+        break;
+      }
+    }
+    var geom = ol_geom_createFromType(feature.getType(), coords);
+    var f2 = new Feature(geom);
+    f2.setProperties(feature.getProperties())
+    select.getSource().addFeature(f2);
+  }
+})
+/* DEBUG */
 
 export default mapLoader

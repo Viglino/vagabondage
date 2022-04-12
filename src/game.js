@@ -244,7 +244,7 @@ Game.prototype.debug = function(b) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        pointerEvent: 'none',
+        pointerEvents: 'none',
         borderRadius: '50%',
         background: 'rgba(255,0,0,.3)',
         width: '0px',
