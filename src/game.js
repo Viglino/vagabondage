@@ -5,6 +5,7 @@ import { toLonLat } from 'ol/proj';
 import { getDistance } from 'ol/sphere';
 import VectorLayer from 'ol/layer/Vector';
 import element from 'ol-ext/util/element'
+import Gauge from 'ol-ext/control/Gauge'
 
 import pages from './page/pages'
 import map from './map/map';
@@ -27,6 +28,13 @@ class Game extends olObject {
   constructor() {
     super();
     this.map = map
+    // Life gauge
+    this.gauge = new Gauge({
+      title: '+6', 
+      max: 8,
+      val: 8
+    });
+    map.addControl(this.gauge);
     // Show destination / 
     const d = element.create('UL', {
       className: 'jumper',
@@ -47,7 +55,9 @@ class Game extends olObject {
       click: () => pages.showLegend(),
       parent: d
     })
+    // Goto next step on walk
     routing.on('routing', e => this.nextStep(e));
+    /** /
     // Add layers
     this.layer = {
       zai: new VectorLayer({
@@ -72,6 +82,7 @@ class Game extends olObject {
     for (let l in this.layer) {
       this.map.addLayer(this.layer[l]);
     }
+    /**/
   }
 }
 
@@ -84,6 +95,23 @@ Game.prototype.flyTo = function(position) {
     zoomAt: Math.max(this.map.getView().getZoom() - .5, 13.01)
   })
 }
+
+/** Set current life value
+ * @param {number} n
+ */
+Game.prototype.setLife = function(n) {
+  this.gauge.val(n+2);
+  this.gauge.setTitle((n>0 ? '+':'')+n);
+  this.gauge.element.classList.add('anim');
+  setTimeout(() => this.gauge.element.classList.remove('anim'), 1000);
+}
+
+/** Get current life value
+ * @returns {number}
+ */
+Game.prototype.getLife = function() {
+  return this.gauge.val() - 2;
+};
 
 /** Set current status
  * 
@@ -106,8 +134,8 @@ Game.prototype.getStatus = function(road, land, bati) {
 /** Load a new game in region
  * @param {string} region region id
  */
-Game.prototype.load = function(region) {
-  vectorLoader.loadGame(region, g => {
+Game.prototype.load = function(region, length) {
+  vectorLoader.loadGame(region, length, g => {
     for (let i in g) this.set(i, g[i]);
     this.set('position', this.get('start'));
     // Status
@@ -176,6 +204,13 @@ Game.prototype.start = function() {
 /** Goto next step
  */
 Game.prototype.nextStep = function(e) {
+  // Calculate life / dist
+  this.dist = (this.dist || 0) + e.routing.distance;
+  if (this.dist > 2000) {
+    this.setLife(this.getLife()-1);
+    this.dist -= 2000;
+  }
+  // Calculate position
   const position = e.end;
   this.set('position', position);
   // Add features to the map
@@ -203,6 +238,7 @@ Game.prototype.nextStep = function(e) {
  */
 Game.prototype.debug = function(b) {
   // Switch debug mode
+  /*
   if (b) {
     document.body.dataset.debug = '';
     this.layer.zai.setStyle(redStyle);
@@ -214,6 +250,7 @@ Game.prototype.debug = function(b) {
     this.layer.building.setStyle(() => { return [] });
     this.layer.road.setStyle(() => { return [] });
   }
+  */
   if (!window.vectorLoader) {
     this.map.on('click', e => {
       const f = this.map.getFeaturesAtPixel(e.pixel);

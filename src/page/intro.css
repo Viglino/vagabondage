@@ -4,3 +4,20 @@
 .ol-ext-dialog.intro form h1 {
   margin: 0;
 }
+.ol-ext-dialog.intro form label {
+  display: inline-block;
+  width: 8em;
+  text-align: right;
+}
+.ol-ext-dialog.intro form ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ol-ext-dialog.intro form li {
+  padding: .2em 0;
+}
+.ol-ext-dialog.intro form option:disabled {
+  color: #ccc;
+}
+

@@ -2,6 +2,7 @@ import map from './map/map'
 import './map/layer'
 
 import './index.css'
+import 'font-awesome/css/font-awesome.css'
 import 'font-gis/css/font-gis.css'
 import './page/intro'
 

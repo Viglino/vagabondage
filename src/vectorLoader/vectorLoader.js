@@ -219,7 +219,7 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
 /** Load game info inisde a region
  * 
  */
-VectorLoader.prototype.loadGame = function(region, cback) {
+VectorLoader.prototype.loadGame = function(region, length, cback) {
   // Get a countryside
   this.getCountryside(region, c => {
     // Get the closest road
@@ -229,7 +229,7 @@ VectorLoader.prototype.loadGame = function(region, cback) {
         c = road.getGeometry().getCoordinates()[1];
         const land = this.source.clc.getClosestFeatureToCoordinate(c);
         this.getBuilding(() => {
-          return fromLonLat(computeDestinationPoint(toLonLat(c), 10000 + 5000*Math.random(), Math.random()*2*Math.PI));
+          return fromLonLat(computeDestinationPoint(toLonLat(c), length*1000 + 5000*Math.random(), Math.random()*2*Math.PI));
         }, building => {
           if (building) {
             return cback({

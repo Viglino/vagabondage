@@ -16,7 +16,9 @@ dialog.show({
   closeBox: false,
   buttons: ['Commencer le jeu']
 })
-const region = dialog.getContentElement().querySelector('SELECT');
+const region = dialog.getContentElement().querySelector('.region');
+const length = dialog.getContentElement().querySelector('.length');
+const month = dialog.getContentElement().querySelector('.month');
 
 // region.addEventListener('change', () => dialog.close());
 // Add option
@@ -25,8 +27,22 @@ regions.forEach((f, i) => {
 });
 region.value = Math.floor(Math.random() * regions.length);
 
+const deft = Math.floor(Math.random()*6) + 4;
+for (let m=1; m<=12; m++) {
+  const o = element.create('OPTION', {
+    value: m,
+    html: new Date(Date.UTC(2012, m-1)).toLocaleString(undefined, { month: 'long' }),
+    parent: month
+  });
+  if (m===deft) o.setAttribute('selected', 'selected');
+  // spring - summer
+  if (m < 4 || m > 9) {
+    o.setAttribute('disabled', 'disabled');
+  }
+}
+
 // Start playing
 dialog.once('hide', () => {
-  game.load(region.value);
+  game.load(region.value, parseInt(length.value), month.value);
 })
 
