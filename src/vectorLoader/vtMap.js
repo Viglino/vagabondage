@@ -1,6 +1,7 @@
 import ol_ext_element from 'ol-ext/util/element';
 import Map from 'ol/Map'
 import View from 'ol/View'
+import { buffer, boundingExtent } from 'ol/extent';
 
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile'
@@ -222,16 +223,15 @@ function vtFeature(feature) {
 /* Vector loader */
 function getFeaturesAtPixel(pixel, options, cback) {
   const features = mapLoader.getFeaturesAtPixel(pixel, { hitTolerance: options.tolerance || 100 });
-  const resp = [];
-  features.forEach(f => {
-    if (options.filter) {
+  if (options.filter) {
+    const resp = [];
+    features.forEach(f => {
       if (options.filter && f.get('layer') === options.filter) resp.push(f);
-    }
-  })
-  resp.forEach((f,i) => {
-    resp[i] = vtFeature(f);
-  })
-  cback(resp);
+    })
+    cback(resp);
+  } else {
+    cback(features);
+  }
 }
 
 /* GetFeature at pixel (on render complete) */
@@ -246,9 +246,31 @@ function getFeaturesAt(coord, options, cback) {
   })
 }
 
+function getFeaturesInExtent(coord, options, cback) {
+  mapLoader.getView().setCenter(coord);
+  setTimeout(() => {
+    mapLoader.once('rendercomplete', () => {
+      const extent = buffer(boundingExtent([coord]), (options.tolerance || 100) * mapLoader.getView().getResolution());
+      const features = vtLayer.getSource().getFeaturesInExtent(extent);
+      if (options.filter) {
+        const resp = [];
+        features.forEach(f => {
+          if (options.filter && f.get('layer') === options.filter) resp.push(f);
+        })
+        cback(resp);
+      } else {
+        cback(features);
+      }
+    });
+    mapLoader.render();
+  });
+}
+
 const vtLoader = {
   map: mapLoader,
+  layer: vtLayer,
   getFeaturesAt: getFeaturesAt,
+  getFeaturesInExtent: getFeaturesInExtent,
   vtFeature: vtFeature
 }
 /* DEBUG */

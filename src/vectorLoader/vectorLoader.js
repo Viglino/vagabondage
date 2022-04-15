@@ -186,7 +186,8 @@ VectorLoader.prototype.getRoad = function(c, cback) {
   })
   /**/
   // Load on vtMap
-  vtLoader.getFeaturesAt(c, {
+  // vtLoader.getFeaturesAt(c, {
+  vtLoader.getFeaturesInExtent(c, {
     filter: 'troncon_de_route',
     tolerance: 400
   }, (features) => {
@@ -213,9 +214,10 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
   const c = getCoord();
   this.on('loading', wait)
   // Load on vtMap
-  vtLoader.getFeaturesAt(c, {
+  //vtLoader.getFeaturesAt(c, {
+  vtLoader.getFeaturesInExtent(c, {
     filter: 'batiment',
-    tolerance: 1000
+    tolerance: 500
   }, (features) => {
     // Get closest road
     let building;
@@ -235,7 +237,7 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
       this.getBuilding(getCoord, cback);
     }
   })
-  /*
+  /* Load on WFS * /
   this.setActive(['bati'], c);
   this.once('ready', () => {
     // remove handler
