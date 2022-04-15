@@ -3,6 +3,7 @@ import { buffer, boundingExtent } from 'ol/extent';
 import dialog from '../map/dialog';
 
 import mapLoader from './mapLoader';
+import { vtLoader } from './vtMap'
 import { sources, layers } from './vectorData';
 import Ajax from 'ol-ext/util/Ajax';
 import { computeDestinationPoint } from 'ol-ext/geom/sphere'
@@ -169,7 +170,8 @@ VectorLoader.prototype.getRoad = function(c, cback) {
   dialog.setProgress(0,1,'<i class="fg-layer-alt-o"></i> loading road...')
 
   this.on('loading', wait)
-  this.setActive(['route','clc'/*,'bati'*/], c);
+  /* Load on WFS * /
+  this.setActive(['route','clc'], c);
   // Zoom to start
   this.once('ready', () =>{
     // remove handler
@@ -182,6 +184,23 @@ VectorLoader.prototype.getRoad = function(c, cback) {
     // Found any road?
     cback (road);
   })
+  /**/
+  // Load on vtMap
+  vtLoader.getFeaturesAt(c, {
+    filter: 'troncon_de_route',
+    tolerance: 400
+  }, (features) => {
+    // Get closest road
+    let road;
+    features.forEach(f => {
+      // Search for 'route' & importance 3 or 4
+      if (/route/i.test(f.get('nature')) && f.get('importance') < 5 && f.get('importance') > 2) {
+        road = f;
+      }
+    })
+    road = vtLoader.vtFeature(road)
+    cback(road);
+  })
 }
 
 /** Get a building around a coord
@@ -193,6 +212,30 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
 
   const c = getCoord();
   this.on('loading', wait)
+  // Load on vtMap
+  vtLoader.getFeaturesAt(c, {
+    filter: 'batiment',
+    tolerance: 1000
+  }, (features) => {
+    // Get closest road
+    let building;
+    console.log('buildings', features.length)
+    features.forEach(f => {
+      // Search for 'batiment' & usage_1 = Résidentiel
+      if (/r.sidentiel/i.test(f.get('usage_1'))) {
+        building = f;
+      }
+    })
+    // Found any building?
+    if (building) {
+      cback (vtLoader.vtFeature(building));
+    } else {
+      // Look for another direction
+      console.log('no building')
+      this.getBuilding(getCoord, cback);
+    }
+  })
+  /*
   this.setActive(['bati'], c);
   this.once('ready', () => {
     // remove handler
@@ -214,6 +257,7 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
       this.getBuilding(getCoord, cback);
     }
   })
+  */
 }
 
 /** Load game info inisde a region
@@ -241,12 +285,12 @@ VectorLoader.prototype.loadGame = function(region, length, cback) {
             })
           } else {
             console.log('no building...')
-            return this.loadGame(region, cback);
+            return this.loadGame(region, length, cback);
           }
         });
       } else {
         console.log('no road...')
-        return this.loadGame(region, cback);
+        return this.loadGame(region, length, cback);
       }
     })
   })

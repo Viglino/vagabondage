@@ -39,8 +39,12 @@ const mapLoader = new Map({
 
 
 // Handle map loading
-mapLoader.on('loadstart', mapLoader.set('loading', true))
-mapLoader.on('loadend', mapLoader.set('loading', false))
+mapLoader.on('loadstart', () => {
+  mapLoader.set('loading', true);
+});
+mapLoader.on('loadend', () => {
+  mapLoader.set('loading', false);
+});
 
 const style = {
   // BDTOPO
@@ -175,6 +179,16 @@ mapLoader.addLayer(select);
 mapLoader.on('click', e => {
   select.getSource().clear();
   const feature = mapLoader.getFeaturesAtPixel(e.pixel)[0]
+  if (feature) {
+    select.getSource().addFeature(vtFeature(feature));
+  }
+})
+
+/** Get vtile object as Feature
+ * @param {Object} feature
+ * @returns {ol/Feature}
+ */
+function vtFeature(feature) {
   if (feature && !(feature instanceof Feature)) {
     var coords = [];
     var c = feature.getFlatCoordinates();
@@ -199,10 +213,46 @@ mapLoader.on('click', e => {
     }
     var geom = ol_geom_createFromType(feature.getType(), coords);
     var f2 = new Feature(geom);
-    f2.setProperties(feature.getProperties())
-    select.getSource().addFeature(f2);
+    f2.setProperties(feature.getProperties());
+    return f2;
   }
-})
-/* DEBUG */
+  return feature;
+}
 
+/* Vector loader */
+function getFeaturesAtPixel(pixel, options, cback) {
+  const features = mapLoader.getFeaturesAtPixel(pixel, { hitTolerance: options.tolerance || 100 });
+  const resp = [];
+  features.forEach(f => {
+    if (options.filter) {
+      if (options.filter && f.get('layer') === options.filter) resp.push(f);
+    }
+  })
+  resp.forEach((f,i) => {
+    resp[i] = vtFeature(f);
+  })
+  cback(resp);
+}
+
+/* GetFeature at pixel (on render complete) */
+function getFeaturesAt(coord, options, cback) {
+  mapLoader.getView().setCenter(coord);
+  setTimeout(() => {
+    const pixel = mapLoader.getPixelFromCoordinate(coord);
+    mapLoader.once('rendercomplete', () => {
+      getFeaturesAtPixel(pixel, options, cback);
+    })
+    mapLoader.render();
+  })
+}
+
+const vtLoader = {
+  map: mapLoader,
+  getFeaturesAt: getFeaturesAt,
+  vtFeature: vtFeature
+}
+/* DEBUG */
+window.vtLoader = vtLoader;
+
+export { vtLoader }
 export default mapLoader
