@@ -9,7 +9,7 @@ import regions from '../vectorLoader/regions'
 import intro from './intro.html'
 import './intro.css'
 
-// Show g intro
+// Show intro dialog
 dialog.show({
   content: intro,
   className: 'intro',
@@ -20,13 +20,13 @@ const region = dialog.getContentElement().querySelector('.region');
 const length = dialog.getContentElement().querySelector('.length');
 const month = dialog.getContentElement().querySelector('.month');
 
-// region.addEventListener('change', () => dialog.close());
-// Add option
+// Add regions option
 regions.forEach((f, i) => {
   element.create('OPTION', { text: f.get('nom'), value: i, parent: region });
 });
 region.value = Math.floor(Math.random() * regions.length);
 
+// Add season month
 const deft = Math.floor(Math.random()*6) + 4;
 for (let m=1; m<=12; m++) {
   const o = element.create('OPTION', {
@@ -35,7 +35,7 @@ for (let m=1; m<=12; m++) {
     parent: month
   });
   if (m===deft) o.setAttribute('selected', 'selected');
-  // spring - summer
+  // Only spring - summer (no meteo)
   if (m < 4 || m > 9) {
     o.setAttribute('disabled', 'disabled');
   }

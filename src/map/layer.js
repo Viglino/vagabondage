@@ -97,6 +97,15 @@ function styleFn(f, res) {
         zIndex: 1
       })
     }
+    case 'travel': {
+      return new Style({
+        stroke: new Stroke({
+          color: [255,0,0,.5],
+          width: 100 / res,
+          lineCap: 'square'
+        })
+      })
+    }
     default: return style;
   }
 }

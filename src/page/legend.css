@@ -12,6 +12,44 @@
   margin: 0;
 }
 
+.legendDialog b:before {
+  content: "";
+  position: absolute;
+  background-image: url(../img/highlight.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  mix-blend-mode: multiply;
+  top:0;
+  left: -1em;
+  bottom: 0;
+  right: -1em;
+  border-radius: 1em;
+}
+.legendDialog b {
+  position: relative;
+  display: inline-block;
+  font-weight: normal;
+  cursor: pointer;
+}
+.legendDialog b i {
+  display: none;
+  font-family: cursive;
+  font-style: normal;
+  color: #a00;
+  background-color: rgba(255,255,255,.2);
+  text-shadow: 1px 1px #fff, 1px -1px #fff, -1px -1px #fff, -1px 1px #fff;
+  font-size: 1.1em;
+  position: absolute;
+  top: -1.5em;
+  left: 80%;
+  transform: rotate(-5deg) translateX(-50%);
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.legendDialog b:hover i {
+  display: block;
+}
+
 .legendDialog img {
   width: 150px;
   float: left;

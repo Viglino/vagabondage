@@ -3,9 +3,9 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { toLonLat } from 'ol/proj';
 import { getDistance } from 'ol/sphere';
-import VectorLayer from 'ol/layer/Vector';
 import element from 'ol-ext/util/element'
 import Gauge from 'ol-ext/control/Gauge'
+import 'ol-ext/render/Cspline'
 
 import pages from './page/pages'
 import map from './map/map';
@@ -15,7 +15,6 @@ import vectorLoader from './vectorLoader/vectorLoader';
 import layer, { layerCarte } from './map/layer'
 import routing from './map/routing';
 
-import { style as redStyle } from './map/layer'
 
 import vtlayer from './vectorLoader/vtMap'
 import mapInfo from './vectorLoader/mapInfo'
@@ -114,7 +113,7 @@ Game.prototype.getLife = function() {
 };
 
 /** Set current status
- * 
+ * Debug
  */
 Game.prototype.getStatus = function(road, land, bati) {
   const status = {
@@ -131,10 +130,12 @@ Game.prototype.getStatus = function(road, land, bati) {
   return status;
 }
 
-/** Load a new game in region
+/** Load a new game 
  * @param {string} region region id
+ * @param {number} length travel length (in meter)
+ * @param {number} month
  */
-Game.prototype.load = function(region, length) {
+Game.prototype.load = function(region, length, month) {
   vectorLoader.loadGame(region, length, g => {
     for (let i in g) this.set(i, g[i]);
     this.set('position', this.get('start'));
@@ -167,6 +168,11 @@ Game.prototype.load = function(region, length) {
 
     vectorLoader.getRouting(g.start, g.end, result => {
       layer.getSource().addFeature(result.feature);
+      const feature = result.feature.clone();
+      feature.set('style', 'travel');
+      const l = feature.getGeometry().getLength();
+      feature.setGeometry(feature.getGeometry().simplify(l/20).cspline({ pointsPerSeg: l/100 }));
+      layerCarte.getSource().addFeature(feature);
       status['distance'] = (result.distance/1000).toFixed(1)+' km';
       const h = Math.floor(result.duration / 60)
       status['temps estimé'] = h+'h'+('0'+Math.floor(result.duration-h*60)).substr(-2);
