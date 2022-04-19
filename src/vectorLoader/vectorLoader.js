@@ -169,8 +169,8 @@ VectorLoader.prototype.getCountryside = function(region, cback) {
 VectorLoader.prototype.getRoad = function(c, cback) {
   dialog.setProgress(0,1,'<i class="fg-layer-alt-o"></i> loading road...')
 
-  this.on('loading', wait)
   /* Load on WFS * /
+  this.on('loading', wait)
   this.setActive(['route','clc'], c);
   // Zoom to start
   this.once('ready', () =>{
@@ -186,7 +186,6 @@ VectorLoader.prototype.getRoad = function(c, cback) {
   })
   /**/
   // Load on vtMap
-  // vtLoader.getFeaturesAt(c, {
   vtLoader.getFeaturesInExtent(c, {
     filter: 'troncon_de_route',
     tolerance: 400
@@ -212,9 +211,7 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
   dialog.setProgress(0,1,'<i class="fg-layer-stack-o"></i> loading building...')
 
   const c = getCoord();
-  this.on('loading', wait)
   // Load on vtMap
-  //vtLoader.getFeaturesAt(c, {
   vtLoader.getFeaturesInExtent(c, {
     filter: 'batiment',
     tolerance: 500
@@ -238,6 +235,7 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
     }
   })
   /* Load on WFS * /
+  this.on('loading', wait)
   this.setActive(['bati'], c);
   this.once('ready', () => {
     // remove handler
@@ -278,6 +276,7 @@ VectorLoader.prototype.loadGame = function(region, length, cback) {
           return fromLonLat(computeDestinationPoint(toLonLat(c), length*1000 + 5000*Math.random(), Math.random()*2*Math.PI));
         }, building => {
           if (building) {
+            this.setActive([]);
             return cback({
               start: c,
               end: getCenter(building.getGeometry().getExtent()),

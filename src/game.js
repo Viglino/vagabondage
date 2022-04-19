@@ -202,7 +202,8 @@ Game.prototype.start = function() {
   }], {
     done: () => {
       this.map.getView().setMinZoom(13.01);
-      vectorLoader.setActive(['clc','bati','route'], this.get('start'));
+      // vectorLoader.setActive(['clc','bati','route'], this.get('start'));
+      vectorLoader.setActive([]);
     }
   })
 }
@@ -230,6 +231,7 @@ Game.prototype.nextStep = function(e) {
   // Get around
   this.map.getView().setCenter(position);
   setTimeout(() => console.table(mapInfo.getAround(20, position)));
+  /*
   vectorLoader.setActive(['clc','bati','route'], position);
   vectorLoader.once('ready', () => {
     const building = vectorLoader.source.bati.getClosestFeatureToCoordinate(position);
@@ -237,6 +239,7 @@ Game.prototype.nextStep = function(e) {
     const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(position);
     this.getStatus(road, land, building);
   })
+  */
 }
 
 /** Set debug mode

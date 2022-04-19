@@ -117,6 +117,18 @@ const vector = new VectorLayer({
 });
 map.addLayer(vector);
 
+// Debug layer
+const debug = new VectorLayer({
+  source: new VectorSource(),
+  style: new Style({
+    stroke: new Stroke({
+      color: [255,0,0,.5],
+      width: 2
+    })
+  })
+});
+map.addLayer(debug);
+
 // Carte layer
 const carte = new Geoportail({ 
   layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS', 
@@ -164,5 +176,5 @@ map.addControl(new ToggleControl({
 }))
 
 export { style }
-export { layerCarte }
+export { layerCarte, debug }
 export default vector

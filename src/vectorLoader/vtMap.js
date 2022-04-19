@@ -220,6 +220,18 @@ function vtFeature(feature) {
   return feature;
 }
 
+/** Get features as ol/Features
+ * @param {Array<Object>} features
+ * @returns {Arrat<ol/Feature>}
+ */
+function vtFeatures(features) {
+  const result = []
+  features.forEach(f => {
+    result.push(vtFeature(f));
+  })
+  return result
+}
+
 /* Vector loader */
 function getFeaturesAtPixel(pixel, options, cback) {
   const features = mapLoader.getFeaturesAtPixel(pixel, { hitTolerance: options.tolerance || 100 });
@@ -271,7 +283,8 @@ const vtLoader = {
   layer: vtLayer,
   getFeaturesAt: getFeaturesAt,
   getFeaturesInExtent: getFeaturesInExtent,
-  vtFeature: vtFeature
+  vtFeature: vtFeature,
+  vtFeatures: vtFeatures
 }
 /* DEBUG */
 window.vtLoader = vtLoader;
