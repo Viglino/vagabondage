@@ -12,6 +12,8 @@
   padding: .3em 1em .3em 0;
   cursor: pointer;
   margin: .5em 0;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .jumper li:nth-child(2) {
   transform: translateX(-100%);
@@ -26,6 +28,12 @@
 [data-mode="carte"] .jumper,
 [data-mode="carte"] .jumper li {
   transform: translateX(0%);
+}
+
+@media (max-width: 1000px) {
+  .jumper li {
+    width: 2em;
+  }
 }
 
 /* Gauge */

@@ -2,5 +2,12 @@
   "movePoint": "Déplace le point",
   "longStage": "<i class=\"fa fa-warning\"></i> Etape trop longue...",
   "goTo": "Relâche pour aller jusqu'ici...",
-  "crossThrough": "Couper à travers champs"
+  "crossThrough": "Couper à travers champs",
+  "noCrossing:road": "Tu ne peux pas traverser une autoroute !",
+  "noCrossing:rail": "Tu ne peux pas traverser une voie ferrée !",
+  "noCrossing:building": "Tu ne peux pas traverser au milieu de bâtiments...",
+  "noCrossing:river": "Impossible de traverser cette rivère...",
+  "noCrossing:dist": "Impossible de traverser sur cette distance...",
+  "noCrossing:alti": "Dénivellé trop important",
+  "cancel": "annuler"
 }

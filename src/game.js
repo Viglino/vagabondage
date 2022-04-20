@@ -18,6 +18,7 @@ import routing from './map/routing';
 
 import vtlayer from './vectorLoader/vtMap'
 import mapInfo from './vectorLoader/mapInfo'
+import _T from './i18n/i18n'
 
 import './game.css'
 
@@ -55,6 +56,7 @@ class Game extends olObject {
       parent: d
     })
     // Goto next step on walk
+    this.routing_ = routing;
     routing.on('routing', e => this.nextStep(e));
     /** /
     // Add layers
@@ -142,10 +144,7 @@ Game.prototype.load = function(region, length, month) {
     // Status
     const status = this.getStatus(g.road, g.land);
     //layer.getSource().addFeature(g.road);
-    layer.getSource().addFeature(new Feature({
-      type: 'start',
-      geometry: new Point(g.start)
-    }));
+    this.routing_.setStart(g.start);
     const geom = g.road.getGeometry().getCoordinates();
     const dx = geom[1][0] - geom[0][0]
     const dy = geom[1][1] - geom[0][1]
@@ -211,15 +210,52 @@ Game.prototype.start = function() {
 /** Goto next step
  */
 Game.prototype.nextStep = function(e) {
+  // Crossing
+  if (e.crossing) {
+    let error = '';
+    if (e.distance > 100) {
+      error = _T('noCrossing:dist');
+    }
+    if (e.deniv > 150) {
+      error = _T('noCrossing:alti') + ' (' + e.deniv.toFixed(0) + ' m)';
+    } 
+    // Check intersections
+    if (e.intersect.count) {
+      if (e.intersect.feature.troncon_de_route) {
+        error = _T('noCrossing:road');
+      } else if (e.intersect.feature.batiment) {
+        error = _T('noCrossing:building');
+      } else if (e.intersect.feature.surface_hydrographique || e.intersect.feature.troncon_hydrographique) {
+        error = _T('noCrossing:river');
+      } else if (e.intersect.feature.troncon_de_voie_ferree) {
+        error = _T('noCrossing:rail');
+      }  
+    }
+    // Show Error
+    if (error) {
+      dialog.show({
+        title: 'Impossible de traverser ici !',
+        content: error,
+        className: 'noCrossDlg',
+        buttons: { ok: 'OK' }
+      });
+      this.routing_.setStart(e.start);
+      return;
+    }
+  }
+  console.log(e)
   // Calculate life / dist
   this.dist = (this.dist || 0) + e.routing.distance;
-  if (this.dist > 2000) {
+  while (this.dist > 2000) {
     this.setLife(this.getLife()-1);
     this.dist -= 2000;
   }
-  // Calculate position
+  // Calculate duration
+  this.duration = (this.duration || 0) + e.routing.duration;
+  // Set new position
   const position = e.end;
   this.set('position', position);
+  this.routing_.setStart(position);
   // Add features to the map
   e.routing.feature.set('style', 'route');
   layer.getSource().addFeature(e.routing.feature);
@@ -231,15 +267,6 @@ Game.prototype.nextStep = function(e) {
   // Get around
   this.map.getView().setCenter(position);
   setTimeout(() => console.table(mapInfo.getAround(20, position)));
-  /*
-  vectorLoader.setActive(['clc','bati','route'], position);
-  vectorLoader.once('ready', () => {
-    const building = vectorLoader.source.bati.getClosestFeatureToCoordinate(position);
-    const road = vectorLoader.source.route.getClosestFeatureToCoordinate(position);
-    const land = vectorLoader.source.clc.getClosestFeatureToCoordinate(position);
-    this.getStatus(road, land, building);
-  })
-  */
 }
 
 /** Set debug mode
