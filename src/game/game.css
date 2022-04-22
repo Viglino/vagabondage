@@ -1,3 +1,9 @@
+/* Disable game map */
+[data-disable-map] .map {
+  pointer-events: none;
+}
+
+/* jumper */
 .jumper {
   position: absolute;
   left: 0;

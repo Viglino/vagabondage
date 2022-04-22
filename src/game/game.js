@@ -7,20 +7,25 @@ import element from 'ol-ext/util/element'
 import Gauge from 'ol-ext/control/Gauge'
 import 'ol-ext/render/Cspline'
 
-import pages from './page/pages'
-import map from './map/map';
-import dialog, { info } from './map/dialog';
-import { clcInfo } from './vectorLoader/mapLoader';
-import vectorLoader from './vectorLoader/vectorLoader';
-import layer, { layerCarte } from './map/layer'
-import routing from './map/routing';
+import pages from '../page/pages'
+import map from '../map/map';
+import dialog, { info } from '../map/dialog';
+import { clcInfo } from '../vectorLoader/mapLoader';
+import vectorLoader from '../vectorLoader/vectorLoader';
+import layer, { layerCarte } from '../map/layer'
+import routing from '../map/routing';
+import { getRegionNameByPos, getDepartementName } from '../vectorLoader/regions'
 
-
-import vtlayer from './vectorLoader/vtMap'
-import mapInfo from './vectorLoader/mapInfo'
-import _T from './i18n/i18n'
+import vtlayer from '../vectorLoader/vtMap'
+import mapInfo from '../vectorLoader/mapInfo'
+import _T from '../i18n/i18n'
+import help from '../page/help'
+import story from './story'
 
 import './game.css'
+import ol_ext_Ajax from 'ol-ext/util/Ajax';
+
+document.body.dataset.disableMap = '';
 
 /** Game object
  */
@@ -41,12 +46,12 @@ class Game extends olObject {
       parent: document.body
     })
     element.create('LI', {
-      html: '<i class="fg-position"></i> Position',
+      html: '<i class="fg-position"></i> Ta position',
       click: () => this.flyTo(this.get('position')),
       parent: d
     })
     element.create('LI', {
-      html: '<i class="fg-location-arrow"></i> Destination',
+      html: '<i class="fg-location-arrow"></i> Ta destination',
       click: () => this.flyTo(this.get('end')),
       parent: d
     })
@@ -141,6 +146,31 @@ Game.prototype.load = function(region, length, month) {
   vectorLoader.loadGame(region, length, g => {
     for (let i in g) this.set(i, g[i]);
     this.set('position', this.get('start'));
+    this.set('distance', 0);
+    this.set('duration', 0);
+    // Get commune / start info
+    const startInfo = {
+      region: getRegionNameByPos(region),
+      road: g.road.get('cpx_numero'),
+      roadClass: g.road.get('cpx_classement_administratif'),
+      roadNature: g.road.get('nature'),
+      clc: g.land.get('code_18'),
+      paysage: clcInfo[g.land.get('code_18')].title
+    }
+    this.set('startInfo', startInfo);
+    const pos = toLonLat(g.start);
+    ol_ext_Ajax.get({
+      url: 'https://geo.api.gouv.fr/communes?lon=' + pos[0] + '&lat=' + pos[1],
+      success: (r => {
+        if (r.length) {
+          startInfo.commune = r[0].nom;
+          startInfo.pop = r[0].population;
+          startInfo.idDep = r[0].codeDepartement;
+          startInfo.region = getRegionNameByPos(region);
+          startInfo.departement = getDepartementName(r[0].codeDepartement);
+        }
+      })
+    })
     // Status
     const status = this.getStatus(g.road, g.land);
     //layer.getSource().addFeature(g.road);
@@ -166,7 +196,7 @@ Game.prototype.load = function(region, length, month) {
     layer.getSource().addFeature(g.building);
 
     vectorLoader.getRouting(g.start, g.end, result => {
-      layer.getSource().addFeature(result.feature);
+      // layer.getSource().addFeature(result.feature);
       const feature = result.feature.clone();
       feature.set('style', 'travel');
       const l = feature.getGeometry().getLength();
@@ -175,23 +205,28 @@ Game.prototype.load = function(region, length, month) {
       status['distance'] = (result.distance/1000).toFixed(1)+' km';
       const h = Math.floor(result.duration / 60)
       status['temps estimé'] = h+'h'+('0'+Math.floor(result.duration-h*60)).substr(-2);
-      info.status(status)
+      info.status(status);
+      // Total distance / duration
+      this.set('tDistance', result.distance);
+      this.set('tDuration', result.duration);
+      // Start
+      dialog.hide();
+      this.start();
     });
-    dialog.hide();
 
     // Set center
     layerCarte.getSource().addFeature(new Feature({
       style: 'start',
       geometry: new Point(g.start)
     }));
-
-    this.start();
   })
 }
 
 /** Start a new game
  */
 Game.prototype.start = function() {
+  // Remove loader
+  vectorLoader.setActive([]);
   // Zoom to start
   this.map.getView().takeTour([{
     type: 'flyTo', 
@@ -201,10 +236,18 @@ Game.prototype.start = function() {
   }], {
     done: () => {
       this.map.getView().setMinZoom(13.01);
-      // vectorLoader.setActive(['clc','bati','route'], this.get('start'));
-      vectorLoader.setActive([]);
+      delete document.body.dataset.disableMap;
+      // Show help
+      help.show('main').then(() => this.begin());
     }
   })
+}
+
+/** Begin game
+ */
+Game.prototype.begin = function() {
+  console.log('BEGIN', this);
+  this.getArround();
 }
 
 /** Goto next step
@@ -243,15 +286,15 @@ Game.prototype.nextStep = function(e) {
       return;
     }
   }
-  console.log(e)
   // Calculate life / dist
   this.dist = (this.dist || 0) + e.routing.distance;
   while (this.dist > 2000) {
     this.setLife(this.getLife()-1);
     this.dist -= 2000;
   }
-  // Calculate duration
-  this.duration = (this.duration || 0) + e.routing.duration;
+  // Calculate distance / duration
+  this.set('distance', (this.get('distance') || 0) + e.routing.distance);
+  this.set('duration', (this.get('duration') || 0) + e.routing.duration);
   // Set new position
   const position = e.end;
   this.set('position', position);
@@ -264,10 +307,19 @@ Game.prototype.nextStep = function(e) {
     geometry: new Point(position)
   }));
   layerCarte.getSource().addFeature(e.routing.feature);
-  // Get around
+  // Get arround
   this.map.getView().setCenter(position);
-  setTimeout(() => console.table(mapInfo.getAround(20, position)));
+  this.getArround();
 }
+
+/** Get information arround current position
+ */
+Game.prototype.getArround = function() {
+  setTimeout(() => {
+    this.arround = mapInfo.getAround(20, this.get('position'));
+    console.table(this.arround)
+  });
+};
 
 /** Set debug mode
  * @param {boolean} b
@@ -288,6 +340,7 @@ Game.prototype.debug = function(b) {
   }
   */
   if (!window.vectorLoader) {
+    this.map.addControl(info);
     this.map.on('click', e => {
       const f = this.map.getFeaturesAtPixel(e.pixel);
       if (f.length) {

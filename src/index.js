@@ -6,8 +6,9 @@ import './index.css'
 import 'font-awesome/css/font-awesome.css'
 import 'font-gis/css/font-gis.css'
 import './page/intro'
+import './page/about'
 
-import game from './game'
+import game from './game/game'
 
 /* Debug */
 window.map = map;

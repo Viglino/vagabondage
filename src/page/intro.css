@@ -4,6 +4,10 @@
 .ol-ext-dialog.intro form h1 {
   margin: 0;
 }
+.ol-ext-dialog.intro form h1 img {
+  vertical-align: middle;
+}
+
 .ol-ext-dialog.intro form label {
   display: inline-block;
   width: 8em;

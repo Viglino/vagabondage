@@ -1,7 +1,7 @@
 import element from 'ol-ext/util/element';
 
 import dialog from '../map/dialog';
-import game from '../game'
+import game from '../game/game'
 
 
 import regions from '../vectorLoader/regions'

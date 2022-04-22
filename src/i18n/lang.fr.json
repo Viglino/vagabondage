@@ -9,5 +9,6 @@
   "noCrossing:river": "Impossible de traverser cette rivère...",
   "noCrossing:dist": "Impossible de traverser sur cette distance...",
   "noCrossing:alti": "Dénivellé trop important",
+  "close": "fermer",
   "cancel": "annuler"
 }

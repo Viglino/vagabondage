@@ -6,6 +6,10 @@
   right: 0;
 }
 
+.map .ol-attribution {
+  display: none;
+}
+
 .ghostMap {
   position: fixed;
   bottom: 100%;

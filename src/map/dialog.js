@@ -11,7 +11,7 @@ map.addControl(dialog);
 // Status information
 const info = new Status;
 info.setVisible(true);
-map.addControl(info);
+// map.addControl(info);
 
 export { info }
 export default dialog

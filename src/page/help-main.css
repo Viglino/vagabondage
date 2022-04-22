@@ -1,0 +1,91 @@
+.helpPage {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  cursor: help;
+}
+.helpPage.visible {
+  display: block;
+}
+
+.helpPage kbd {
+  display: inline-block;
+  background-image: linear-gradient(90deg, #ddd, #ccc, #ddd);
+  border-radius: 3px;
+  color: #666;
+  border: 1px solid #666;
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #aaa;
+  text-shadow: 1px 1px #fff;
+  padding: 0 .3em;
+  margin: 0 .25em;
+}
+
+.helpPage > * {
+  display: none;
+}
+.helpPage[data-step="1"] > .step-1,
+.helpPage[data-step="2"] > .step-2,
+.helpPage[data-step="3"] > .step-3,
+.helpPage[data-step="4"] > .step-4,
+.helpPage[data-step="5"] > .step-5 {
+  display: block;
+}
+
+.helpPage > p {
+  position: absolute;
+  margin: 0;
+  width: 21em;
+  max-width: 90%;
+  font-size: 1.5em;  
+}
+
+#mainHelp {
+  background-image: radial-gradient(circle at center, transparent 5.5em, rgba(0,0,0,.6) 6em);
+}
+#mainHelp[data-step="3"] {
+  background-image: radial-gradient(circle at calc(100% - 4.5em) calc(100% - 3.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
+}
+#mainHelp i.fa-arrows {
+  margin-right: .2em;
+}
+
+#mainHelp p.step-1 {
+  bottom: calc(50% + 4em);
+  left: 50%;
+  transform: translateX(-40%);
+}
+#mainHelp p.step-2 {
+  top: calc(50% + 4em);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+#mainHelp p.step-3 {
+  bottom: 6em;
+  right: 1em;
+  text-align: right;
+}
+#mainHelp[data-step="4"] {
+  background-image: none;
+  background-color: rgba(0,0,0,.6);
+}
+#mainHelp p.step-4 {
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  text-align: center;
+  background-color: #fff;
+  color: #000;
+  padding: 1em;
+  width: auto;
+  box-shadow: 3px 3px 4px rgba(0,0,0,.5);
+  border-radius: 3px;
+}
+#mainHelp p.step-4 img {
+  display: block;
+  margin: .5em auto 0;
+}

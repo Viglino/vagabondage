@@ -1,0 +1,21 @@
+.ol-control.about {
+  bottom: .5em;
+  right: .5em;
+}
+
+.ol-ext-dialog.about form {
+  width: 55em;
+}
+.ol-ext-dialog.about h1 {
+  margin: 0;
+}
+.ol-ext-dialog.about .accroche {
+  text-align: center;
+  font-size: 1.2em;
+}
+.ol-ext-dialog.about h1 img {
+  vertical-align: middle;
+}
+.ol-ext-dialog.about form {
+  overflow: hidden;
+}
