@@ -123,7 +123,7 @@ function wait(e) {
     closeBox: false
   })
   */
- dialog.setProgress(e.nb, e.max, dialog._progressMessage.innerHTML);
+  dialog.setProgress(e.nb, e.max, dialog._progressMessage.innerHTML);
 }
 
 /** Get a countryside place in the region
@@ -146,18 +146,20 @@ VectorLoader.prototype.getCountryside = function(region, cback) {
     this.un('loading', wait)
     // Look for country code (no urban area)
     let country = true;
+    let land;
     const extent = buffer(boundingExtent([c]),1000);
     this.source.clc.forEachFeatureInExtent(extent, (f) => {
       if (f.get('code_18') < 200) {
         country = false;
       }
+      land = f;
     });
     // Found a countryside?
     if (!country) {
       console.log('not countryside...')
       this.getCountryside(region, cback);
     } else {
-      cback(c);
+      cback(c, land);
     }
   })
 }
@@ -265,13 +267,13 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
  */
 VectorLoader.prototype.loadGame = function(region, length, cback) {
   // Get a countryside
-  this.getCountryside(region, c => {
+  this.getCountryside(region, (c, landscape) => {
     // Get the closest road
     this.getRoad(c, road => {
       // Found any road?
       if (road) {
         c = road.getGeometry().getCoordinates()[1];
-        const land = this.source.clc.getClosestFeatureToCoordinate(c);
+        const land = this.source.clc.getClosestFeatureToCoordinate(c) || landscape;
         this.getBuilding(() => {
           return fromLonLat(computeDestinationPoint(toLonLat(c), length*1000 + 5000*Math.random(), Math.random()*2*Math.PI));
         }, building => {

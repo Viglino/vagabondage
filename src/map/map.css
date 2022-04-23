@@ -10,6 +10,9 @@
   display: none;
 }
 
+.map .ol-control button {
+  font-size: 1.3em;
+}
 .ghostMap {
   position: fixed;
   bottom: 100%;
@@ -61,3 +64,81 @@
   bottom: 50px;
   left: 50px;
 }
+
+.ol-popup.tooltips .ol-popup-content i.fa {
+  transform: scaleX(1.3);
+  margin: 0 0.5em 0 0;
+}
+
+.map .ol-rotate {
+  visibility: visible;
+  opacity: 1;
+  top: 1em;
+  border-radius: 50%;
+}
+.map .ol-rotate button {
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 50%;
+}
+.map .ol-rotate button span {
+  color: transparent;
+  position: relative;
+}
+.map .ol-rotate button span:before {
+  content: "";
+  position: absolute;
+  height: 1.4em;
+  width: 1.4em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) scaleX(.3) rotate(45deg);
+  box-sizing: border-box;
+  background-image: linear-gradient(-45deg,#ccc 50%,#800 0);
+}
+.map .ol-rotate button span:after {
+  content: "";
+  position: absolute;
+  height: 0.3em;
+  width: 0.3em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.map .ol-control.gameInfo {
+  width: auto;
+  height: auto;
+  top: 4em;
+  left: auto;
+  right: .5em;
+  background-color: rgba(255,255,255,0.8);
+  color: #000;
+  padding: .5em;
+  text-align: right;
+  transition: .5s;
+}
+.map .ol-control.gameInfo .date {
+  transform: scaleY(1.5);
+}
+.map .ol-control.gameInfo .hour {
+  font-size: 2em;
+  vertical-align: middle;
+  margin-left: .25em;
+}
+
+.map .ol-control.gameInfo.start,
+.map .ol-control.gameInfo.start0 {
+  background-color: rgba(255,255,255,1);
+  font-size: 1.5em;
+  text-align: center;
+  top: 0;
+  right: 50%;
+  transform: translate(50%, -110%);
+}
+.map .ol-control.gameInfo.start {
+  top: 30%;
+  transform: translate(50%, -30%);
+}
+

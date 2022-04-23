@@ -8,7 +8,7 @@ import Gauge from 'ol-ext/control/Gauge'
 import 'ol-ext/render/Cspline'
 
 import pages from '../page/pages'
-import map from '../map/map';
+import map, { infoControl } from '../map/map';
 import dialog, { info } from '../map/dialog';
 import { clcInfo } from '../vectorLoader/mapLoader';
 import vectorLoader from '../vectorLoader/vectorLoader';
@@ -20,10 +20,13 @@ import vtlayer from '../vectorLoader/vtMap'
 import mapInfo from '../vectorLoader/mapInfo'
 import _T from '../i18n/i18n'
 import help from '../page/help'
-import story from './story'
+import { getRandomStory } from './story'
+import { formatDate, m2km } from '../page/utils';
+
+import ol_ext_Ajax from 'ol-ext/util/Ajax';
+import showDialogInfo from '../page/dialogInfo'
 
 import './game.css'
-import ol_ext_Ajax from 'ol-ext/util/Ajax';
 
 document.body.dataset.disableMap = '';
 
@@ -143,9 +146,12 @@ Game.prototype.getStatus = function(road, land, bati) {
  * @param {number} month
  */
 Game.prototype.load = function(region, length, month) {
+  this.story = getRandomStory();
   vectorLoader.loadGame(region, length, g => {
     for (let i in g) this.set(i, g[i]);
     this.set('position', this.get('start'));
+    this.set('destination', getDistance(toLonLat(this.get('position')), toLonLat(this.get('end'))));
+    this.set('date', new Date());
     this.set('distance', 0);
     this.set('duration', 0);
     // Get commune / start info
@@ -155,7 +161,8 @@ Game.prototype.load = function(region, length, month) {
       roadClass: g.road.get('cpx_classement_administratif'),
       roadNature: g.road.get('nature'),
       clc: g.land.get('code_18'),
-      paysage: clcInfo[g.land.get('code_18')].title
+      paysage: clcInfo[g.land.get('code_18')].title,
+      biome: clcInfo[g.land.get('code_18')].biome
     }
     this.set('startInfo', startInfo);
     const pos = toLonLat(g.start);
@@ -237,8 +244,7 @@ Game.prototype.start = function() {
     done: () => {
       this.map.getView().setMinZoom(13.01);
       delete document.body.dataset.disableMap;
-      // Show help
-      help.show('main').then(() => this.begin());
+      this.begin();
     }
   })
 }
@@ -246,8 +252,29 @@ Game.prototype.start = function() {
 /** Begin game
  */
 Game.prototype.begin = function() {
-  console.log('BEGIN', this);
-  this.getArround();
+  console.log('BEGIN', this.getProperties());
+  const info = this.get('startInfo')
+  let intro = this.story.introduction.replace(/\n/g, '<br/>');
+  intro = intro.replace('%biome%', info.biome);
+  intro = intro.replace('%distance%', m2km(this.get('tDistance')));
+  if (info.roadClass && info.road) {
+    intro = intro.replace('%routeInfo%', 'sur la ' + info.roadClass.toLocaleLowerCase() + ' ' + info.road);
+  } else {
+    intro = intro.replace('%routeInfo%', 'à côté de ' + info.commune);
+  }
+  intro = intro.split('<>');
+  showDialogInfo(intro, this.story.title, () => {
+    // Show help
+    help.show('main').then(() => {
+      this.map.getView().animate({ zoom: 19.5 });
+      this.getArround();
+      setTimeout(() => {
+        infoControl.element.classList.add('start');
+        infoControl.element.classList.remove('start0');
+        map.once('click', () => infoControl.element.classList.remove('start'));
+      }, 500);
+    });
+  });
 }
 
 /** Goto next step
@@ -298,6 +325,7 @@ Game.prototype.nextStep = function(e) {
   // Set new position
   const position = e.end;
   this.set('position', position);
+  this.set('destination', getDistance(toLonLat(this.get('position')), toLonLat(this.get('end'))))
   this.routing_.setStart(position);
   // Add features to the map
   e.routing.feature.set('style', 'route');
@@ -314,10 +342,22 @@ Game.prototype.nextStep = function(e) {
 
 /** Get information arround current position
  */
-Game.prototype.getArround = function() {
+Game.prototype.getArround = function(cback) {
   setTimeout(() => {
     this.arround = mapInfo.getAround(20, this.get('position'));
     console.table(this.arround)
+    if (cback) cback(this.arround);
+    // this.
+    const road = this.arround.find(f => f.layer === 'route_numerotee_ou_nommee')
+    const troncon = this.arround.find(f => f.layer === 'troncon_de_route')
+    const zone = this.arround.find(f => f.layer === 'zone_d_habitation')
+    infoControl.status(
+      (road ? road.nom || road.type_de_route + ' ' + road.numero + '<br/>' : (troncon ? troncon.nature + '<br/>' : ''))
+      + (zone ? ' ' + zone.nature + ' : ' + zone.toponyme + '<br/>' : '')
+      + (this.get('distance') ? 'Distance parcourue : ' + m2km(this.get('distance'), 1) + '<br/>' : '')
+      + 'Lieu de rendez-vous : ' + m2km(this.get('destination'), 1) + '<br/>'
+      + formatDate(new Date(this.get('date').getTime() + (this.get('duration')*60*1000)))
+    );
   });
 };
 

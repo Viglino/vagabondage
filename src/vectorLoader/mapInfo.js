@@ -19,6 +19,7 @@ mapInfo.getAround = function(around=20, coord) {
 
 //
 function getFeaturesProp(features) {
+  // Get info / nature
   const info = [];
   features.forEach(f => {
     const p = f.getProperties()

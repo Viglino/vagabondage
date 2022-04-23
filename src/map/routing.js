@@ -15,6 +15,7 @@ import Tooltip from 'ol-ext/overlay/Tooltip'
 import _T from '../i18n/i18n'
 import { vtLoader } from '../vectorLoader/vtMap';
 import Ajax from 'ol-ext/util/Ajax';
+import dialog from './dialog';
 
 // Max distance:  1.5km
 const maxDist = 1500;
@@ -237,6 +238,10 @@ Drag.prototype.setStart = function(pt) {
  * @param {ol/Feature} feature user position
  */
 Drag.prototype.checkCross = function(start, end, route) {
+  dialog.show({
+    className: 'wait',
+    content: _T('crossThrough')
+  })
   const extent = boundingExtent([start,end])
   route = route.clone();
   route.getGeometry().setCoordinates([start, end]);
@@ -295,6 +300,7 @@ Drag.prototype.checkCross = function(start, end, route) {
         }
       }
       const dist = getLength(route.getGeometry());
+      dialog.hide();
       this.dispatchEvent({
         type: 'routing',
         crossing: true,

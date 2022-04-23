@@ -46,8 +46,9 @@
 .ol-gauge {
   z-index: 1;
   background-color: transparent!important;
+  top: 1.25em;
   left: auto;
-  right: 1em;
+  right: 3em;
   transform: none;
 }
 .ol-gauge > div {

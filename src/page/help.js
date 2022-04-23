@@ -5,6 +5,7 @@ import mainHelp from './help-main.html'
 const help = {};
 let callback = null;
 
+// Help div
 help.main = ol_ext_element.create('DIV', {
   id: 'mainHelp',
   className: 'helpPage',
@@ -16,13 +17,20 @@ document.body.appendChild(help.main)
 
 /** Show help */
 function showHelp(h, step) {
-  document.querySelectorAll('.helpPage.visible').forEach(d => d.classList.remove('visible'));
-  help[h].classList.add('visible');
-  help[h].dataset.step = step || 1;
+  if (!localStorage.getItem('vagabond@help-'+h)) {
+    document.querySelectorAll('.helpPage.visible').forEach(d => d.classList.remove('visible'));
+    help[h].classList.add('visible');
+    help[h].dataset.step = step || 1;
+    localStorage.setItem('vagabond@help-'+h, 1)
+  }
   callback = null;
   return {
     then: function(cbak) {
-      callback = cbak;
+      if (document.querySelector('.helpPage.visible')) {
+        callback = cbak;
+      } else {
+        cbak();
+      }
     }
   }
 }

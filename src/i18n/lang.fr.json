@@ -9,6 +9,8 @@
   "noCrossing:river": "Impossible de traverser cette rivère...",
   "noCrossing:dist": "Impossible de traverser sur cette distance...",
   "noCrossing:alti": "Dénivellé trop important",
+  "startBt": "commencer le jeu...",
+  "nextBt": "continuer...",
   "close": "fermer",
   "cancel": "annuler"
 }

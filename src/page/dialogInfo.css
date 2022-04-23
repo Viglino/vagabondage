@@ -1,0 +1,21 @@
+.ol-ext-dialog.begin form {
+  width: 50em;
+  bottom: 1em;
+  top: auto;
+  transform: translateX(-50%);
+}
+.ol-ext-dialog.begin > form .ol-content {
+ font-size: 1.3em;
+}
+.ol-ext-dialog.begin > form h2 {
+  margin-bottom: 0;
+  padding: 0 5%;
+}
+.ol-ext-dialog.begin > form h2:before {
+  content: '';
+  background-image: url('../img/dice.png');
+  width: 112px;
+  height: 81px;
+  display: inline-block;
+  vertical-align: middle;
+}
