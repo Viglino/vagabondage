@@ -150,7 +150,11 @@ Drag.prototype.handleMoveEvent = function(evt) {
       tooltip.setInfo('')
       element.style.cursor = this.previousCursor_;
       this.previousCursor_ = undefined;
+    } else {
+      tooltip.setInfo('')
     }
+  } else {
+    tooltip.setInfo('')
   }
 }
 
@@ -286,20 +290,24 @@ Drag.prototype.checkCross = function(start, end, route) {
     debug.getSource().clear();
     for (let i in intersect) {
       if (intersect[i].getGeometry) {
-        console.log(i);
         debug.getSource().addFeature(intersect[i])
         intersectFeature(intersect[i], seg)
       }
     }
     /* */
-    this.getElevation([start, end], r => {
+    const dist = getLength(route.getGeometry());
+    this.getElevation([start, end], Math.min(100, Math.round(dist/10)), r => {
       let deniv = 0;
+      let maxD = 0;
       if (r.elevations) {
-        for (let i=1; i<r.elevations.length; i++) {
-          deniv += Math.abs(r.elevations[i-1].z - r.elevations[i].z);
+        const ele = r.elevations;
+        for (let i=1; i<ele.length; i++) {
+          const d = Math.abs(ele[i-1].z - ele[i].z);
+          const dist = getDistance([ele[i-1].lon, ele[i-1].lat], [ele[i].lon, ele[i].lat]);
+          deniv += d;
+          if (dist > 9) maxD = Math.max(maxD, d / dist)
         }
       }
-      const dist = getLength(route.getGeometry());
       dialog.hide();
       this.dispatchEvent({
         type: 'routing',
@@ -309,6 +317,7 @@ Drag.prototype.checkCross = function(start, end, route) {
         end: end,
         elevation: r.elevations,
         deniv: deniv,
+        maxD: maxD,
         routing: {
           feature: route,
           distance: dist,     // disance in m
@@ -323,14 +332,14 @@ Drag.prototype.checkCross = function(start, end, route) {
  * @param {Array<ol/Coordinate>} pts
  * @param {function} cback
  */
-Drag.prototype.getElevation = function(pts, cback) {
+Drag.prototype.getElevation = function(pts, sampling, cback) {
   const lon= [], lat =[];
   pts.forEach(p => {
     p = toLonLat(p);
     lon.push(p[0]);
     lat.push(p[1]);
   });
-  const url = 'https://wxs.ign.fr/essentiels/alti/rest/elevationLine.json?sampling=10'
+  const url = 'https://wxs.ign.fr/essentiels/alti/rest/elevationLine.json?sampling=' + sampling
     + '&lon=' + lon.join('|')
     + '&lat=' + lat.join('|');
   Ajax.get({

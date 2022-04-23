@@ -289,6 +289,9 @@ Game.prototype.nextStep = function(e) {
     if (e.deniv > 150) {
       error = _T('noCrossing:alti') + ' (' + e.deniv.toFixed(0) + ' m)';
     } 
+    if (e.maxD > .35) {
+      error = _T('noCrossing:slop') + ' (' + (e.maxD * 100).toFixed(0) + '%)';
+    } 
     // Check intersections
     if (e.intersect.count) {
       if (e.intersect.feature.troncon_de_route) {
@@ -348,18 +351,35 @@ Game.prototype.getArround = function(cback) {
     console.table(this.arround)
     if (cback) cback(this.arround);
     // this.
-    const road = this.arround.find(f => f.layer === 'route_numerotee_ou_nommee')
-    const troncon = this.arround.find(f => f.layer === 'troncon_de_route')
-    const zone = this.arround.find(f => f.layer === 'zone_d_habitation')
-    infoControl.status(
-      (road ? road.nom || road.type_de_route + ' ' + road.numero + '<br/>' : (troncon ? troncon.nature + '<br/>' : ''))
-      + (zone ? ' ' + zone.nature + ' : ' + zone.toponyme + '<br/>' : '')
-      + (this.get('distance') ? 'Distance parcourue : ' + m2km(this.get('distance'), 1) + '<br/>' : '')
-      + 'Lieu de rendez-vous : ' + m2km(this.get('destination'), 1) + '<br/>'
-      + formatDate(new Date(this.get('date').getTime() + (this.get('duration')*60*1000)))
-    );
+    const road = this.findArround(f => f.layer === 'route_numerotee_ou_nommee')
+    const troncon = this.findArround(f => f.layer === 'troncon_de_route')
+    const zone = this.findArround(f => f.layer === 'zone_d_habitation')
+    const infos = {
+      road: (road ? road.nom || road.type_de_route + ' <span class="numero">' + road.numero + '</span>' : (troncon ? troncon.nature + '<br/>' : ''))
+        + (zone ? ' ' + zone.nature + ' : ' + zone.toponyme : ''),
+      distance: (this.get('distance') ? 'Distance parcourue : ' + m2km(this.get('distance'), 1) : ''),
+      rdv: 'Lieu de rendez-vous : ' + m2km(this.get('destination'), 1),
+      time: formatDate(new Date(this.get('date').getTime() + (this.get('duration')*60*1000)))
+    }
+    let status = '';
+    for (let k in infos) {
+      if (infos[k]) {
+        status += '<p class="'+k+'">'+infos[k]+'</p>'
+      }
+    }
+    infoControl.status(status);
   });
 };
+
+/** Find something arround
+ * @param {function} filter
+ */
+Game.prototype.findArround = function(filter) {
+  for (let k in this.arround) {
+    const f = this.arround[k].find(filter);
+    if (f) return f;
+  }
+}
 
 /** Set debug mode
  * @param {boolean} b

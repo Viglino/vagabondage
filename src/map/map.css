@@ -107,6 +107,7 @@
   border-radius: 50%;
 }
 
+/* GameInfo */
 .map .ol-control.gameInfo {
   width: auto;
   height: auto;
@@ -118,6 +119,17 @@
   padding: .5em;
   text-align: right;
   transition: .5s;
+}
+
+.map .ol-control.gameInfo p {
+  margin: 0;
+}
+
+.map .ol-control.gameInfo .numero {
+  border: 1px solid #666;
+  padding: 0 0.2em;
+  border-radius: 3px;
+  background-color: #fff;
 }
 .map .ol-control.gameInfo .date {
   transform: scaleY(1.5);
@@ -133,6 +145,7 @@
   background-color: rgba(255,255,255,1);
   font-size: 1.5em;
   text-align: center;
+  width: 100%;
   top: 0;
   right: 50%;
   transform: translate(50%, -110%);
@@ -141,4 +154,3 @@
   top: 30%;
   transform: translate(50%, -30%);
 }
-
