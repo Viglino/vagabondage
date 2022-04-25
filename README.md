@@ -15,5 +15,5 @@ Entre survie et rencontres, vous incarnez un personnage en fuite dans la campagn
 
 <img src="http://fr.1001mags.com/images/Couv/J/JeuxStrategie/23442-JeuxStrategie-14-Couverture-3.jpg" align="left" width=100>
 
-[JEUX & STRATÉGIE N°14 AVR/MAI 1982](http://fr.1001mags.com/parution/jeux-strategie/numero-14-avr-mai-1982/page-22-23-texte-integral)  
+[JEUX & STRATÉGIE N°14 AVR/MAI 1982](https://regle.escaleajeux.fr/js_14_rg.pdf#page=23) sur [Escale à Jeux](https://escaleajeux.fr/)  
 [Autres Jeux & Stratégie](http://jeuxstrategie.free.fr/Cartes_routieres_presentation.php)  
