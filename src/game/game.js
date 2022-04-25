@@ -332,11 +332,12 @@ Game.prototype.nextStep = function(e) {
   this.routing_.setStart(position);
   // Add features to the map
   e.routing.feature.set('style', 'route');
-  layer.getSource().addFeature(e.routing.feature);
+  layer.getSource().addFeature(e.routing.feature.clone());
   layer.getSource().addFeature(new Feature({
     style: 'poi',
     geometry: new Point(position)
   }));
+  e.routing.feature.set('style', 'routeMap');
   layerCarte.getSource().addFeature(e.routing.feature);
   // Get arround
   this.map.getView().setCenter(position);

@@ -97,6 +97,15 @@ function styleFn(f, res) {
         zIndex: 1
       })
     }
+    case 'routeMap': {
+      return new Style({
+        stroke: new Stroke({
+          color: [0,0,128,.5],
+          width: 5
+        }),
+        zIndex: 1
+      })
+    }
     case 'travel': {
       return new Style({
         stroke: new Stroke({

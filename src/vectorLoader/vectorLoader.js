@@ -268,6 +268,7 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
 VectorLoader.prototype.loadGame = function(region, length, cback) {
   // Get a countryside
   this.getCountryside(region, (c, landscape) => {
+    // c = [-421176.0277407976, 6223878.903226052]
     // Get the closest road
     this.getRoad(c, road => {
       // Found any road?
