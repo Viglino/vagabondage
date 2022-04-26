@@ -1,3 +1,4 @@
+import ol_ext_element from "ol-ext/util/element";
 import _T from "../i18n/i18n";
 import dialog from "../map/dialog";
 import './dialogInfo.css'
@@ -7,21 +8,38 @@ import './dialogInfo.css'
  * @param {string} title
  * @param {function} cback
  */
-function showDialogInfo(info, title, cback) {
-  const content = info.shift().replace(/^<br\/>/,'');
+function showDialogInfo(info, options, cback) {
+  options = options || {};
+  const title = options.title;
+  let content;
+  if (title) {
+    content = ol_ext_element.create('DIV', {
+      html: _T('storyBy'),
+      className: 'author'
+    });
+    ol_ext_element.create('A', {
+      html: options.author,
+      href: options.authorURL,
+      target: '_new',
+      parent: content
+    })
+  } else {
+    console.log('ok')
+    content = info.shift().replace(/</g, '&lt;').replace(/^\n/,'').replace(/\n/g, '<br/>');
+  }
   dialog.show({
     content: content,
     title: title,
     className: 'begin',
-    buttons: [ info.length ? _T('nextBt') : _T('startBt') ],
+    buttons: [ (info.length && !title) ? _T('nextBt') : _T('startBt') ],
     hideOnBack: true
   })
-  dialog.set('hideOnClick', true);
+  if (!title) dialog.set('hideOnClick', true);
   dialog.once('hide', function() {
     if (info.length) {
-      showDialogInfo(info, undefined, cback);
+      setTimeout(() => showDialogInfo(info, undefined, cback));
     } else {
-      dialog.setContent('hideOnClick', true);
+      dialog.set('hideOnClick', false);
       if (cback) cback();
     }
   })

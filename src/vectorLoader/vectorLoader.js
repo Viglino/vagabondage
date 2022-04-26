@@ -220,7 +220,6 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
   }, (features) => {
     // Get closest road
     let building;
-    console.log('buildings', features.length)
     features.forEach(f => {
       // Search for 'batiment' & usage_1 = Résidentiel
       if (/r.sidentiel/i.test(f.get('usage_1'))) {

@@ -1,11 +1,23 @@
+.ol-ext-dialog.begin {
+  background-color: transparent;
+}
 .ol-ext-dialog.begin form {
   width: 50em;
   bottom: 1em;
   top: auto;
   transform: translateX(-50%);
 }
+.ol-ext-dialog.begin form.ol-title {
+  top: 30%;
+  bottom: auto;
+  transform: translate(-50%, -30%);
+}
 .ol-ext-dialog.begin > form .ol-content {
  font-size: 1.3em;
+}
+.ol-ext-dialog.begin form.ol-title .ol-content .author {
+  text-align: right;
+  margin-right: 3em;
 }
 .ol-ext-dialog.begin > form h2 {
   margin-bottom: 0;

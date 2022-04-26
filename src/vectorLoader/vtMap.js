@@ -179,7 +179,11 @@ const select = new VectorLayer({
 mapLoader.addLayer(select);
 mapLoader.on('click', e => {
   select.getSource().clear();
-  const feature = mapLoader.getFeaturesAtPixel(e.pixel)[0]
+  const features = mapLoader.getFeaturesAtPixel(e.pixel);
+  const prop = [];
+  features.forEach(f => prop.push(f.getProperties()))
+  console.log(prop);
+  const feature = features[0];
   if (feature) {
     select.getSource().addFeature(vtFeature(feature));
   }

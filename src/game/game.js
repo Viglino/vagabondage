@@ -254,7 +254,7 @@ Game.prototype.start = function() {
 Game.prototype.begin = function() {
   console.log('BEGIN', this.getProperties());
   const info = this.get('startInfo')
-  let intro = this.story.introduction.replace(/\n/g, '<br/>');
+  let intro = this.story.introduction;
   intro = intro.replace('%biome%', info.biome);
   intro = intro.replace('%distance%', m2km(this.get('tDistance')));
   if (info.roadClass && info.road) {
@@ -263,7 +263,7 @@ Game.prototype.begin = function() {
     intro = intro.replace('%routeInfo%', 'à côté de ' + info.commune);
   }
   intro = intro.split('<>');
-  showDialogInfo(intro, this.story.title, () => {
+  showDialogInfo(intro, this.story, () => {
     // Show help
     help.show('main').then(() => {
       this.map.getView().animate({ zoom: 19.5 });
@@ -349,7 +349,17 @@ Game.prototype.nextStep = function(e) {
 Game.prototype.getArround = function(cback) {
   setTimeout(() => {
     this.arround = mapInfo.getAround(20, this.get('position'));
-    console.table(this.arround)
+    const tInfo = {};
+    for (let k in this.arround) {
+      this.arround[k].forEach((a,i) => {
+        tInfo[a.layer+'-'+i] = {
+          nature: a.nature || '-',
+          toponyme: a.toponyme || a.nom || a.numero || a.cpx_numero || '-'
+        }
+      });
+    }
+    console.log(this.arround)
+    console.table(tInfo);
     if (cback) cback(this.arround);
     // this.
     const road = this.findArround(f => f.layer === 'route_numerotee_ou_nommee')
