@@ -15,19 +15,40 @@
 .ol-ext-dialog.begin > form .ol-content {
  font-size: 1.3em;
 }
-.ol-ext-dialog.begin form.ol-title .ol-content .author {
+
+.ol-ext-dialog.loadingStory form.ol-title .ol-content .author {
   text-align: right;
-  margin-right: 3em;
+  margin-right: 1.5em;
 }
-.ol-ext-dialog.begin > form h2 {
+.ol-ext-dialog.loadingStory > form h2 {
   margin-bottom: 0;
   padding: 0 5%;
 }
-.ol-ext-dialog.begin > form h2:before {
+.ol-ext-dialog.loadingStory > form h2:before {
   content: '';
-  background-image: url('../img/dice.png');
+  background-image: url('../img/dices.png');
   width: 112px;
   height: 81px;
   display: inline-block;
   vertical-align: middle;
+}
+
+.twitter-share-button {
+  color: #fff;
+  background-color: #1d9bf0;
+  text-decoration: none;
+  padding: 0.3em 1em;
+  line-height: unset;
+  display: inline-block;
+  border-radius: 1em;
+  pointer-events: none;
+}
+.twitter-share-button:before {
+  content: '\f099';
+  font-family: FontAwesome;
+}
+
+.ol-ext-dialog .twitter-share-button {
+  position: absolute;
+  bottom: 1em;
 }

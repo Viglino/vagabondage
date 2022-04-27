@@ -147,7 +147,11 @@ Game.prototype.getStatus = function(road, land, bati) {
  */
 Game.prototype.load = function(region, length, month) {
   this.story = getRandomStory();
-  vectorLoader.loadGame(region, length, g => {
+  vectorLoader.loadGame({
+    story: this.story, 
+    region: region, 
+    length: length
+  }, g => {
     for (let i in g) this.set(i, g[i]);
     this.set('position', this.get('start'));
     this.set('destination', getDistance(toLonLat(this.get('position')), toLonLat(this.get('end'))));

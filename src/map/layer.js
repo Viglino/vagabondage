@@ -178,8 +178,8 @@ map.addControl(new ToggleControl({
     document.body.dataset.mode = b ? 'carte' : 'photo';
     layerCarte.setVisible(b);
     carte.setVisible(b);
-    if (b && map.getView().getZoom() > 14.5) {
-      map.getView().setZoom(14.5);
+    if (b && map.getView().getZoom() > 15) {
+      map.getView().setZoom(15);
     }
   }
 }))

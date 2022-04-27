@@ -13,6 +13,8 @@ import GeoJSON from 'ol/format/GeoJSON'
 
 import map from '../map/map';
 import regions from './regions';
+import _T from '../i18n/i18n';
+import ol_ext_element from 'ol-ext/util/element';
 
 /** Class to load data in a tile WFS format
  */
@@ -127,12 +129,28 @@ function wait(e) {
 }
 
 /** Get a countryside place in the region
- * @param {number} region region index
+ * @param {Object} options
+ *  @param {number} region region index
  * @param {function} cback callback function that takes a coordinate
  */
-VectorLoader.prototype.getCountryside = function(region, cback) {
+VectorLoader.prototype.getCountryside = function(options, cback) {
+  const region = options.region;
+  const story = options.story;
+  const content = ol_ext_element.create('DIV', {
+    html: _T('storyBy'),
+    className: 'author'
+  });
+  ol_ext_element.create('A', {
+    html: story.author,
+    href: story.authorURL,
+    target: '_new',
+    parent: content
+  })
+  // Show loading dialog
   dialog.show({ 
-    content: 'Chargement des données...',
+    title: story.title,
+    className: 'loadingStory',
+    content: content,
     closeBox: false
   })
   dialog.setProgress(0,1,'<i class="fg-layer-alt-o"></i> loading countryside...')
@@ -157,7 +175,7 @@ VectorLoader.prototype.getCountryside = function(region, cback) {
     // Found a countryside?
     if (!country) {
       console.log('not countryside...')
-      this.getCountryside(region, cback);
+      this.getCountryside(options, cback);
     } else {
       cback(c, land);
     }
@@ -262,11 +280,14 @@ VectorLoader.prototype.getBuilding = function(getCoord, cback) {
 }
 
 /** Load game info inisde a region
- * 
+ * @param {Object} options
+ *  @param {Ojbect} story
+ *  @param {number} region region index
+ *  @param {number} length
  */
-VectorLoader.prototype.loadGame = function(region, length, cback) {
+VectorLoader.prototype.loadGame = function(options, cback) {
   // Get a countryside
-  this.getCountryside(region, (c, landscape) => {
+  this.getCountryside(options, (c, landscape) => {
     // c = [-421176.0277407976, 6223878.903226052]
     // Get the closest road
     this.getRoad(c, road => {
@@ -275,7 +296,7 @@ VectorLoader.prototype.loadGame = function(region, length, cback) {
         c = road.getGeometry().getCoordinates()[1];
         const land = this.source.clc.getClosestFeatureToCoordinate(c) || landscape;
         this.getBuilding(() => {
-          return fromLonLat(computeDestinationPoint(toLonLat(c), length*1000 + 5000*Math.random(), Math.random()*2*Math.PI));
+          return fromLonLat(computeDestinationPoint(toLonLat(c), options.length*1000 + 5000*Math.random(), Math.random()*2*Math.PI));
         }, building => {
           if (building) {
             this.setActive([]);
@@ -288,12 +309,12 @@ VectorLoader.prototype.loadGame = function(region, length, cback) {
             })
           } else {
             console.log('no building...')
-            return this.loadGame(region, length, cback);
+            return this.loadGame(options, cback);
           }
         });
       } else {
         console.log('no road...')
-        return this.loadGame(region, length, cback);
+        return this.loadGame(options, cback);
       }
     })
   })
