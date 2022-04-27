@@ -11,7 +11,12 @@
 }
 .ol-ext-dialog.about .accroche {
   text-align: center;
+  color: rgba(0,60,136,1);
+  border: 2px solid #3993f3;
+  border-width: 4px 0;
   font-size: 1.2em;
+  margin: 0;
+  padding: .5em;
 }
 .ol-ext-dialog.about h1 img {
   vertical-align: middle;

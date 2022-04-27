@@ -16,6 +16,14 @@ select {
   padding: .5em
 }
 
+h1, h2, a {
+  color: rgba(0,60,136,1);
+  text-decoration: none;
+}
+a:hover {
+  box-shadow: 0 2px rgba(0,60,136,1);
+}
+
 
 .ol-ext-dialog select {
   max-width: 100%;

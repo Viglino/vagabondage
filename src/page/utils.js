@@ -1,5 +1,5 @@
 function m2km(m, fixed) {
-  return (m/1000).toFixed(fixed || 0) + ' km'
+  return (m/1000).toFixed(fixed || 0) + '&nbsp;km'
 }
 
 function formatDate(d) {

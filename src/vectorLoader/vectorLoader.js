@@ -173,7 +173,7 @@ VectorLoader.prototype.getCountryside = function(options, cback) {
       land = f;
     });
     // Found a countryside?
-    if (!country) {
+    if (!country || !land) {
       console.log('not countryside...')
       this.getCountryside(options, cback);
     } else {
@@ -289,6 +289,7 @@ VectorLoader.prototype.loadGame = function(options, cback) {
   // Get a countryside
   this.getCountryside(options, (c, landscape) => {
     // c = [-421176.0277407976, 6223878.903226052]
+    // c = fromLonLat([0.27566, 48.84994])
     // Get the closest road
     this.getRoad(c, road => {
       // Found any road?

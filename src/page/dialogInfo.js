@@ -9,6 +9,7 @@ import './dialogInfo.css'
  * @param {function} cback
  */
 function showDialogInfo(info, options, cback) {
+  if (typeof(info)==='string') info = info.split('<>');
   options = options || {};
   const content = info.shift().replace(/</g, '&lt;').replace(/^\n/,'').replace(/\n/g, '<br/>');
   dialog.show({

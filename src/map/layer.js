@@ -10,6 +10,7 @@ import Icon from 'ol/style/Icon';
 import FoldFilter from 'ol-ext/filter/Fold'
 import ToggleControl from 'ol-ext/control/Toggle'
 import FontSymbol from 'ol-ext/style/FontSymbol'
+import RegularShape from 'ol/style/RegularShape';
 
 map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 14 }));
 // map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
@@ -78,7 +79,18 @@ function styleFn(f, res) {
         zIndex: 1
       });
     }
-    case 'car': {
+    case 'altercation': {
+      return new Style({
+        image: new RegularShape({
+          radius: 10,
+          radius2: 5,
+          points: 7,
+          fill: new Fill({ color: [80,0,0] }),
+          stroke: new Stroke({ color: [255,255,255], width: 2 })
+        }),
+        zIndex: 1
+      });
+    }    case 'car': {
       return new Style({
         image: new Icon({
           src: './img/car.png',

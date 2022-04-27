@@ -1,11 +1,12 @@
 import olObject from 'ol/Object'
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
-import { toLonLat } from 'ol/proj';
-import { getDistance } from 'ol/sphere';
+import { getPointResolution, toLonLat } from 'ol/proj';
+import { getDistance, getLength } from 'ol/sphere';
 import element from 'ol-ext/util/element'
 import Gauge from 'ol-ext/control/Gauge'
 import 'ol-ext/render/Cspline'
+import 'ol-ext/geom/GeomUtils'
 
 import pages from '../page/pages'
 import map, { infoControl } from '../map/map';
@@ -65,6 +66,7 @@ class Game extends olObject {
     })
     // Goto next step on walk
     this.routing_ = routing;
+    this.set('roads', 0);
     routing.on('routing', e => this.nextStep(e));
     /** /
     // Add layers
@@ -256,7 +258,6 @@ Game.prototype.start = function() {
 /** Begin game
  */
 Game.prototype.begin = function() {
-  console.log('BEGIN', this.getProperties());
   const info = this.get('startInfo')
   let intro = this.story.introduction;
   intro = intro.replace('%biome%', info.biome);
@@ -266,7 +267,6 @@ Game.prototype.begin = function() {
   } else {
     intro = intro.replace('%routeInfo%', 'à côté de ' + info.commune);
   }
-  intro = intro.split('<>');
   showDialogInfo(intro, this.story, () => {
     // Show help
     help.show('main').then(() => {
@@ -302,7 +302,8 @@ Game.prototype.nextStep = function(e) {
         error = _T('noCrossing:road');
       } else if (e.intersect.feature.batiment) {
         error = _T('noCrossing:building');
-      } else if (e.intersect.feature.surface_hydrographique || e.intersect.feature.troncon_hydrographique) {
+      } else if (e.intersect.feature.surface_hydrographique 
+        || (e.intersect.feature.troncon_hydrographique && !e.intersect.bridge)) {
         error = _T('noCrossing:river');
       } else if (e.intersect.feature.troncon_de_voie_ferree) {
         error = _T('noCrossing:rail');
@@ -332,21 +333,80 @@ Game.prototype.nextStep = function(e) {
   // Set new position
   const position = e.end;
   this.set('position', position);
+  // Check ennemy along roads
+  const along = this.getAlong(e.routing.feature, f => f.layer === 'troncon_de_route' && f.importance < 5);
+  const roads = [];
+  along.forEach(f => {
+    switch (f.importance) {
+      case "4": roads.push(f); break;
+      case "3": roads.push(f); roads.push(f); break;
+      default: roads.push(f); roads.push(f); roads.push(f); break;
+    }
+  })
+  const nbRoads = this.get('roads') + roads.length;
+  let altercation = false;
+  const altTable = [ 100, 150, 200 ];
+  altTable.forEach(alt => {
+    if (this.get('roads') < alt && nbRoads >= alt) {
+      const pos = roads[alt - this.get('roads') -1];
+      layer.getSource().addFeature(new Feature({
+        style: 'altercation',
+        geometry: new Point(pos.coordinate)
+      }));
+      altercation = {
+        type: (alt === altTable[altTable.length-1] ? 'fail' : 'missed'),
+        coordinate: pos.coordinate
+      };
+      this.setLife(this.getLife()-1);
+      // Center on altercation
+      this.map.getView().animate({
+        center: pos.coordinate,
+        zoom: Math.max(17, this.map.getView().getZoom())
+      })
+    }
+  })
+  this.set('roads', nbRoads);
+  // New destination
   this.set('destination', getDistance(toLonLat(this.get('position')), toLonLat(this.get('end'))))
   this.routing_.setStart(position);
   // Add features to the map
   e.routing.feature.set('style', 'route');
   layer.getSource().addFeature(e.routing.feature.clone());
-  layer.getSource().addFeature(new Feature({
-    style: 'poi',
-    geometry: new Point(position)
-  }));
+  if (altercation.type !== 'fail') {
+    layer.getSource().addFeature(new Feature({
+      style: 'poi',
+      geometry: new Point(position)
+    }));
+  }
   e.routing.feature.set('style', 'routeMap');
   layerCarte.getSource().addFeature(e.routing.feature);
   // Get arround
-  this.map.getView().setCenter(position);
-  this.getArround();
-}
+  if (!altercation) this.map.getView().setCenter(position);
+  this.getArround(() => this.encounter(altercation));
+};
+
+/** Get features along travel feature
+ * @param {ol/Feature} feature
+ * @returns
+ */
+Game.prototype.getAlong = function(feature, filter) {
+  const res = getPointResolution(this.map.getView().getProjection(), 1, this.get('position'));
+  const l = feature.getGeometry().sampleAt(10*res);
+  const coords = l.getCoordinates();
+  const sampleRoad = [];
+  let prevPt = toLonLat(coords[0]);
+  for (let i=1; i<coords.length; i++) {
+    if (i===coords.length-1 || getDistance(prevPt, toLonLat(coords[i])) > 100) {
+      const features = mapInfo.getFeaturesAtCoord(coords[i]);
+      const r = this.findArround(filter, features);
+      if (r) {
+        sampleRoad.push(Object.assign({ coordinate: coords[i] }, r));
+      }
+      prevPt = toLonLat(coords[i]);
+    }
+  }
+  return sampleRoad;
+};
 
 /** Get information arround current position
  */
@@ -389,12 +449,45 @@ Game.prototype.getArround = function(cback) {
 /** Find something arround
  * @param {function} filter
  */
-Game.prototype.findArround = function(filter) {
-  for (let k in this.arround) {
-    const f = this.arround[k].find(filter);
+Game.prototype.findArround = function(filter, arround) {
+  arround = arround || this.arround;
+  for (let k in arround) {
+    const f = arround[k].find(filter);
     if (f) return f;
   }
 }
+
+/** Handle encounter */
+Game.prototype.encounter = function(altercation) {
+  if (altercation) {
+    const arround = mapInfo.getAround(20, altercation.coordinate);
+    let hide;
+    if (arround['zone_de_vegetation-Haie']) {
+      hide = _T('hide:hedge')
+    } else if (this.findArround(f => f.layer === 'zone_de_vegetation', arround)) {
+      hide = _T('hide:veget');
+    } else {
+      hide = _T('hide:arround');
+    }
+    const content = this.story[altercation.type].replace('%hiddingPlace%', hide);
+    showDialogInfo(content, {}, () => {
+      if (altercation.type === 'fail') {
+        this.finish(true);
+        this.routing_.setStart([]);
+      }
+    })
+  } else {
+
+  }
+};
+
+/** Finish game
+ * @param {boolean} fail
+ */
+Game.prototype.finish = function(b) {
+  this.routing_.setActive(false);
+
+};
 
 /** Set debug mode
  * @param {boolean} b

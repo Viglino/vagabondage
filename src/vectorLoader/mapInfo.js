@@ -42,6 +42,16 @@ mapInfo.getFeaturesAtPixel = function(pixel) {
   return getFeaturesProp(features);
 }
 
+/** Get features at pixel
+ * @param {ol/Coordinate} coord
+ * @returns {object}
+ */
+mapInfo.getFeaturesAtCoord = function(coord) {
+  const pixel = vtMap.getPixelFromCoordinate(coord);
+  const features = vtMap.getFeaturesAtPixel(pixel);
+  return getFeaturesProp(features);
+}
+
 /** Show info on click
  */
 vtMap.on('click', e => {

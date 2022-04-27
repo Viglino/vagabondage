@@ -58,6 +58,19 @@ class Drag extends PointerInteraction {
   }
 }
 
+/** Activate / deactivate interaction
+ * @param {boolean} b
+ */
+Drag.prototype.setActive = function(b) {
+  PointerInteraction.prototype.setActive.call(this, b);
+  if (this.previousCursor_ !== undefined) {
+    const element = this.getMap().getTargetElement();
+    element.style.cursor = this.previousCursor_;
+    this.previousCursor_ = undefined;
+  }
+  tooltip.setInfo('')
+}
+
 /**
  * @param {import("../src/ol/MapBrowserEvent.js").default} evt Map browser event.
  * @return {boolean} `true` to start the drag sequence.
@@ -124,7 +137,8 @@ Drag.prototype.handleDragEvent = function(evt) {
 /** Get 
  * 
  */
- Drag.prototype.hasFeatureAt = function(pixel) {
+Drag.prototype.hasFeatureAt = function(pixel) {
+   if (!this.getActive()) return false;
   const feature = map.forEachFeatureAtPixel(pixel, feature => { 
     return (feature === this.feature_ ? feature : false);
   }, {
@@ -253,7 +267,7 @@ Drag.prototype.checkCross = function(start, end, route) {
   vtLoader.getFeaturesInExtent(extent, {}, features => {
     features = vtLoader.vtFeatures(features);
     // Get (interesting) features intersecting segment
-    const intersect = { count: 0, barrier: {}, feature: {}, infos: {} };
+    const intersect = { count: 0, barrier: {}, feature: {}, infos: {}, bridge: false };
     features.forEach(f => {
       if (intersectFeature(f, seg)) {
         const layer = f.get('layer');
@@ -272,6 +286,11 @@ Drag.prototype.checkCross = function(start, end, route) {
             break;
           }
           // special features / prop
+          case 'construction_lineaire': {
+            console.log(f.getProperties())
+            if (/pont/i.test(f.get('nature'))) intersect.bridge = f;
+            break;
+          }
           case 'troncon_hydrographique': {
             if (/intermittent/i.test(f.get('persistance'))) intersect.infos[layer] = f;
             else intersect.feature[layer] = f;
