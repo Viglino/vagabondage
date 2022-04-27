@@ -1,5 +1,5 @@
 ########
- Lanceur d'alerte
+#title: Lanceur d'alerte
 ########
 #lang: fr
 #type: classic
@@ -9,17 +9,16 @@
 #start: 0.27566, 48.84994
 #end: 0.27566, 48.84994
 #--------------
-#title: Lanceur d'alerte
 #introduction:
-Voilà, ça devait arriver, la voiture ne veut plus rien savoir !
-Te voilà coincé à %distance% de ton lieu de rendez-vous, %routeInfo%.
+Voilà, ça devait arriver, la voiture vient de rendre l'âme !
+Tu te gares sur le bas-côté en pestant contre ta malchance et te voilà coincé à %distance% de ton lieu de rendez-vous, %routeInfo%.
 <>
-Tu regardes le dossier sur le siège passager, la preuve de leurs agissements. Une fois mis en ligne il ne pourront plus rien contre toi. Mais en attendant, il feront tout pour le reprendre.
+Tu ramasses le dossier qui contient les preuve de leurs agissements. Une fois mis en ligne il ne pourront plus rien contre toi. Mais en attendant, il feront tout pour le reprendre.
 Tu regrettes un peu de t'être débarassé de ton smartphone, il t'aurait été bien utile, perdu %biome%.
 Mais c'était trop risqué, ils auraient pû te localiser trop facilement.
 <>
 Tu glisses le dossier contenant les preuves dans ton sac à dos.
-Dans la boîte à gants tu trouves une carte IGN de la région. Le lieu du rendez-vous est entourée sur la carte.
+Dans la boîte à gants tu trouves une carte IGN de la région. Un cercle rouge indique le lieu du rendez-vous sur la carte.
 Il ne te reste plus qu'à t'y rendre en passant par les petites routes pour éviter tes poursuivants...
 #--------------
 #missed:
@@ -36,16 +35,16 @@ Tu as perdu...
 #--------------
 #failConclusion:
 Tu t'avances vers la maison. Tout semble tranquille et pourtant...
-Au moment où tu t'apprètes à sonner à la porte, un bruissement te fait te retourner. Deux hommes te barre la route une arme à la main.
+Au moment où tu t'apprètes à sonner à la porte, un bruissement te fait te retourner. Deux hommes te barrent la route une arme à la main.
 <>
-« Assez joué Monsieur le petit malin ! Maintenant, donnez-nous le dossier ! »
+« Assez joué le petit malin ! Maintenant, donnez-nous le dossier ! »
 <>
 Tu as perdu...
 #conclusion:
-La porte s'ouvre au premier coup de sonnette. La tête de Denis s'encadre dans le chambranle, ébouriffée comme s'il sortait de la machine à laver.
+La porte s'ouvre au premier coup de sonnette. La tête de Denis s'encadre dans le chambranle, ébouriffée comme s'il sortait d'une machine à laver.
 « Qu'est-ce que tu fichais ! Entre ! lance-t-il en jetant un coup d'oeil derrière toi, Tu n'as pas été suivi ? »
 <>
 Tu t'effondres sur le canapé du salon pendant que Denis feuillette le dossier que tu lui as donné en arrivant.
 « C'est du lourd ! dit-il en scannant les premiers documents. Je l'envoie aux autres... »
 <>
-Cette fois, c'est sure, il vont payer !
+Cette fois, c'est sûr, il vont payer !
