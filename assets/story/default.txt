@@ -13,7 +13,7 @@
 Voilà, ça devait arriver, la voiture vient de rendre l'âme !
 Tu te gares sur le bas-côté en pestant contre ta malchance et te voilà coincé à %distance% de ton lieu de rendez-vous, %routeInfo%.
 <>
-Tu ramasses le dossier qui contient les preuve de leurs agissements. Une fois mis en ligne il ne pourront plus rien contre toi. Mais en attendant, il feront tout pour le reprendre.
+Tu ramasses le dossier qui contient les preuves de leurs agissements. Une fois mis en ligne il ne pourront plus rien contre toi. Mais en attendant, il feront tout pour le reprendre.
 Tu regrettes un peu de t'être débarassé de ton smartphone, il t'aurait été bien utile, perdu %biome%.
 Mais c'était trop risqué, ils auraient pû te localiser trop facilement.
 <>

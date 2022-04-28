@@ -214,10 +214,12 @@ Game.prototype.load = function(region, length, month) {
       feature.set('style', 'travel');
       const l = feature.getGeometry().getLength();
       this.set('end', feature.getGeometry().getLastCoordinate());
-      layer.getSource().addFeature(new Feature({
-        style: 'finish',
-        geometry: new Point(this.get('end'))
-      }));
+      setTimeout(() => {
+        layer.getSource().addFeature(new Feature({
+          style: 'finish',
+          geometry: new Point(this.get('end'))
+        }));
+      }, 100);
       feature.setGeometry(feature.getGeometry().simplify(l/20).cspline({ pointsPerSeg: l/100 }));
       layerCarte.getSource().addFeature(feature);
       status['distance'] = (result.distance/1000).toFixed(1)+' km';
@@ -502,11 +504,13 @@ Game.prototype.finish = function(fail) {
       buttons: [ _T('close') ]
     })
   } else {
-    dialog.show({
-      title: _T('end:win'),
-      className: 'winDialog',
-      content: '',
-      buttons: [ _T('close') ]
+    showDialogInfo(this.story.conclusion, {}, () => {
+      dialog.show({
+        title: _T('end:win'),
+        className: 'winDialog',
+        content: '',
+        buttons: [ _T('close') ]
+      })
     })
   }
 };

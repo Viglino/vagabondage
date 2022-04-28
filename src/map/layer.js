@@ -125,7 +125,7 @@ function styleFn(f, res) {
       return new Style({
         stroke: new Stroke({
           color: [0,0,128,.5],
-          width: 5
+          width: 10
         }),
         zIndex: 1
       })
