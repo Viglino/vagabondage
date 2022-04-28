@@ -1,0 +1,48 @@
+########
+#title: Lanceur d'alerte
+########
+#lang: fr
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#start: 0.27566, 48.84994
+#end: 0.27566, 48.84994
+#--------------
+#introduction:
+Voilà, ça devait arriver, la voiture vient de rendre l'âme !
+Tu te gares sur le bas-côté en pestant contre ta malchance et te voilà coincé à %distance% de ton lieu de rendez-vous, %routeInfo%.
+<>
+Tu ramasses le dossier qui contient les preuve de leurs agissements. Une fois mis en ligne il ne pourront plus rien contre toi. Mais en attendant, il feront tout pour le reprendre.
+Tu regrettes un peu de t'être débarassé de ton smartphone, il t'aurait été bien utile, perdu %biome%.
+Mais c'était trop risqué, ils auraient pû te localiser trop facilement.
+<>
+Tu glisses le dossier contenant les preuves dans ton sac à dos.
+Dans la boîte à gants tu trouves une carte IGN de la région. Un cercle rouge indique le lieu du rendez-vous sur la carte.
+Il ne te reste plus qu'à t'y rendre en passant par les petites routes pour éviter tes poursuivants...
+#--------------
+#missed:
+Une voiture s'arrête le long de la route ! Ce sont eux !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'on pas vu !
+<>
+C'était moins une ! Il va falloir éviter les lieux trop fréquentés...
+#fail:
+Une voiture s'arrète et deux hommes en sortent une arme à la main. Ils t'ont repéré.
+Tu essayes de t'enfuir mais ils sont déjà là, tes jambes se dérobent sous toi.
+« Assez joué ! Maintenant, donnez-nous le dossier ! » dit l'homme en t'arrachant le sac.
+<>
+Tu as perdu...
+#--------------
+#failConclusion:
+Tu t'avances vers la maison. Tout semble tranquille et pourtant...
+Au moment où tu t'apprètes à sonner à la porte, un bruissement te fait te retourner. Deux hommes te barrent la route une arme à la main.
+<>
+« Assez joué le petit malin ! Maintenant, donnez-nous le dossier ! »
+#conclusion:
+La porte s'ouvre au premier coup de sonnette. La tête de Denis s'encadre dans le chambranle, ébouriffée comme s'il sortait d'une machine à laver.
+« Qu'est-ce que tu fichais ! Entre ! lance-t-il en jetant un coup d'oeil derrière toi, Tu n'as pas été suivi ? »
+<>
+Tu t'effondres sur le canapé du salon pendant que Denis feuillette le dossier que tu lui as donné en arrivant.
+« C'est du lourd ! dit-il en scannant les premiers documents. Je l'envoie aux autres... »
+<>
+Cette fois, c'est sûr, il vont payer !
