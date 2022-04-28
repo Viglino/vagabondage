@@ -2,6 +2,7 @@
   "movePoint": "Déplace le point",
   "longStage": "<i class=\"fa fa-warning\"></i> Etape trop longue...",
   "goTo": "Relâche pour aller jusqu'ici...",
+  "loading:route": "Recherche du chemin...",
   "crossThrough": "Couper à travers champs",
   "noCrossing:road": "Tu ne peux pas traverser une autoroute !",
   "noCrossing:rail": "Tu ne peux pas traverser une voie ferrée !",
@@ -16,6 +17,8 @@
   "storyBy": "Une histoire par ",
   "startBt": "en route...",
   "nextBt": "continuer...",
+  "end:win": "Bravo, tu as gagné !",
+  "end:fail": "Tu as perdu !",
   "close": "fermer",
   "cancel": "annuler"
 }

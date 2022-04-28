@@ -23,8 +23,8 @@ const mapLoader = new Map({
   target: ol_ext_element.create('DIV', { 
     className: 'ghostMap vtile', 
     style: {
-      width: '1204px',
-      height: '1024px'
+      width: '2048px',
+      height: '2048px'
     },
     parent: document.body 
   }),
@@ -177,11 +177,21 @@ const select = new VectorLayer({
   })
 });
 mapLoader.addLayer(select);
+// DEBUG
 mapLoader.on('click', e => {
   select.getSource().clear();
   const features = mapLoader.getFeaturesAtPixel(e.pixel);
   const prop = [];
   features.forEach(f => prop.push(f.getProperties()))
+  const info = {};
+  prop.forEach((p,i) => {
+    info[i+'-'+p.layer] = {
+      nature: p.nature || p.type_de_route || p.importance || '',
+      nom: p.toponyme || p.graphie_du_toponyme || p.cpx_numero || p.numero || p.usage_1 || p.origine || ''
+    }
+  })
+  console.clear();
+  console.table(info);
   console.log(prop);
   const feature = features[0];
   if (feature) {

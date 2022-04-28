@@ -24,13 +24,22 @@
   margin-bottom: 0;
   padding: 0 5%;
 }
+.ol-ext-dialog.loading > form .ol-content:before,
+.ol-ext-dialog.winDialog > form h2:before,
+.ol-ext-dialog.failDialog > form h2:before,
 .ol-ext-dialog.loadingStory > form h2:before {
   content: '';
   background-image: url('../img/dices.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   width: 112px;
   height: 81px;
   display: inline-block;
   vertical-align: middle;
+}
+.ol-ext-dialog.failDialog > form h2:before {
+  background-image: url('../img/fail.png');
 }
 
 .twitter-share-button {

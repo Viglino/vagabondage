@@ -79,6 +79,17 @@ function styleFn(f, res) {
         zIndex: 1
       });
     }
+    case 'finish': {
+      return new Style({
+        image: new FontSymbol({
+          form: 'bookmark',
+          radius: 8,
+          fill: new Fill({ color: [0,128,0] }),
+          stroke: new Stroke({ color: [255,255,255], width: 2 })
+        }),
+        zIndex: 1
+      });
+    }
     case 'altercation': {
       return new Style({
         image: new RegularShape({
@@ -90,7 +101,8 @@ function styleFn(f, res) {
         }),
         zIndex: 1
       });
-    }    case 'car': {
+    }
+    case 'car': {
       return new Style({
         image: new Icon({
           src: './img/car.png',

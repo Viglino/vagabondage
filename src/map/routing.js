@@ -179,8 +179,13 @@ Drag.prototype.handleMoveEvent = function(evt) {
  * @param {boolean} go
  */
 Drag.prototype.showRouting = function(start, end, route, go) {
+  if (go) dialog.show({
+    content: _T('loading:route'),
+    className: 'loading'
+  })
   vectorLoader.getRouting(start, end, resp => {
     if (go) {
+      dialog.hide();
       const pt = resp.feature.getGeometry().getCoordinates().pop();
       route.getGeometry().setCoordinates([]);
       this.dispatchEvent({

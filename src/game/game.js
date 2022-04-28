@@ -2,7 +2,7 @@ import olObject from 'ol/Object'
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { getPointResolution, toLonLat } from 'ol/proj';
-import { getDistance, getLength } from 'ol/sphere';
+import { getDistance } from 'ol/sphere';
 import element from 'ol-ext/util/element'
 import Gauge from 'ol-ext/control/Gauge'
 import 'ol-ext/render/Cspline'
@@ -213,6 +213,11 @@ Game.prototype.load = function(region, length, month) {
       const feature = result.feature.clone();
       feature.set('style', 'travel');
       const l = feature.getGeometry().getLength();
+      this.set('end', feature.getGeometry().getLastCoordinate());
+      layer.getSource().addFeature(new Feature({
+        style: 'finish',
+        geometry: new Point(this.get('end'))
+      }));
       feature.setGeometry(feature.getGeometry().simplify(l/20).cspline({ pointsPerSeg: l/100 }));
       layerCarte.getSource().addFeature(feature);
       status['distance'] = (result.distance/1000).toFixed(1)+' km';
@@ -477,16 +482,33 @@ Game.prototype.encounter = function(altercation) {
       }
     })
   } else {
-
+    // This is the end?
+    if (this.get('destination') < 15) {
+      this.finish();
+    }
   }
 };
 
 /** Finish game
  * @param {boolean} fail
  */
-Game.prototype.finish = function(b) {
+Game.prototype.finish = function(fail) {
   this.routing_.setActive(false);
-
+  if (fail) {
+    dialog.show({
+      title: _T('end:fail'),
+      className: 'failDialog',
+      content: '',
+      buttons: [ _T('close') ]
+    })
+  } else {
+    dialog.show({
+      title: _T('end:win'),
+      className: 'winDialog',
+      content: '',
+      buttons: [ _T('close') ]
+    })
+  }
 };
 
 /** Set debug mode
@@ -525,9 +547,17 @@ Game.prototype.debug = function(b) {
     window.vectorLoader = vectorLoader;
     window.mapInfo = mapInfo;
     // Open debug in a new window
-    const win = window.open('', 'DEBUG', 'menubar=no,location=no,resizable=no,scrollbars=no,status=no')
+    const win = window.open('', 'DEBUG', 'menubar=no,location=no,resizable=no,scrollbars=no,status=no,width=1024,height=1024')
     win.document.title = 'DEBUG';
+    
     const d = win.document.createElement('DIV');
+    d.style.width = vtlayer.getTarget().style.width;
+    d.style.height = vtlayer.getTarget().style.height;
+    d.style.position = 'fixed';
+    d.style.top = '50%';
+    d.style.left = '50%';
+    d.style.transform = 'translate(-50%, -50%)';
+
     win.document.body.innerHTML = '';
     win.document.body.appendChild(d);
     vtlayer.getTarget().remove();
