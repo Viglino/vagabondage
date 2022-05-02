@@ -22,7 +22,7 @@ import mapInfo from '../vectorLoader/mapInfo'
 import _T from '../i18n/i18n'
 import help from '../page/help'
 import { getRandomStory } from './story'
-import { formatDate, m2km } from '../page/utils';
+import { formatDate, formatDuration, m2km } from '../page/utils';
 
 import ol_ext_Ajax from 'ol-ext/util/Ajax';
 import showDialogInfo from '../page/dialogInfo'
@@ -437,10 +437,10 @@ Game.prototype.getArround = function(cback) {
     const troncon = this.findArround(f => f.layer === 'troncon_de_route')
     const zone = this.findArround(f => f.layer === 'zone_d_habitation')
     const infos = {
-      road: (road ? road.nom || road.type_de_route + ' <span class="numero">' + road.numero + '</span>' : (troncon ? troncon.nature + '<br/>' : ''))
-        + (zone ? ' ' + zone.nature + ' : ' + zone.toponyme : ''),
-      distance: (this.get('distance') ? 'Distance parcourue : ' + m2km(this.get('distance'), 1) : ''),
-      rdv: 'Lieu de rendez-vous : ' + m2km(this.get('destination'), 1),
+      distance: (this.get('distance') ? formatDuration(this.get('duration')) +' (' + m2km(this.get('distance'), 1) +')' : ''),
+      road: (road ? (road.nom || '') + ' <span class="numero">' + road.numero + '</span> ' : (troncon ? troncon.nature + '<br/>' : ''))
+        + (zone ? zone.toponyme : '')
+        +' <i class="fa fa-step-forward"></i> ' + m2km(this.get('destination'), 1),
       time: formatDate(new Date(this.get('date').getTime() + (this.get('duration')*60*1000)))
     }
     let status = '';

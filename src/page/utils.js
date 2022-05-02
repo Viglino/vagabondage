@@ -11,4 +11,13 @@ function formatDate(d) {
     + '</span>'
 }
 
-export { m2km, formatDate }
+function formatDuration(d) {
+  const h = Math.floor(d/60);
+  const m = Math.round((d/60-h) * 60);
+  if (h) return '<span class="duration">' + h + ' h ' + ('0'+m).substr(-2) + ' mn</span>';
+  return '<span class="duration">' + m + ' mn</span>';
+}
+
+window.formatDuration = formatDuration
+
+export { m2km, formatDate, formatDuration }
