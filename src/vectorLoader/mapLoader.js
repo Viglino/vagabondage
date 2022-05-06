@@ -28,11 +28,11 @@ mapLoader.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', opacity: 
 /** Biome info */
 const clcInfo = {
   111: { color: [230,0,77,255], title: 'tissu urbain continu', biome: 'en ville' },
-  112: { color: [255,0,0,255], title: 'tissu urbain discontinu', biome: 'en ville' },
-  121: { color: [204,77,242,255], title: 'zones industrielles et commerciales', biome: 'en plaine zone industrielle' },
+  112: { color: [255,0,0,255], title: 'tissu urbain discontinu', biome: 'dans cette banlieue' },
+  121: { color: [204,77,242,255], title: 'zones industrielles et commerciales', biome: 'en pleine zone industrielle' },
   122: { color: [204,0,0,255], title: 'réseaux routier et ferroviaire et terrains associés', biome: 'en ville' },
   123: { color: [230,204,204,255], title: 'zones portuaires', biome: 'sur le port' },
-  124: { color: [230,204,230,255], title: 'aéroports', biome: 'à côté de l\aéroport' },
+  124: { color: [230,204,230,255], title: 'aéroports', biome: 'à côté d\'un aéroport' },
   131: { color: [166,0,204,255], title: 'sites d\'extraction minière', biome: 'à côté d\'une mine' },
   132: { color: [166,77,0,255], title: 'décharge', biome: 'à côté d\'une décharge' },
   133: { color: [255,77,255,255], title: 'constructions', biome: 'en ville' },

@@ -1,0 +1,42 @@
+########
+#title: Le fugitif
+########
+#lang: fr
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#start: 
+#end: 
+#--------------
+#introduction:
+Comble de malchance, la voiture vient de tomber en panne, à %distance% de ton lieu de rendez-vous, %routeInfo%.
+<>
+Tu regrettes un peu de t'être débarassé de ton smartphone, il t'aurait été bien utile, perdu %biome%.
+Mais c'était trop risqué, la police aurait pû te localiser trop facilement.
+Ta seule chance et de retrouver le témoins qui pourra t'innocenter avant que tes poursuivant ne le retrouve...
+<>
+Dans la boîte à gants tu trouves une carte IGN de la région. Un cercle rouge indique le lieu du rendez-vous sur la carte.
+Il ne te reste plus qu'à t'y rendre en passant par les petites routes pour éviter les barrages et le patrouilles...
+#--------------
+#missed:
+Une voiture de poilce s'arrête le long de la route ! Deux hommes en sortent et scruttent l'horizon !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'ont pas vu !
+<>
+C'était moins une ! Il va falloir éviter les lieux trop fréquentés...
+#fail:
+Une voiture s'arrète et deux policiers en sortent une arme à la main. Ils t'ont repéré.
+Tu essayes de t'enfuir mais ils sont déjà là et se jette sur toi pour te maîtriser.
+« Vous êtes en état d'arrestation ! » dit le policier en te passant le menottes.
+#--------------
+#failConclusion:
+Tu t'avances vers la maison. Tout semble tranquille et pourtant...
+Alors que tu franchit la porte entrebaillée, tu sais déjà que c'est trop tard...
+<>
+Le témoin ne t'a pas attendu, plus personne ne peut prouver ton innocence...
+#conclusion:
+Tu sonnes à la porte et au bout de quelques minutes, celle-ci s'entrebaille.
+Quand il te reconnait, le témoins retire la chaine qui bloquait la porte et te fait entrer.
+<>
+« Tenez, voici le disque de vidéo surveillance que j'ai pu récupérer, faites-en ce que vous voulez » dit-il en te tendant un DVD.
+Tu tiens dans tes mains la preuve de ton innocence et de quoi envoyer le vrai coupable en prison !

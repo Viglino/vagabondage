@@ -23,15 +23,13 @@ Il ne te reste plus qu'à t'y rendre en passant par les petites routes pour évi
 #--------------
 #missed:
 Une voiture s'arrête le long de la route ! Ce sont eux !
-Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'on pas vu !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'ont pas vu !
 <>
 C'était moins une ! Il va falloir éviter les lieux trop fréquentés...
 #fail:
 Une voiture s'arrète et deux hommes en sortent une arme à la main. Ils t'ont repéré.
 Tu essayes de t'enfuir mais ils sont déjà là, tes jambes se dérobent sous toi.
 « Assez joué ! Maintenant, donnez-nous le dossier ! » dit l'homme en t'arrachant le sac.
-<>
-Tu as perdu...
 #--------------
 #failConclusion:
 Tu t'avances vers la maison. Tout semble tranquille et pourtant...

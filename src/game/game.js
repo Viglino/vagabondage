@@ -267,6 +267,8 @@ Game.prototype.start = function() {
 Game.prototype.begin = function() {
   const info = this.get('startInfo')
   let intro = this.story.introduction;
+  const year = (new Date).getFullYear();
+  intro = intro.replace(/%year\+(\d+)%/, (st, a1) => year + parseFloat(a1))
   intro = intro.replace('%biome%', info.biome);
   intro = intro.replace('%distance%', m2km(this.get('tDistance')));
   if (info.roadClass && info.road) {
@@ -309,8 +311,8 @@ Game.prototype.nextStep = function(e) {
         error = _T('noCrossing:road');
       } else if (e.intersect.feature.batiment) {
         error = _T('noCrossing:building');
-      } else if (e.intersect.feature.surface_hydrographique 
-        || (e.intersect.feature.troncon_hydrographique && !e.intersect.bridge)) {
+      } else if ((e.intersect.feature.surface_hydrographique || e.intersect.feature.troncon_hydrographique)
+        && !e.intersect.bridge) {
         error = _T('noCrossing:river');
       } else if (e.intersect.feature.troncon_de_voie_ferree) {
         error = _T('noCrossing:rail');

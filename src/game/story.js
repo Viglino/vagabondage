@@ -6,7 +6,12 @@ const stories = data.stories;
 
 // Loader
 const loader = [
-  'default'
+  'default',
+  'amnesie',
+  'pandemic',
+  'cours',
+  'fugitif',
+  'fugitifs'
 ]
 
 // Load stories
@@ -40,18 +45,18 @@ loader.forEach(s => {
         }
       }
     })
-    data.ready = true;
     data.length = Object.keys(stories).length;
-    console.log(data)
+    data.ready = (data.length === loader.length);
   });
 })
 
 /** Get a random story */
 function getRandomStory() {
-  const k = Object.keys(stories)[Math.floor(Math.random() * data.length)] || 'default';
+  const keys = Object.keys(stories);
+  const k = keys[Math.floor(Math.random() * keys.length)] || 'default';
+  console.log(k)
   return stories[k];
 }
-
 
 export { getRandomStory }
 

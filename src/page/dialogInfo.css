@@ -21,9 +21,15 @@
   margin-right: 1.5em;
 }
 .ol-ext-dialog.loadingStory > form h2 {
-  margin-bottom: 0;
-  padding: 0 5%;
+  margin: 0;
+  line-height: 81px;
+  padding: 0 5% 0 120px;
 }
+.ol-ext-dialog.loadingStory > form h2:before {
+  position: absolute;
+  left: 1em;
+}
+
 .ol-ext-dialog.loading > form .ol-content:before,
 .ol-ext-dialog.winDialog > form h2:before,
 .ol-ext-dialog.failDialog > form h2:before,

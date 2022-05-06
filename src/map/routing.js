@@ -20,7 +20,7 @@ import dialog from './dialog';
 // Max distance:  1.5km
 const maxDist = 1500;
 // Max crossing distance: 500m
-const maxCross = 500;
+const maxCross = 600;
 
 const tooltip = new Tooltip({
   offsetBox: [15, 0]
@@ -285,14 +285,17 @@ Drag.prototype.checkCross = function(start, end, route) {
           }
           // has feature
           case 'batiment':
-          case 'surface_hydrographique':
-          case 'troncon_de_voie_ferree': {
+          case 'surface_hydrographique': {
             intersect.feature[layer] = f;
             break;
           }
           // special features / prop
+          case 'troncon_de_voie_ferree': {
+            if (f.get('position_par_rapport_au_sol') > 0) intersect.bridge = f;
+            else intersect.feature[layer] = f;
+            break;
+          }
           case 'construction_lineaire': {
-            console.log(f.getProperties())
             if (/pont/i.test(f.get('nature'))) intersect.bridge = f;
             break;
           }
@@ -314,8 +317,9 @@ Drag.prototype.checkCross = function(start, end, route) {
     debug.getSource().clear();
     for (let i in intersect) {
       if (intersect[i].getGeometry) {
+        console.log(intersect[i].getProperties())
         debug.getSource().addFeature(intersect[i])
-        intersectFeature(intersect[i], seg)
+        // intersectFeature(intersect[i], seg)
       }
     }
     /* */

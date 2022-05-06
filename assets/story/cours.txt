@@ -1,0 +1,46 @@
+########
+#title: Cours, Lola, cours
+########
+#lang: fr
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#start: 
+#end: 
+#--------------
+#introduction:
+Décidément, c'est pas ton jour de chance, la voiture ne veut plus rien savoir.
+Te voilà coincé à %distance% de ton lieu de rendez-vous, %routeInfo%.
+<>
+Si tu n'y es pas a temps pour leur donner l'argent, ça va chauffer pour Manni !
+Et te voilà perdue %biome%, poursuivie par une bande qui voudrait bien, elle aussi, mettre la main sur cet argent...
+<>
+Tu ramasses le sac avec les 100 000 € et la carte IGN de la région sur laquelle un cercle rouge indique le lieu du rendez-vous. 
+Puis, tu t'élances sur les petites routes pour éviter tes poursuivants...
+#--------------
+#missed:
+Une voiture s'arrête le long de la route ! Deux hommes en sortent et scruttent l'horizon !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'ont pas vu !
+<>
+C'était moins une ! Il va falloir éviter les lieux trop fréquentés...
+#fail:
+Une voiture s'arrète et deux hommes en sortent une arme à la main. Ils t'ont repérée.
+Tu essayes de t'enfuir mais ils sont déjà là, tes jambes se dérobent sous toi.
+« Assez joué ! Maintenant, donne-nous l'argent ! » dit l'homme en t'arrachant le sac.
+#--------------
+#failConclusion:
+Tu t'avances vers la maison. Tout semble tranquille et pourtant...
+La porte est entrebaillée et un homme en sort en te braquant une arme devant le visage.
+<>
+« Assez joué ! Maintenant, donne nous l'argent ! »
+#conclusion:
+Tu sonne et la porte s'ouvre.
+« T'en a mis du temps ! J'ai failli m'impatienter ! » dit l'homme en te prenant le sac contenant l'argent.
+<>
+Manny est attaché sur une chaise, encadré par deux gorilles à la mine patibulaire.
+« C'est bon, le compte y est, dit l'homme en comptant les billets. Libérez-le ! »
+« T'as de la chance d'avoir une copine comme ça Mani, j'en connait qui serait parti avec l'argent ! »
+<>
+« Allez, fichez moi le camp ! », dit l'homme en libérant Manni.
+Tu téloignes en soutenant Manni. C'était moins une !

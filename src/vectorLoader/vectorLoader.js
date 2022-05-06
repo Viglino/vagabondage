@@ -290,6 +290,7 @@ VectorLoader.prototype.loadGame = function(options, cback) {
   this.getCountryside(options, (c, landscape) => {
     // c = [-421176.0277407976, 6223878.903226052]
     // c = fromLonLat([0.27566, 48.84994])
+    // c = [323543.6434601837, 6005868.6218002075];
     // Get the closest road
     this.getRoad(c, road => {
       // Found any road?
