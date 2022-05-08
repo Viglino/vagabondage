@@ -1,0 +1,47 @@
+########
+#title: Amnésie
+########
+#lang: fr
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#start: 
+#end: 
+#--------------
+#introduction:
+Tu te réveilles dans une voiture avec un mal de tête et une bosse qui te lance au niveau de la tempe.
+Tu sors péniblement de la voiture garée sur la bas-côté, %routeInfo%.
+<>
+Sur le siège avant de la voiture tu trouves une carte IGN de la région avec un cercle rouge qui indique un lieu du rendez-vous, à %distance% de là où tu te trouve. 
+Un post-it jaune est collé sur la carte avec cette inscription « Méfie-toi des autres ! »
+<>
+Impossible de te souvenir de qui tu es et de ce que tu fais là !
+Tu fouille tes poches sans rien trouver.
+Quelque chose cloche quelque part, que fais-tu perdu ici, %biome% ? 
+Et ce post-it ne te dis rien qui vaille !
+<>
+La seule solution pour savoir ce qu'il en ait te semble être de te rendre à ce lieu de "rendez-vous" en passant par les petites routes pour éviter les rencontres indésirables...
+#--------------
+#missed:
+Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a una arme à la main !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'ont pas vu !
+<>
+C'était moins une ! Il va falloir éviter ce genre de rencontre...
+#fail:
+Une voiture s'arrète et deux hommes en sortent une arme à la main. Ils t'ont repéré.
+Tu essayes de t'enfuir mais ils sont déjà là, tes jambes se dérobent sous toi lorsqu'ils te rattrapent.
+#--------------
+#failConclusion:
+Tu t'avances vers le lieu de rendez-vous. Tout semble tranquille et pourtant...
+Au moment où tu t'apprètes à sonner à la porte, un bruissement te fait te retourner. Deux hommes te barrent la route une arme à la main.
+<>
+« Assez joué ! Ta route s'arrête ici... »
+#conclusion:
+La porte s'ouvre au premier coup de sonnette. Une tête, qui te dit vaguement quelque chose, s'encadre dans le chambranle.
+« Qu'est-ce que tu fichais ! Entre ! lance-t-il en jetant un coup d'oeil derrière toi. »
+<>
+Une jeune femme à l'air angoissé se jette à ton cou.
+Un nom te revient : Jessica !
+<>
+Doucement les souvenirs de reviennent.

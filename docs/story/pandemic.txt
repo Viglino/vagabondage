@@ -1,0 +1,44 @@
+########
+#title: Pandémie
+########
+#lang: fr
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#start: 
+#end: 
+#--------------
+#introduction:
+Année %year+3% : le variant ZA13 cause des ravages parmis la population.
+Le seul espoir, trouver un remède. Pour cela on t'a confier Kee, une jeune femme qui semble immunisée contre le virus.
+Ton seul but, l'amener au lieu de rendez-vous sans vous faire prendre et la protéger coûte que coûte.
+<>
+Te voilà perdu, %biome%. La voiture ne veut plus rien savoir.
+Coincé à %distance% de ton lieu de rendez-vous, %routeInfo%.
+<>
+Tu ramasses la carte IGN de la région avec le lieu du rendez-vous entouré d'un cercle rouge.
+Tu entraîne Kee à ta suite en passant par les petites routes pour éviter tes poursuivants...
+#--------------
+#missed:
+Une voiture s'arrête le long de la route ! Ce sont eux !
+Tu entraines Kee à bout de souffle %hiddingPlace%, il ne vous ont pas vu !
+<>
+C'était moins une ! Il va falloir éviter les lieux trop fréquentés...
+#fail:
+Une voiture s'arrète et deux hommes en sortent une arme à la main. Ils vous ont repérés.
+Tu essayes de t'enfuir mais Kee s'est déjà fait rattrapée.
+#--------------
+#failConclusion:
+Tu t'avances vers la maison. Tout semble tranquille et pourtant...
+Au moment où tu t'apprètes à sonner à la porte, un bruissement te fait te retourner. Deux hommes te barrent la route une arme à la main.
+<>
+Ils se jettent sur Kee et l'entrainent avec eux.
+#conclusion:
+La porte s'ouvre au premier coup de sonnette. Un homme, à l'allure de hippie en blousse blanche vous fait rentrer.
+« Qu'est-ce que vous fichiez ! Entrez ! lance-t-il en jetant un coup d'oeil derrière toi, Vous n'avez pas été suivi ? »
+<>
+A l'intérieur une jeune femme s'occupe de Kee.
+« C'est formidable ! Vous avez réussi à passer ! »
+<>
+Tu t'effondre en soufflant sur le sofa du salon, c'étais moins une !

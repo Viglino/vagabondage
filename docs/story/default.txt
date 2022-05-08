@@ -13,7 +13,7 @@
 Voilà, ça devait arriver, la voiture vient de rendre l'âme !
 Tu te gares sur le bas-côté en pestant contre ta malchance et te voilà coincé à %distance% de ton lieu de rendez-vous, %routeInfo%.
 <>
-Tu ramasses le dossier qui contient les preuve de leurs agissements. Une fois mis en ligne il ne pourront plus rien contre toi. Mais en attendant, il feront tout pour le reprendre.
+Tu ramasses le dossier qui contient les preuves de leurs agissements. Une fois mis en ligne il ne pourront plus rien contre toi. Mais en attendant, il feront tout pour le reprendre.
 Tu regrettes un peu de t'être débarassé de ton smartphone, il t'aurait été bien utile, perdu %biome%.
 Mais c'était trop risqué, ils auraient pû te localiser trop facilement.
 <>
@@ -23,15 +23,13 @@ Il ne te reste plus qu'à t'y rendre en passant par les petites routes pour évi
 #--------------
 #missed:
 Une voiture s'arrête le long de la route ! Ce sont eux !
-Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'on pas vu !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'ont pas vu !
 <>
 C'était moins une ! Il va falloir éviter les lieux trop fréquentés...
 #fail:
 Une voiture s'arrète et deux hommes en sortent une arme à la main. Ils t'ont repéré.
 Tu essayes de t'enfuir mais ils sont déjà là, tes jambes se dérobent sous toi.
 « Assez joué ! Maintenant, donnez-nous le dossier ! » dit l'homme en t'arrachant le sac.
-<>
-Tu as perdu...
 #--------------
 #failConclusion:
 Tu t'avances vers la maison. Tout semble tranquille et pourtant...
