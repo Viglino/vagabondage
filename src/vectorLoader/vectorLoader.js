@@ -136,15 +136,23 @@ function wait(e) {
 VectorLoader.prototype.getCountryside = function(options, cback) {
   const region = options.region;
   const story = options.story;
-  const content = ol_ext_element.create('DIV', {
+  const content = ol_ext_element.create('DIV', {});
+  if (story.img) {
+    ol_ext_element.create('IMG', {
+      src: story.img,
+      parent: content
+    })
+  }
+  const aut = ol_ext_element.create('DIV', {
     html: _T('storyBy'),
-    className: 'author'
+    className: 'author',
+    parent: content
   });
   ol_ext_element.create('A', {
     html: story.author,
     href: story.authorURL,
     target: '_new',
-    parent: content
+    parent: aut
   })
   // Show loading dialog
   dialog.show({ 

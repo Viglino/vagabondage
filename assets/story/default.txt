@@ -6,6 +6,7 @@
 #author: @JMViglino
 #authorURL: https://twitter.com/jmviglino
 #-------------- info
+#img: ./affiches/default.jpg
 #start: 0.27566, 48.84994
 #end: 0.27566, 48.84994
 #--------------

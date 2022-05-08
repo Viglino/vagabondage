@@ -29,6 +29,12 @@
   position: absolute;
   left: 1em;
 }
+.ol-ext-dialog.loadingStory > form img {
+  height: 450px;
+  max-height: calc(100vh - 14em);
+  display: block;
+  margin: .5em auto;
+}
 
 .ol-ext-dialog.loading > form .ol-content:before,
 .ol-ext-dialog.winDialog > form h2:before,

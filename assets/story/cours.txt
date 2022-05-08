@@ -6,6 +6,7 @@
 #author: @JMViglino
 #authorURL: https://twitter.com/jmviglino
 #-------------- info
+#img: ./affiches/lola.jpg
 #start: 
 #end: 
 #--------------
