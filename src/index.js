@@ -9,6 +9,7 @@ import './page/intro'
 import './page/about'
 
 import game from './game/game'
+import './game/actions'
 
 /* Debug */
 window.map = map;

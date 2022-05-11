@@ -14,6 +14,12 @@
   width: 8em;
   text-align: right;
 }
+.ol-ext-dialog.intro form label.ol-ext-toggle-switch {
+  display: block;
+  width: auto;
+  margin: .8em 0 0;
+  text-align: left;
+}
 .ol-ext-dialog.intro form ul {
   margin: 0;
   padding: 0;

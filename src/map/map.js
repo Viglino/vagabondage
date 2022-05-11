@@ -7,8 +7,6 @@ import 'ol/src/ol.css'
 import 'ol-ext/dist/ol-ext.css'
 import './map.css'
 import ScaleLine from 'ol-ext/control/CanvasScaleLine'
-import Control from 'ol/control/Control'
-import ol_ext_element from 'ol-ext/util/element'
 import ol_control_Status from 'ol-ext/control/Status'
 
 const map = new Map({

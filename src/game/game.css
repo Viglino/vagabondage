@@ -15,7 +15,7 @@
 }
 .jumper li {
   background-color: #fff;
-  padding: .3em 1em .3em 0;
+  padding: .3em .5em .3em 0;
   cursor: pointer;
   margin: .5em 0;
   white-space: nowrap;
@@ -36,9 +36,9 @@
   transform: translateX(0%);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .jumper li {
-    width: 2em;
+    width: 2.5em;
   }
 }
 

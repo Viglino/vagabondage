@@ -1,0 +1,15 @@
+.ol-ext-dialog.actions .ol-content ul li {
+  display: none;
+}
+.ol-ext-dialog.actions .ol-content ul li img {
+  width: 3.5em;
+  vertical-align: middle;
+}
+
+.ol-ext-dialog.actions .ol-content ul {
+  list-style: none;
+  padding: 0;
+}
+.ol-ext-dialog.actions .ol-content[data-has-action] .noActions {
+  display: none;
+}

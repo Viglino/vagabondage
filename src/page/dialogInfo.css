@@ -15,8 +15,12 @@
 .ol-ext-dialog.begin > form .ol-content {
  font-size: 1.3em;
 }
+.ol-ext-dialog.begin > form .ol-buttons {
+  margin: 0;
+}
 
 .ol-ext-dialog.loadingStory form.ol-title .ol-content .author {
+  font-size: .8em;
   text-align: right;
   margin-right: 1.5em;
 }

@@ -290,13 +290,12 @@ Drag.prototype.checkCross = function(start, end, route) {
             break;
           }
           // special features / prop
-          case 'troncon_de_voie_ferree': {
-            if (f.get('position_par_rapport_au_sol') > 0) intersect.bridge = f;
-            else intersect.feature[layer] = f;
-            break;
-          }
           case 'construction_lineaire': {
             if (/pont/i.test(f.get('nature'))) intersect.bridge = f;
+            break;
+          }
+          case 'troncon_de_voie_ferree': {
+            if (f.get('position_par_rapport_au_sol') == 0 && f.get('nombre_de_voies') > 1) intersect.feature[layer] = f;
             break;
           }
           case 'troncon_hydrographique': {

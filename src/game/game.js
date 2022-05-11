@@ -23,6 +23,7 @@ import _T from '../i18n/i18n'
 import help from '../page/help'
 import { getRandomStory } from './story'
 import { formatDate, formatDuration, m2km } from '../page/utils';
+import { getIntersection } from '../vectorLoader/bdtopo'
 
 import ol_ext_Ajax from 'ol-ext/util/Ajax';
 import showDialogInfo from '../page/dialogInfo'
@@ -294,9 +295,9 @@ Game.prototype.begin = function() {
  */
 Game.prototype.nextStep = function(e) {
   // Crossing
+  let error = '';
   if (e.crossing) {
-    let error = '';
-    if (e.distance > 100) {
+    if (e.routing.distance > 250) {
       error = _T('noCrossing:dist');
     }
     if (e.deniv > 150) {
@@ -307,31 +308,23 @@ Game.prototype.nextStep = function(e) {
     } 
     // Check intersections
     if (e.intersect.count) {
-      if (e.intersect.feature.troncon_de_route) {
-        error = _T('noCrossing:road');
-      } else if (e.intersect.feature.batiment) {
-        error = _T('noCrossing:building');
-      } else if ((e.intersect.feature.surface_hydrographique || e.intersect.feature.troncon_hydrographique)
-        && !e.intersect.bridge) {
-        error = _T('noCrossing:river');
-      } else if (e.intersect.feature.troncon_de_voie_ferree) {
-        error = _T('noCrossing:rail');
-      }  
-    }
-    // Show Error
-    if (error) {
-      dialog.show({
-        title: 'Impossible de traverser ici !',
-        content: error,
-        className: 'noCrossDlg',
-        buttons: { ok: 'OK' }
-      });
-      this.routing_.setStart(e.start);
-      return;
+      error = getIntersection(e.intersect);
     }
   }
+  // Show Error
+  if (error) {
+    dialog.show({
+      title: _T('noCrossing'),
+      content: error,
+      className: 'noCrossDlg',
+      buttons: { ok: 'OK' }
+    });
+    this.routing_.setStart(e.start);
+    return;
+  }
+
   // Calculate life / dist
-  this.dist = (this.dist || 0) + e.routing.distance;
+  this.dist = (this.dist || 0) + e.routing.distance * (e.crossing ? 2 : 1);
   while (this.dist > 2000) {
     this.setLife(this.getLife()-1);
     this.dist -= 2000;
@@ -342,6 +335,7 @@ Game.prototype.nextStep = function(e) {
   // Set new position
   const position = e.end;
   this.set('position', position);
+
   // Check ennemy along roads
   const along = this.getAlong(e.routing.feature, f => f.layer === 'troncon_de_route' && f.importance < 5);
   const roads = [];
@@ -375,9 +369,11 @@ Game.prototype.nextStep = function(e) {
     }
   })
   this.set('roads', nbRoads);
+
   // New destination
   this.set('destination', getDistance(toLonLat(this.get('position')), toLonLat(this.get('end'))))
   this.routing_.setStart(position);
+
   // Add features to the map
   e.routing.feature.set('style', 'route');
   layer.getSource().addFeature(e.routing.feature.clone());
@@ -389,9 +385,11 @@ Game.prototype.nextStep = function(e) {
   }
   e.routing.feature.set('style', 'routeMap');
   layerCarte.getSource().addFeature(e.routing.feature);
-  // Get arround
-  if (!altercation) this.map.getView().setCenter(position);
-  this.getArround(() => this.encounter(altercation));
+
+  // Get arround > encounter
+  if (this.altercation(altercation)) return;
+  this.map.getView().setCenter(position);
+  this.getArround((arround) => this.encounter(arround));
 };
 
 /** Get features along travel feature
@@ -421,23 +419,11 @@ Game.prototype.getAlong = function(feature, filter) {
  */
 Game.prototype.getArround = function(cback) {
   setTimeout(() => {
-    this.arround = mapInfo.getAround(20, this.get('position'));
-    const tInfo = {};
-    for (let k in this.arround) {
-      this.arround[k].forEach((a,i) => {
-        tInfo[a.layer+'-'+i] = {
-          nature: a.nature || '-',
-          toponyme: a.toponyme || a.nom || a.numero || a.cpx_numero || '-'
-        }
-      });
-    }
-    console.log(this.arround)
-    console.table(tInfo);
-    if (cback) cback(this.arround);
-    // this.
-    const road = this.findArround(f => f.layer === 'route_numerotee_ou_nommee')
-    const troncon = this.findArround(f => f.layer === 'troncon_de_route')
-    const zone = this.findArround(f => f.layer === 'zone_d_habitation')
+    const arround = mapInfo.getAround(20, this.get('position'));
+    // Show status
+    const road = this.findArround(f => f.layer === 'route_numerotee_ou_nommee', arround)
+    const troncon = this.findArround(f => f.layer === 'troncon_de_route', arround)
+    const zone = this.findArround(f => f.layer === 'zone_d_habitation', arround)
     const infos = {
       distance: (this.get('distance') ? formatDuration(this.get('duration')) +' (' + m2km(this.get('distance'), 1) +')' : ''),
       road: (road ? (road.nom || '') + ' <span class="numero">' + road.numero + '</span> ' : (troncon ? troncon.nature + '<br/>' : ''))
@@ -452,6 +438,9 @@ Game.prototype.getArround = function(cback) {
       }
     }
     infoControl.status(status);
+
+    // Do something
+    if (cback) cback(arround);
   });
 };
 
@@ -459,7 +448,6 @@ Game.prototype.getArround = function(cback) {
  * @param {function} filter
  */
 Game.prototype.findArround = function(filter, arround) {
-  arround = arround || this.arround;
   for (let k in arround) {
     const f = arround[k].find(filter);
     if (f) return f;
@@ -467,7 +455,33 @@ Game.prototype.findArround = function(filter, arround) {
 }
 
 /** Handle encounter */
-Game.prototype.encounter = function(altercation) {
+Game.prototype.encounter = function(arround) {
+  // This is the end?
+  if (this.get('destination') < 15) {
+    this.finish();
+    return true;
+  }
+  this.arround = arround;
+
+  // Show what's arround
+  console.log(arround)
+
+  /* DEBUG: Show table info */
+  const tInfo = {};
+  for (let k in arround) {
+    arround[k].forEach((a,i) => {
+      tInfo[a.layer+'-'+i] = {
+        nature: a.nature || '-',
+        toponyme: a.toponyme || a.nom || a.numero || a.cpx_numero || '-'
+      }
+    });
+  }
+  console.table(tInfo);
+  /**/
+}
+
+/** Handle altercation */
+Game.prototype.altercation = function(altercation) {
   if (altercation) {
     const arround = mapInfo.getAround(20, altercation.coordinate);
     let hide;
@@ -483,14 +497,11 @@ Game.prototype.encounter = function(altercation) {
       if (altercation.type === 'fail') {
         this.finish(true);
         this.routing_.setStart([]);
+        return true;
       }
     })
-  } else {
-    // This is the end?
-    if (this.get('destination') < 15) {
-      this.finish();
-    }
   }
+  return false;
 };
 
 /** Finish game

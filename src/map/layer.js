@@ -12,8 +12,8 @@ import ToggleControl from 'ol-ext/control/Toggle'
 import FontSymbol from 'ol-ext/style/FontSymbol'
 import RegularShape from 'ol/style/RegularShape';
 
-map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 14 }));
-// map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 14, visible: false }));
+map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 5 }));
+// map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 5, visible: false }));
 
 const style = new Style({
   image: new Circle({
@@ -164,7 +164,8 @@ map.addLayer(debug);
 
 // Carte layer
 const carte = new Geoportail({ 
-  layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS', 
+  layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS',
+  preload: 10, 
   key: 'om5z6xk76byacxz46km17jkx', 
   visible: false 
 }, {

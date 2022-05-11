@@ -20,6 +20,16 @@ const region = dialog.getContentElement().querySelector('.region');
 const length = dialog.getContentElement().querySelector('.length');
 const month = dialog.getContentElement().querySelector('.month');
 
+const helpBt = dialog.element.querySelector('.helpBt input')
+helpBt.checked = !localStorage.getItem('vagabond@help-main');
+helpBt.addEventListener('change', () => {
+  if (helpBt.checked) {
+    localStorage.removeItem('vagabond@help-main');
+  } else {
+    localStorage.setItem('vagabond@help-main', 1);
+  }
+})
+
 // Add regions option
 regions.forEach((f, i) => {
   element.create('OPTION', { text: f.get('nom'), value: i, parent: region });

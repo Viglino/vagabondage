@@ -24,6 +24,7 @@ function getFeaturesProp(features) {
   features.forEach(f => {
     const p = f.getProperties()
     const id = p.layer + (p.nature ? '-' + p.nature : '');
+    // p.original = f;
     if (!result[id]) result[id] = [];
     result[id].push(p);
   })
