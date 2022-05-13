@@ -1,3 +1,23 @@
+.ol-button.actions {
+  left: .5em;
+  top: .5em;
+  border-radius: 50%;
+  padding: 0;
+  background: rgba(0,0,0,0.3);
+  border: 0.4em solid rgba(255,255,255,.4);
+}
+.ol-button.actions button {
+  background-color: transparent;
+  background-image: url('../img/eye.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 3em;
+  height: 3em;
+  cursor: pointer;
+}
+.ol-button.actions button:hover {
+  animation: ring 2s infinite ease;
+}
 .ol-ext-dialog.actions .ol-content ul li {
   display: none;
 }
@@ -12,4 +32,18 @@
 }
 .ol-ext-dialog.actions .ol-content[data-has-action] .noActions {
   display: none;
+}
+
+@keyframes ring {
+	0%{-webkit-transform:rotate(-15deg);transform:rotate(-15deg)}
+	2%{-webkit-transform:rotate(15deg);transform:rotate(15deg)}
+	4%{-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}
+	6%{-webkit-transform:rotate(18deg);transform:rotate(18deg)}
+	8%{-webkit-transform:rotate(-22deg);transform:rotate(-22deg)}
+	10%{-webkit-transform:rotate(22deg);transform:rotate(22deg)}
+	12%{-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}
+	14%{-webkit-transform:rotate(18deg);transform:rotate(18deg)}
+	16%{-webkit-transform:rotate(-12deg);transform:rotate(-12deg)}
+	18%{-webkit-transform:rotate(12deg);transform:rotate(12deg)}
+	20%,100%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}
 }

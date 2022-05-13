@@ -3,6 +3,7 @@
   "longStage": "<i class=\"fa fa-warning\"></i> Etape trop longue...",
   "goTo": "Relâche pour aller jusqu'ici...",
   "loading:route": "Recherche du chemin...",
+  "lookArround": "Autour de moi",
   "crossThrough": "Couper à travers champs",
   "noCrossing" : "Impossible de traverser ici !",
   "noCrossing:road": "Tu ne peux pas traverser une autoroute !",

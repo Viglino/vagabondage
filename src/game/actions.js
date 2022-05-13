@@ -73,7 +73,7 @@ function getActions(arround) {
       // is arround
       if (arround[i]) {
         // not allready done !
-        const cleabs = actions[a][0].cleabs;
+        const cleabs = arround[i][0].cleabs;
         if (!doneFeatures[cleabs]) {
           actions[a] = arround[i];
         }
@@ -100,6 +100,7 @@ function doAction() {
   })
   const dlg = dialog.getContentElement();
 
+  delete dlg.dataset.hasAction;
   Object.keys(actions).forEach(a => {
     if (actions[a]) {
       console.log(a)
@@ -108,8 +109,8 @@ function doAction() {
         elt.style.display = 'block';
         const nature =  elt.querySelector('span');
         if (nature) nature.innerText = actions[a][0].nature.toLocaleLowerCase();
+        dlg.dataset.hasAction = '';
       }
-      dlg.dataset.hasAction = '';
     }
   })
 }
@@ -117,6 +118,7 @@ function doAction() {
 
 const actionBt = new ol_control_Button({
   className: 'actions',
+  title: _T('lookArround'),
   handleClick: doAction
 })
 

@@ -1,3 +1,5 @@
+import './page/lock'
+
 import './i18n/lang.js'
 import map from './map/map'
 import './map/layer'
