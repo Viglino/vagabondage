@@ -1,0 +1,41 @@
+########
+#title: La frousse aux trousses
+########
+#lang: fr
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/trousses.jpg
+#start: 
+#end: 
+#--------------
+#introduction:
+Te voilà bien embringué dans cette affaire. Entre la police et les services secrets qui te cherchent et le réseau Vandamm qui en veut à ta peau, il va falloir jouer serré...
+<>
+Ta seule chance est de te rendre au lieux de rendez-vous à %distance% d'ici, pour retrouver Eve.
+Heureusement que tu as pris soins de noter le lieux par un cercle rouge sur une carte IGN.
+<>
+Perdu %biome%, %routeInfo%, ilva falloir rester discret et prendre les petites routes pour éviter les rencontres indésirables...
+..
+#--------------
+#missed:
+Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a una arme à la main !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, ils ne t'ont pas vu !
+<>
+C'était moins une ! Il va falloir éviter ce genre de rencontre...
+#fail:
+Une voiture s'arrète et deux hommes en sortent une arme à la main. Ils t'ont repéré.
+Tu essayes de t'enfuir mais ils sont déjà là, tes jambes se dérobent sous toi lorsqu'ils te rattrapent.
+#--------------
+#failConclusion:
+Tu t'avances vers le lieu de rendez-vous. Tout semble tranquille et pourtant...
+Au moment où tu t'apprètes à sonner à la porte, un bruissement te fait te retourner. Deux hommes te barrent la route une arme à la main.
+<>
+« Assez joué ! Ta route s'arrête ici... »
+#conclusion:
+Par la fenêtre du salon, tu surprends une conversation entre Vandamm et Leonard qui ont découvert qu'Eve est en fait un agent double.
+<>
+Tu pénètres dans la maison par la porte de derrière et sans te faire remarquer, tu délivres Eve qui est enfermée dans une chambre.
+<>
+Avant de partir, Eve s'empare de la satuette avec les microfilms que Vandamm allait livrer à une puissance ennemie et vous vous enfuyez dans la voiture des malfrats...
