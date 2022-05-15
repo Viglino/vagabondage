@@ -11,6 +11,13 @@ Entre survie et rencontres, vous incarnez un personnage en fuite dans la campagn
 [<i class="fa fa-twitter"></i> @matthieub_](https://twitter.com/matthieub_/status/1503490106983915520) - [@TSolonce](https://twitter.com/TSolonce)    
 [<i class="fa fa-google"></i> PDF](https://drive.google.com/file/d/1q_zbQSIQdtNhsl_mn7X61ZDLFONUcgcg/view)    
 
+## Resources
+
+- [La BD TOPO®](https://geoservices.ign.fr/bdtopo)    
+Modélisation 2D et 3D du territoire et de ses infrastructures sur l'ensemble du territoire français
+- [BD TOPO® - Descriptif de contenu](https://geoservices.ign.fr/sites/default/files/2021-07/DC_BDTOPO_3-0.pdf)    
+Ce document décrit en termes de contenu, de caractéristiques générales, de précision géométrique et de qualité sémantique, le produit BD TOPO® version 3.0.
+
 ## Autres jeux sur des cartes
 
 <img src="http://fr.1001mags.com/images/Couv/J/JeuxStrategie/23442-JeuxStrategie-14-Couverture-3.jpg" align="left" width=100>
