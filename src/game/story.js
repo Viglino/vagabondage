@@ -12,10 +12,12 @@ const stories = data.stories;
 const loader = [
   'default',
   'amnesie',
-  'pandemic',
+  'brothers',
   'cours',
   'fugitif',
-  'fugitifs'
+  'fugitifs',
+  'pandemic',
+  'trousses'
 ]
 
 // Load stories

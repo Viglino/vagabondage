@@ -3,79 +3,36 @@ import map from '../map/map'
 import dialog from '../map/dialog';
 import _T from '../i18n/i18n';
 import game from './game'
+import actionsPlaces from './actionsPlaces'
 
 import './actions.css'
 import dglAction from './actions.html'
 
 const doneFeatures = {};
 
-const actionsPlaces = {
-  info: [
-    'construction_ponctuelle-Croix',
-  ],
-  water: [
-    'detail_hydrographique-Fontaine',
-    'detail_hydrographique-Citerne',
-    'detail_hydrographique-Source captée',
-    'detail_hydrographique-Source',
-    'detail_hydrographique-Résurgence',
-    'detail_hydrographique-Point d\'eau',
-    'detail_hydrographique-Lavoir',
-    'cimetiere-*',
-    'zone_d_activite_ou_d_interet-Camping'
-  ],
-  sleeping: [
-    'zone_d_activite_ou_d_interet-Mégalithe',
-    'batiment-Chapelle',
-    'batiment-Fort, blockhaus, casemate',
-    'zone_d_activite_ou_d_interet-Camping'
-  ],
-  eating: [
-    'batiment-Serre',
-    'zone_d_activite_ou_d_interet-Camping'
-  ],
-  objects: [
-    'batiment-Industriel, agricole ou commercial',
-    'batiment-Moulin à vent',
-
-  ],
-  detente: [
-    'zone_d_activite_ou_d_interet-Aire de détente'
-  ],
-  other: [
-      'zone_d_activite_ou_d_interet-Aire de covoiturage *',
-      'zone_d_activite_ou_d_interet-*camping*',
-      'zone_d_activite_ou_d_interet-*police*',
-      'zone_d_activite_ou_d_interet-baraque*',
-      'zone_d_activite_ou_d_interet-Boulodrome',
-      'zone_d_activite_ou_d_interet-Four à pain',
-      'zone_d_activite_ou_d_interet-Gare*',
-      'zone_d_activite_ou_d_interet-Parc de stationnement de moins de 25 places',
-      'zone_d_activite_ou_d_interet-Parking nommé de moins de 25 places',
-      'zone_d_activite_ou_d_interet-Centre équestre',
-      'zone_d_activite_ou_d_interet-Aire de détente',
-      'zone_d_activite_ou_d_interet-Espace public',
-      'equipement_de_transport-Parking',
-      'construction_ponctuelle-Eolienne',
-      'batiment-Serre',
-      'zone_de_vegetation-Bananeraie',
-      'zone_de_vegetation-Verger',
-      'zone_de_vegetation-Vigne',
-  ]
-}
-
-/** Get action arround */
+/** Get action arround position */
 function getActions(arround) {
   const actions = {};
   // Search action places
   for (let a in actionsPlaces) {
     actionsPlaces[a].forEach(i => {
+      let arr;
+      if (i.test) {
+        for (let k in arround) {
+          if (i.test(k)) {
+            arr = arround[k]
+            break;
+          }
+        }
+      } else {
+        arr = arround[i];
+      }
       // is arround
-      if (arround[i]) {
+      if (arr) {
         // not allready done !
-        const cleabs = arround[i][0].cleabs;
+        const cleabs = arr[0].cleabs;
         if (!doneFeatures[cleabs]) {
-          actions[a] = arround[i];
+          actions[a] = arr[i];
         }
       }
     })
@@ -102,13 +59,13 @@ function doAction() {
 
   delete dlg.dataset.hasAction;
   Object.keys(actions).forEach(a => {
-    if (actions[a]) {
-      console.log(a)
+    let action = actions[a];
+    if (action) {
       const elt = dlg.querySelector('[data-action="'+a+'"]');
       if (elt) {
         elt.style.display = 'block';
         const nature =  elt.querySelector('span');
-        if (nature) nature.innerText = actions[a][0].nature.toLocaleLowerCase();
+        if (nature) nature.innerText = action[0].nature.toLocaleLowerCase();
         dlg.dataset.hasAction = '';
       }
     }
