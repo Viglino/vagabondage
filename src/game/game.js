@@ -4,7 +4,7 @@ import Point from 'ol/geom/Point';
 import { getPointResolution, toLonLat } from 'ol/proj';
 import { getDistance } from 'ol/sphere';
 import element from 'ol-ext/util/element'
-import Gauge from 'ol-ext/control/Gauge'
+
 import 'ol-ext/render/Cspline'
 import 'ol-ext/geom/GeomUtils'
 
@@ -16,6 +16,7 @@ import vectorLoader from '../vectorLoader/vectorLoader';
 import layer, { layerCarte } from '../map/layer'
 import routing from '../map/routing';
 import { getRegionNameByPos, getDepartementName } from '../vectorLoader/regions'
+import gauge from './gauge'
 
 import vtlayer from '../vectorLoader/vtMap'
 import mapInfo from '../vectorLoader/mapInfo'
@@ -39,11 +40,7 @@ class Game extends olObject {
     super();
     this.map = map
     // Life gauge
-    this.gauge = new Gauge({
-      title: '+6', 
-      max: 8,
-      val: 8
-    });
+    this.gauge = gauge;
     map.addControl(this.gauge);
     // Show destination / 
     const d = element.create('UL', {
@@ -109,9 +106,26 @@ Game.prototype.flyTo = function(position) {
 }
 
 /** Set current life value
- * @param {number} n
+ * @param {number|string} inc increase/decrease value
  */
-Game.prototype.setLife = function(n) {
+Game.prototype.setLife = function(inc) {
+  const nlife = this.getLife();
+  // Increase hydro / food
+  if (inc === 'hydro' || inc === 'food') {
+    if (this.gauge.get(inc)) {
+      this.gauge.set(inc, false);
+      inc = 1;
+    } else {
+      inc = 0;
+    }
+  } else if (inc === -1) {
+    // Loose hydro / food first
+    if (!this.gauge.get('hydro')) this.gauge.set('hydro', true);
+    else if (!this.gauge.get('food')) this.gauge.set('food', true);
+  } else {
+    inc = +1;
+  }
+  const n = nlife + inc;
   this.gauge.val(n+2);
   this.gauge.setTitle((n>0 ? '+':'')+n);
   this.gauge.element.classList.add('anim');
@@ -326,7 +340,7 @@ Game.prototype.nextStep = function(e) {
   // Calculate life / dist
   this.dist = (this.dist || 0) + e.routing.distance * (e.crossing ? 2 : 1);
   while (this.dist > 2000) {
-    this.setLife(this.getLife()-1);
+    this.setLife(-1);
     this.dist -= 2000;
   }
   // Calculate distance / duration
@@ -360,7 +374,7 @@ Game.prototype.nextStep = function(e) {
         type: (alt === altTable[altTable.length-1] ? 'fail' : 'missed'),
         coordinate: pos.coordinate
       };
-      this.setLife(this.getLife()-1);
+      this.setLife(-1);
       // Center on altercation
       this.map.getView().animate({
         center: pos.coordinate,

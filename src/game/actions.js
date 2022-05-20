@@ -2,11 +2,12 @@ import ol_control_Button from 'ol-ext/control/Button'
 import map from '../map/map'
 import dialog from '../map/dialog';
 import _T from '../i18n/i18n';
-import game from './game'
-import actionsPlaces from './actionsPlaces'
 
 import './actions.css'
 import dglAction from './actions.html'
+
+import game from './game'
+import actionsPlaces from './actionsPlaces'
 
 const doneFeatures = {};
 
@@ -15,11 +16,13 @@ function getActions(arround) {
   const actions = {};
   // Search action places
   for (let a in actionsPlaces) {
-    actionsPlaces[a].forEach(i => {
+    for (let place in actionsPlaces[a]) {
       let arr;
-      if (i.test) {
+      const placeInfo = actionsPlaces[a][place];
+      // use search ?
+      if (placeInfo.search) {
         for (let k in arround) {
-          if (i.test(k)) {
+          if (place.search.test(k)) {
             arr = arround[k]
             break;
           }
@@ -32,10 +35,10 @@ function getActions(arround) {
         // not allready done !
         const cleabs = arr[0].cleabs;
         if (!doneFeatures[cleabs]) {
-          actions[a] = arr[i];
+          actions[a] = arr;
         }
       }
-    })
+    }
   }
   return actions;
 }

@@ -113,3 +113,52 @@
     transform: translateY(-50%) scale(1);
   }
 }
+
+.ol-ext-dialog.life  {
+  font-size: 1.2em;
+}
+.ol-ext-dialog.life > form {
+  max-width: min(35em, 60%);
+}
+
+.ol-ext-dialog.life ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ol-ext-dialog.life ul span {
+  font-size: 1.2em;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 1.5em;
+  display: inline-block;
+  text-align: right;
+  color: rgba(0,60,136,1);
+}
+.ol-ext-dialog.life ul p {
+  display: none;
+  font-style: italic;
+  color: rgba(0,60,136,1);
+  margin-top: .5em;
+  margin: 0 0 .5em 2em;
+}
+.ol-ext-dialog.life ul .inan {
+  display: none;
+  color: #800;
+}
+.ol-ext-dialog.life ul .inan img {
+  float: left;
+}
+.ol-ext-dialog.life ul li i {
+  display: none;
+  font-style: normal;
+}
+.ol-ext-dialog.life ul li.multi i {
+  display: inline;
+}
+
+.ol-ext-dialog.life ul .inan.visible,
+.ol-ext-dialog.life ul .inan.visible p,
+.ol-ext-dialog.life ul .visible {
+  display: block;
+}
