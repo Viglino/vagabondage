@@ -1,56 +1,379 @@
-export default {
-  info: {
-    'construction_ponctuelle-Croix': {
+import { sources } from "../vectorLoader/vectorData"
 
-    },
-    'lieu_dit_non_habite-Arbre': {},
+/** Define action places
+ */
+const actionsPlaces = {
+  'construction_ponctuelle-Croix': {
+    title: 'Une croix plantée sur le bord du chemin.',
+    info: 'la croix',
+    actions: [
+      [{
+        type: 'info',
+        desc: 'Un viel homme est assis sous %info%.', 
+        action: 'Il t\'indique un raccourcis.',
+      },{
+        type: 'drink',
+        desc: 'Un promeneur vient à passer.', 
+        action: 'Il te donne à boire.',
+      },{
+        type: 'food',
+        title: 'une pomme',
+        desc: 'Une vielle femme porte des paniers plein. Elle trébuche et tu l\'aides à se relever.',
+        action: 'Elle te donne une pomme.'
+      },{
+        type: 'info',
+        desc: 'Un paysan laboure son champ non loins de là.',
+        action: 'Il t\'indique un raccourcis.',
+      }]
+    ]
   },
-  water: {
-    'detail_hydrographique-Fontaine': {},
-    'detail_hydrographique-Citerne': {},
-    'detail_hydrographique-Source captée': {},
-    'detail_hydrographique-Source': {},
-    'detail_hydrographique-Résurgence': {},
-    'detail_hydrographique-Point d\'eau': {},
-    'detail_hydrographique-Lavoir': {},
-    'cimetiere': {
-      search: /^cimetiere-/,
-    },
-    'zone_d_activite_ou_d_interet-Camping': {},
-    'zone_d_activite_ou_d_interet-Centre équestre': {},
+  'detail_hydrographique-Fontaine': {
+    title: 'Une fontaine.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'De l\'eau fraiche coule d\'une fontaine.',
+        action: 'Remplir une bouteille ou boire un coup'
+      }]
+    ]
   },
-  sleeping: {
-    'zone_d_activite_ou_d_interet-Mégalithe': {},
-    'batiment-Chapelle': {},
-    'batiment-Fort, blockhaus, casemate': {},
-    'zone_d_activite_ou_d_interet-Camping': {}
+  'detail_hydrographique-Citerne': {
+    title: 'Une citerne.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'Cette citerne est pleine !',
+        action: 'Remplir une bouteille ou boire un coup'
+      },{
+        type: 'none',
+        desc: 'L\'eau dans cette citerne n\'a pas l\'air potable...',
+      }]
+    ]
   },
-  eating: {
-    'batiment-Serre': {},
-    'zone_d_activite_ou_d_interet-Camping': {},
-    'zone_de_vegetation-Bananeraie': {},
-    'zone_de_vegetation-Verger': {},
-    'zone_de_vegetation-Vigne': {},
+  'detail_hydrographique-Source captée': {
+    title: 'Une source captée.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'De l\'eau coule de cette source...',
+        action: 'Remplir une bouteille ou boire un coup'
+      },{
+        type: 'none',
+        desc: 'Impossible d\'accéder à cette sources...',
+      }]
+    ]
   },
-  objects: {
-    'batiment-Industriel, agricole ou commercial': {},
-    'batiment-Moulin à vent': {},
+  'detail_hydrographique-Source': {
+    title: 'Une source.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'Tu entends le glou-glou caractérique, il y a de l\'eau pas loin.',
+        action: 'Remplir une bouteille ou boire un coup'
+      }]
+    ]
   },
-  detente: {
-    'zone_d_activite_ou_d_interet-Aire de détente': {},
-    'equipement_de_transport-Parking': {},
+  'detail_hydrographique-Lavoir': {
+    title: 'Un lavoir.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'Ce lavoir a l\'air en bon état.',
+        action: 'Remplir une bouteille ou boire un coup'
+      },{
+        type: 'none',
+        desc: 'Un panneau indique "eau non potable"...',
+      }]
+    ]
   },
-  danger: {
-    'zone_d_activite_ou_d_interet-Police': {},
-    'Gare': {
-      search: /zone_d_activite_ou_d_interet-Gare.*/,
-    },
-    'Gare2': {
-      search: /equipement_de_transport-Gare.*/,
-    }
+  'cimetiere': {
+    search: /^cimetiere-/,
+    title: 'Un cimetière.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'A l\'entrée du cimetière tu trouves un robinet destiné à arroser les fleur.',
+        action: 'Remplir une bouteille ou boire un coup'
+      }]
+    ]
   },
-  other: {
-    'zone_d_activite_ou_d_interet-Espace public': {},
-    'construction_ponctuelle-Eolienne': {},
+  'zone_d_activite_ou_d_interet-Camping': {
+    title: 'Un camping.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'Tu trouves un robinet du côté des sanitaires du camping.',
+        action: 'Remplir une bouteille ou boire un coup'
+      }],
+      [{
+        type: 'object',
+        object: 'bottle',
+        title: 'une bouteille',
+        desc: 'Tu trouve une bouteille vide dans une poubelle.',
+        action: 'Prendre la bouteille'
+      },{
+        type: 'food',
+        title: 'une barre de céréales',
+        dec: 'Quelqu\'un a oublié une barre de céréale sur une chaise.',
+        action: 'Prendre la barre de céréale'
+      },{
+        type: 'object',
+        object: 'shoes',
+        desc: 'Quelqu\'un a laissé une paire de chaussure de marche près des anitaires',
+        action: 'Prendre la paire de chaussure',
+        ok: 'Avec des chaussures comme cela tu macheras bien mieux...',
+        nok: [
+          'Désolé, elles ne sont pas à ta taille...',
+          'Ooops, voilà son propriétaire qui revient.'
+        ]
+      }]
+    ]
+  },
+  'zone_d_activite_ou_d_interet-Centre équestre': {
+    title: 'Un centre équestre.',
+    actions: [
+      [{
+        type: ['watter', 'drink'],
+        desc: 'Tu trouves un robinet accessible au bord sur le mur de l\'écurie.',
+        action: 'Remplir une bouteille ou boire un coup'
+      },{
+        type: 'object',
+        object: 'bottle',
+        title: 'une bouteille',
+        desc: 'Tu trouve une bouteille vide dans une poubelle.',
+        action: 'Prendre la bouteille'
+      },{
+        type: 'food',
+        title: 'une pomme',
+        desc: 'Il y a un cageot pomme déposé devant le centre.',
+        action: 'Prendre une pomme discrètement'
+      },{
+        type: 'none',
+        desc: 'Un cavalier te regarde avec méfiance. Il vaut mieux ne pas rester ici.'
+      }]
+    ]
+  },
+  'zone_d_activite_ou_d_interet-Mégalithe': {
+    title: 'Un mégalithe.',
+    actions: [
+      [{
+        type: 'rest',
+        desc: 'Voilà l\'endroit idéal pour se reposer un peu.',
+        action: 'Se reposer'
+      },{
+        type: 'info',
+        desc: 'Un viel homme ramasse du bois prèt du Magalithe.', 
+        action: 'Il t\'indique un raccourcis.',
+      },{
+        type: 'none',
+        desc: 'Seulement quelques vielles pierres abandonnées.'
+      }]
+    ]
+  },
+  'batiment-Chapelle': {
+    title: 'Une chapelle.',
+    actions: [
+      [{
+        type: 'rest',
+        desc: 'Voilà l\'endroit idéal pour se reposer un peu.',
+        action: 'Se reposer'
+      },{
+      }]
+    ]
+  },
+  'batiment-Fort, blockhaus, casemate': {
+    title: 'Un vieu fort.',
+    actions: [
+      [{
+        type: 'rest',
+        desc: 'Voilà l\'endroit idéal pour se reposer un peu.',
+        action: 'Se reposer'
+      }]
+    ]
+  },
+  'batiment-Serre': {
+    title: 'Une serre.',
+    actions: [
+      [{
+        type: 'food',
+        title: 'un fruit',
+        desc: 'Des caisses de fruits sont entreposées dans un coin.',
+        action: 'Prendre un fruit discrètement.'
+      }],
+      [{
+        type: ['watter', 'drink'],
+        desc: 'Un robinet d\'arrosage se trouve sur le bord du bâtiment.',
+        action: 'Remplir une bouteille ou boire un coup'
+      }]
+    ]
+  },
+  'zone_de_vegetation-Bananeraie': {
+    title: 'Une plantation de banane.',
+    actions: [
+      [{
+        type: 'food',
+        title: 'une banane',
+        desc: 'Des caisses de fruits sont entreposées dans un coin.',
+        action: 'Prendre une banane discrètement.'
+      }],
+      [{
+        type: ['watter', 'drink'],
+        desc: 'Un robinet d\'arrosage se trouve sur le bord du bâtiment.',
+        action: 'Remplir une bouteille ou boire un coup'
+      }]
+    ]
+  },
+  'zone_de_vegetation-Verger': {
+    title: 'Un verger.',
+    actions: [
+      [{
+        type: 'food',
+        title: 'un fruit',
+        desc: 'Ce verger a de beaux arbres fruitiers.',
+        action: 'Cueillir un fruit discrètement.'
+      },{
+        type: 'none',
+        desc: 'Des ouvriers travaillent dans le verger et te regardent bizarement, mieux vaut ne pas trainer ici.'
+      }]
+    ]
+  },
+  'zone_de_vegetation-Vigne': {
+    title: 'Une vigne.',
+    actions: [
+      [{
+        type: 'food',
+        title: 'une banane',
+        desc: 'Des grappes de raisins pendent à la vigne',
+        action: 'Cueillir des raisins discrètement.'
+      },{
+        type: 'none',
+        desc: 'Des ouvriers travaillent sur les plans de vigne et te regardent bizarement, mieux vaut ne pas trainer ici.'
+      }]
+    ]
+  },
+  'batiment-Industriel, agricole ou commercial':  {
+    title: 'Un entrepot.',
+    actions: [
+      [{
+        type: 'object',
+        object: 'bottle',
+        title: 'une bouteille',
+        desc: 'Tu trouve une bouteille vide qui traine.',
+        action: 'Prendre la bouteille'
+      },{
+        type: 'object',
+        object: 'shoes',
+        desc: 'Tu trouves une paire de chaussure de marche',
+        action: 'Prendre la paire de chaussure',
+        ok: 'Avec des chaussures comme cela tu macheras bien mieux...',
+        nok: [
+          'Désolé, elles ne sont pas à ta taille...',
+          'Non, elles sont en trop mauvais état...'
+        ]
+      },{
+        type: 'none',
+        action: 'Ce hangar a l\'air vide...'
+      },{
+        type: 'none',
+        action: 'Il y a du monde par ici, mieux vaut ne pas trainer..'
+      }]
+    ]
+  },
+  'batiment-Moulin à vent': {
+    title: 'Un moulin à vent.',
+    actions: [
+      [{
+        type: 'drink',
+        desc: 'Une jeune fille lit un livre sur les marche du moulin.', 
+        action: 'Elle te propose à boire.',
+      },{
+        type: 'food',
+        title: 'un morceau de pain',
+        desc: 'Un jeune homme au look de hippie semble habiter là.', 
+        action: 'Il te donne un morceau de pain.',
+      },{
+        type: 'drink',
+        desc: 'Un promeneur vient à passer.', 
+        action: 'Il te donne à boire.',
+      }]
+    ]
+  },
+  'zone_d_activite_ou_d_interet-Aire de détente': {
+    title: 'Une aire de détente.',
+    actions: [
+      [{
+        type: 'object',
+        object: 'bottle',
+        title: 'une bouteille',
+        desc: 'Tu trouve une bouteille vide dans une poubelle.',
+        action: 'Prendre la bouteille'
+      },{
+        type: 'none',
+        desc: 'Rien de spécial par ici...'
+      }]
+    ]
+  },
+  'equipement_de_transport-Parking': {
+    title: 'Un parking.',
+    actions: [
+      [{
+        type: 'object',
+        object: 'bottle',
+        title: 'une bouteille',
+        desc: 'Tu trouve une bouteille vide dans une poubelle.',
+        action: 'Prendre la bouteille'
+      },{
+        type: 'none',
+        desc: 'Rien de spécial par ici...'
+      }]
+    ]
+  },
+  'zone_d_activite_ou_d_interet-Police': {
+    title: 'La police !',
+    actions: [
+      [{
+        type: 'danger',
+        desc: 'C\'est un commissariat, tu déguerpis à toute vitesse et tu perds un point de survie...',
+        action: 'Tu perds un point de vie'
+      }]
+    ]
+  },
+  'gare': {
+    search: /zone_d_activite_ou_d_interet-Gare.*/,
+    title: 'Une gare',
+    actions: [
+      [{
+        type: 'none',
+        desc: 'Mieux vaut ne pas rester par ici, il y a trop de monde...',
+      }]
+    ]
+  },
+  'gare2': {
+    search: /equipement_de_transport-Gare.*/,
+    title: 'Une gare',
+    actions: [
+      [{
+        type: 'none',
+        desc: 'Mieux vaut ne pas rester par ici, il y a trop de monde...',
+      }]
+    ]
   }
 }
+
+actionsPlaces['lieu_dit_non_habite-Arbre'] = {
+  title: 'Un arbre majestueux.',
+  info: 'l\'arbre',
+  action: actionsPlaces['construction_ponctuelle-Croix'].actions
+}
+actionsPlaces['detail_hydrographique-Résurgence'] = {
+  title: 'Une résurgence.',
+  action: actionsPlaces['detail_hydrographique-Source'].actions
+};
+actionsPlaces['detail_hydrographique-Point d\'eau'] = {
+  title: 'Un point d\'eau.',
+  action: actionsPlaces['detail_hydrographique-Source'].actions
+};
+
+window.actionsPlaces = actionsPlaces;
+
+export default actionsPlaces

@@ -34,8 +34,6 @@
   left: 1em;
 }
 .ol-ext-dialog.loadingStory > form img {
-  display: none!important;
-
   height: 450px;
   max-height: calc(100vh - 14em);
   display: block;

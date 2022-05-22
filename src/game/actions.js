@@ -8,34 +8,38 @@ import dglAction from './actions.html'
 
 import game from './game'
 import actionsPlaces from './actionsPlaces'
+import ol_ext_element from 'ol-ext/util/element';
 
 const doneFeatures = {};
 
 /** Get action arround position */
 function getActions(arround) {
-  const actions = {};
+  const actions = [];
   // Search action places
-  for (let a in actionsPlaces) {
-    for (let place in actionsPlaces[a]) {
-      let arr;
-      const placeInfo = actionsPlaces[a][place];
-      // use search ?
-      if (placeInfo.search) {
-        for (let k in arround) {
-          if (place.search.test(k)) {
-            arr = arround[k]
-            break;
-          }
+  for (let place in actionsPlaces) {
+    const placeInfo = actionsPlaces[place];
+    let arr;
+    // use search ?
+    if (placeInfo.search) {
+      for (let k in arround) {
+        if (placeInfo.search.test(k)) {
+          arr = arround[k]
+          break;
         }
-      } else {
-        arr = arround[i];
       }
-      // is arround
-      if (arr) {
+    } else {
+      arr = arround[place];
+    }
+    // is arround?
+    if (arr) {
+      for (let i=0; i<arr.length; i++) {
         // not allready done !
-        const cleabs = arr[0].cleabs;
-        if (!doneFeatures[cleabs]) {
-          actions[a] = arr;
+        if (!doneFeatures[arr[i].cleabs]) {
+          actions.push({
+            place: arr[i],
+            info: placeInfo
+          });
+          break;
         }
       }
     }
@@ -55,24 +59,22 @@ function doAction() {
 
   dialog.show({
     className: 'actions',
+    title: 'Autour de toi :',
     content: dglAction,
     buttons: [_T('cancel')]
   })
-  const dlg = dialog.getContentElement();
 
-  delete dlg.dataset.hasAction;
-  Object.keys(actions).forEach(a => {
-    let action = actions[a];
-    if (action) {
-      const elt = dlg.querySelector('[data-action="'+a+'"]');
-      if (elt) {
-        elt.style.display = 'block';
-        const nature =  elt.querySelector('span');
-        if (nature) nature.innerText = action[0].nature.toLocaleLowerCase();
-        dlg.dataset.hasAction = '';
-      }
-    }
+  const ul = dialog.getContentElement().querySelector('ul');
+  actions.forEach(a => {
+    let info = a.info.title;
+    if (a.place.toponyme) info += ' "'+a.place.toponyme+'"';
+    ol_ext_element.create('LI', {
+      html: info,
+      parent: ul
+    })
   })
+  if (actions.length) dialog.getContentElement().dataset.hasAction = '';
+  else delete dialog.getContentElement().dataset.hasAction;
 }
 
 
