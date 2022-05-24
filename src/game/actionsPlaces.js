@@ -119,9 +119,9 @@ const actionsPlaces = {
       },{
         type: 'object',
         object: 'shoes',
-        desc: 'Quelqu\'un a laissé une paire de chaussure de marche près des anitaires',
+        desc: 'Quelqu\'un a laissé une paire de chaussure de marche près des sanitaires',
         action: 'Prendre la paire de chaussure',
-        ok: 'Avec des chaussures comme cela tu macheras bien mieux...',
+        ok: 'Avec des chaussures comme cela tu marcheras bien mieux...',
         nok: [
           'Désolé, elles ne sont pas à ta taille...',
           'Ooops, voilà son propriétaire qui revient.'

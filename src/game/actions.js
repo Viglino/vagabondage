@@ -47,6 +47,37 @@ function getActions(arround) {
   return actions;
 }
 
+function handleAction(action) {
+  const ul = ol_ext_element.create('UL');
+  dialog.show({
+    title: action.place.toponyme || action.info.title,
+    content: ul
+  })
+  action.info.actions.forEach(actions => {
+    const a = actions[Math.floor(Math.random()*actions.length)] || actions[0];
+    const li = ol_ext_element.create('LI', {
+      html: a.desc,
+      parent: ul
+    });
+    const types = a.type instanceof Array ? a.type : [a.type];
+    action = { drink: 'boire un coup', watter: 'remplir une bouteille'}
+    types.forEach(t => {
+      const bt = ol_ext_element.create('BUTTON', {
+        'data-type': t,
+        text: action[t] || a.action,
+        click: () => {
+          switch(t) {
+            case 'drink': game.setLife('hydro'); break;
+            case 'watter': game.bag.fill(); break;
+            default: game.bag.push(a)
+          }
+          bt.remove();
+        },
+        parent: li
+      })
+    })
+  })
+}
 
 /** Do an action */
 function doAction() {
@@ -59,7 +90,7 @@ function doAction() {
 
   dialog.show({
     className: 'actions',
-    title: 'Autour de toi :',
+    title: 'Autour de toi',
     content: dglAction,
     buttons: [_T('cancel')]
   })
@@ -70,6 +101,9 @@ function doAction() {
     if (a.place.toponyme) info += ' "'+a.place.toponyme+'"';
     ol_ext_element.create('LI', {
       html: info,
+      click: () => {
+        handleAction(a);
+      },
       parent: ul
     })
   })
@@ -77,13 +111,12 @@ function doAction() {
   else delete dialog.getContentElement().dataset.hasAction;
 }
 
-
+/* Action button */
 const actionBt = new ol_control_Button({
   className: 'actions',
   title: _T('lookArround'),
   handleClick: doAction
 })
-
 map.addControl(actionBt);
 
 export default actionBt

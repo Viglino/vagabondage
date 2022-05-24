@@ -41,6 +41,9 @@
 .ol-button.actions button:hover {
   animation: ring 2s ease;
 }
+
+
+
 .ol-ext-dialog.actions .ol-content {
   margin: 0 -1em;
 }
@@ -53,17 +56,26 @@
   padding: .2em 2em;
   cursor: pointer;
 }
+
+.ol-ext-dialog.actions h2:before,
 .ol-ext-dialog.actions .ol-content ul li:before {
   content: '';
   display: inline-block;
-  width: 2em;
-  height: 2em;
-  background-image: url("../img/dice.png");
+  width: 3.5em;
+  height: 2.5em;
+  background-image: url("../img/dices.png");
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
   vertical-align: middle;
+}
+.ol-ext-dialog.actions .ol-content ul li:before {
+  background-image: url("../img/dice.png");
+  width: 1.5em;
+  height: 1.5em;
   margin-right: .5em;
 }
+
 .ol-ext-dialog.actions .ol-content ul li:hover {
   background-color: #eee;
 }

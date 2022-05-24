@@ -1,0 +1,31 @@
+.ol-control.bag {
+  bottom: 0;
+  right: 7em;
+  background-color: transparent;
+}
+.ol-control.bag button {
+  background-color: transparent;
+  width: 3em;
+  height: 4em;
+  background: url('../img/sac.svg') no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+}
+.ol-control.bag button span {
+  position: absolute;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #eb0;
+  color: #000;
+  line-height: 1.6em;
+  text-align: center;
+  font-size: .8em;
+  bottom: .5em;
+  left: 0;
+  border-radius: 50%;
+  box-shadow: 2px 2px 2px 1px rgba(0,0,0,.8);
+}
+.ol-control.bag button span[data-size="0"] {
+  display: none;
+}
+

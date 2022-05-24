@@ -28,6 +28,7 @@ import { getIntersection } from '../vectorLoader/bdtopo'
 
 import ol_ext_Ajax from 'ol-ext/util/Ajax';
 import showDialogInfo from '../page/dialogInfo'
+import bag from './bag';
 
 import './game.css'
 
@@ -42,6 +43,8 @@ class Game extends olObject {
     // Life gauge
     this.gauge = gauge;
     map.addControl(this.gauge);
+    // Bag
+    this.bag = bag;
     // Show destination / 
     const d = element.create('UL', {
       className: 'jumper',
@@ -118,6 +121,7 @@ Game.prototype.setLife = function(inc) {
     } else {
       inc = 0;
     }
+    if (!inc) return 0;
   } else if (inc === -1) {
     // Loose hydro / food first
     if (!this.gauge.get('hydro')) this.gauge.set('hydro', true);
@@ -130,6 +134,7 @@ Game.prototype.setLife = function(inc) {
   this.gauge.setTitle((n>0 ? '+':'')+n);
   this.gauge.element.classList.add('anim');
   setTimeout(() => this.gauge.element.classList.remove('anim'), 1000);
+  return inc;
 }
 
 /** Get current life value
