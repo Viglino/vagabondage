@@ -199,6 +199,7 @@ setFold();
 // Toggle carte layers
 map.addControl(new ToggleControl({
   className: 'carte',
+  title: 'La carte !',
   onToggle: (b) => {
     document.body.dataset.mode = b ? 'carte' : 'photo';
     layerCarte.setVisible(b);

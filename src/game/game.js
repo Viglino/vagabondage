@@ -579,7 +579,7 @@ Game.prototype.debug = function(b) {
         console.table(p)
       }
     })
-    //
+    // DEBUG
     window.vectorLoader = vectorLoader;
     window.mapInfo = mapInfo;
     // Open debug in a new window

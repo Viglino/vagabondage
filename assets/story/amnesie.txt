@@ -1,5 +1,5 @@
 ########
-#title: Amnésie
+#title: Amnésique
 ########
 #lang: fr
 #type: classic

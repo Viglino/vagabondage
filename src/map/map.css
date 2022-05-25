@@ -61,6 +61,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   transform: rotate(10deg);
+  cursor: pointer;
 }
 
 [data-mode="carte"] .ol-scale-line {

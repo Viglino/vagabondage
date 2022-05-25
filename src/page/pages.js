@@ -12,6 +12,4 @@ pages.showLegend = function() {
   })
 }
 
-window.pages = pages
-
 export default pages

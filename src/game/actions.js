@@ -1,4 +1,5 @@
 import ol_control_Button from 'ol-ext/control/Button'
+import ol_ext_element from 'ol-ext/util/element';
 import map from '../map/map'
 import dialog from '../map/dialog';
 import _T from '../i18n/i18n';
@@ -8,7 +9,6 @@ import dglAction from './actions.html'
 
 import game from './game'
 import actionsPlaces from './actionsPlaces'
-import ol_ext_element from 'ol-ext/util/element';
 
 const doneFeatures = {};
 
@@ -60,22 +60,24 @@ function handleAction(action) {
       parent: ul
     });
     const types = a.type instanceof Array ? a.type : [a.type];
-    action = { drink: 'boire un coup', watter: 'remplir une bouteille'}
-    types.forEach(t => {
-      const bt = ol_ext_element.create('BUTTON', {
-        'data-type': t,
-        text: action[t] || a.action,
-        click: () => {
-          switch(t) {
-            case 'drink': game.setLife('hydro'); break;
-            case 'watter': game.bag.fill(); break;
-            default: game.bag.push(a)
-          }
-          bt.remove();
-        },
-        parent: li
+    const tabAction = { drink: 'boire un coup', watter: 'remplir une bouteille'}
+    if (a.action) {
+      types.forEach(t => {
+        const bt = ol_ext_element.create('BUTTON', {
+          'data-type': t,
+          text: tabAction[t] || a.action,
+          click: () => {
+            switch(t) {
+              case 'drink': game.setLife('hydro'); break;
+              case 'watter': game.bag.fill(); break;
+              default: game.bag.push(a)
+            }
+            bt.remove();
+          },
+          parent: li
+        })
       })
-    })
+    }
   })
 }
 

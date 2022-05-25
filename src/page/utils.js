@@ -18,6 +18,4 @@ function formatDuration(d) {
   return '<span class="duration">' + m + ' mn</span>';
 }
 
-window.formatDuration = formatDuration
-
 export { m2km, formatDate, formatDuration }

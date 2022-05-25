@@ -19,12 +19,14 @@ import Feature from 'ol/Feature';
 import { ol_geom_createFromType } from 'ol-ext/geom/GeomUtils'
 
 /** Ghost map to preload layers on extent */
+const size = '1024px';
+//const size = '2048px':
 const mapLoader = new Map({
   target: ol_ext_element.create('DIV', { 
     className: 'ghostMap vtile', 
     style: {
-      width: '2048px',
-      height: '2048px'
+      width: size,
+      height: size
     },
     parent: document.body 
   }),
