@@ -126,7 +126,11 @@ Game.prototype.setLife = function(inc) {
   const nlife = this.getLife();
   // Increase hydro / food
   if (inc === 'hydro' || inc === 'food') {
-    if (this.gauge.get(inc)) {
+    if (nlife < 0) {
+      // when starving anything get +1
+      inc = 1;
+    } else if (this.gauge.get(inc)) {
+      // Drink or eat
       this.gauge.set(inc, false);
       inc = 1;
     } else {
@@ -420,7 +424,7 @@ Game.prototype.nextStep = function(e, shortcut) {
   layer.getSource().addFeature(e.routing.feature.clone());
   if (altercation.type !== 'fail') {
     layer.getSource().addFeature(new Feature({
-      style: 'poi',
+      style: this.getLife() < -2 ? 'altercation' : 'poi',
       geometry: new Point(position)
     }));
   }
@@ -431,6 +435,17 @@ Game.prototype.nextStep = function(e, shortcut) {
   if (this.altercation(altercation)) return;
   this.map.getView().setCenter(position);
   this.getArround((arround) => this.encounter(arround));
+
+  // Starving
+  if (this.getLife() < -2) {
+    dialog.show()
+    this.finish(true);
+    showDialogInfo(_T('starvation'), {}, () => {
+      this.finish(true);
+    })
+  } else if (this.getLife() < -0) {
+    showDialogInfo(_T('starving'));
+  }
 };
 
 /** Get features along travel feature

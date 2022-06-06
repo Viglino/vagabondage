@@ -39,7 +39,6 @@ function getActions(arround) {
             place: arr[i],
             info: placeInfo
           });
-          break;
         }
       }
     }
@@ -53,6 +52,9 @@ function handleAction(action) {
     title: action.place.toponyme || action.info.title,
     className: 'bag place',
     buttons: ['ok'],
+    onButton: () => {
+      doAction();
+    },
     content: ul
   })
   // Done action
@@ -60,12 +62,12 @@ function handleAction(action) {
   // Show info
   action.info.actions.forEach(actions => {
     const a = actions[Math.floor(Math.random()*actions.length)] || actions[0];
+    const types = a.type instanceof Array ? a.type : [a.type];
+    const tabAction = { drink: 'boire un coup', water: 'remplir des bouteilles'}
     const li = ol_ext_element.create('LI', {
       html: a.desc,
       parent: ul
     });
-    const types = a.type instanceof Array ? a.type : [a.type];
-    const tabAction = { drink: 'boire un coup', water: 'remplir une bouteille'}
     if (a.action) {
       types.forEach(t => {
         const bt = ol_ext_element.create('BUTTON', {
@@ -102,6 +104,12 @@ function handleAction(action) {
                   break;
                 }
               }
+              case 'rest': {
+                game.setLife(+1);
+                game.set('duration', (this.get('duration') || 0) + 30);
+                game.getArround();
+                dialog.setInfo(+1);
+              }
               default: game.bag.push(a)
             }
             bt.remove();
@@ -126,7 +134,7 @@ function doAction() {
     className: 'actions',
     title: 'Autour de toi',
     content: dglAction,
-    buttons: [_T('cancel')]
+    buttons: [_T('continue')]
   })
 
   const ul = dialog.getContentElement().querySelector('ul');

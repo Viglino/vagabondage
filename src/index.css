@@ -53,3 +53,13 @@ a:hover {
   vertical-align: middle;
   margin-right: 0.2em;
 }
+
+.ol-ext-dialog.noServer .ol-content:before {
+  content: "";
+  background: url("./img/fail.png") no-repeat center;
+  background-size: contain;
+  width: 5em;
+  height: 5em;
+  display: block;
+  float: left;
+}

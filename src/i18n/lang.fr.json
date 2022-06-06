@@ -35,5 +35,8 @@
   "end:win": "Bravo, tu as gagné !",
   "end:fail": "Tu as perdu !",
   "close": "fermer",
+  "continue": "continuer...",
+  "starving": "Tu es de plus en plus faible. Tu dois absolument te reposer ou manger quelque chose...",
+  "starvation": "Tu titubes et tu sens tes jambes se dérober sous toi... Tu técroules d'inanition.",
   "cancel": "annuler"
 }

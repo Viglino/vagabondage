@@ -11,14 +11,14 @@ export default {
         },
         {
           "type": "drink",
-          "desc": "Un promeneur vient à passer.",
-          "action": "Il te donne à boire."
+          "desc": "Un promeneur vient à passer. Il te propose à boire.",
+          "action": "Boire un coup."
         },
         {
           "type": "food",
           "title": "une pomme",
-          "desc": "Une vielle femme porte des paniers plein. Elle trébuche et tu l'aides à se relever.",
-          "action": "Elle te donne une pomme."
+          "desc": "Une vielle femme porte des paniers plein. Elle trébuche et tu l'aides à se relever.<br/>Elle te propose une pomme",
+          "action": "Prendre la pomme."
         },
         {
           "type": "info",
@@ -116,7 +116,7 @@ export default {
     ]
   },
   "cimetiere": {
-    search: /^cimetiere-/,
+    "search": /^cimetiere-/,
     "title": "Un cimetière.",
     "actions": [
       [
@@ -389,8 +389,8 @@ export default {
         },
         {
           "type": "drink",
-          "desc": "Un promeneur vient à passer.",
-          "action": "Il te propose à boire."
+          "desc": "Un promeneur vient à passer. Il te propose à boire.",
+          "action": "Boire un coup."
         }
       ]
     ]
@@ -444,7 +444,7 @@ export default {
     ]
   },
   "gare": {
-    search: /zone_d_activite_ou_d_interet-Gare.*/,
+    "search": "/zone_d_activite_ou_d_interet-Gare.*/",
     "title": "Une gare",
     "actions": [
       [
@@ -456,7 +456,7 @@ export default {
     ]
   },
   "gare2": {
-    search: /equipement_de_transport-Gare.*/,
+    "search": "/equipement_de_transport-Gare.*/",
     "title": "Une gare",
     "actions": [
       [
@@ -479,8 +479,8 @@ export default {
         },
         {
           "type": "drink",
-          "desc": "Un promeneur vient à passer.",
-          "action": "Il te donne à boire."
+          "desc": "Un promeneur vient à passer. Il te propose à boire.",
+          "action": "Boire un coup."
         },
         {
           "type": "food",
@@ -522,6 +522,18 @@ export default {
           ],
           "desc": "Tu entends le glou-glou caractérique, il y a de l'eau pas loin.",
           "action": "Remplir une bouteille ou boire un coup"
+        }
+      ]
+    ]
+  },
+  "zone_d_activite_ou_d_interet-Point de vue": {
+    "title": "Point de vue",
+    "actions": [
+      [
+        {
+          "type": "info",
+          "desc": "On a vraiment un point de vue superbe depuis ici.",
+          "action": "Découvrir un raccourcis"
         }
       ]
     ]

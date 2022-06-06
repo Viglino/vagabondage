@@ -13,7 +13,7 @@
   transform: translate(-50%, -30%);
 }
 .ol-ext-dialog.begin > form .ol-content {
- font-size: 1.3em;
+ font-size: max(3vh, 1.3em);
 }
 .ol-ext-dialog.begin > form .ol-buttons {
   margin: 0;
