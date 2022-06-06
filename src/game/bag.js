@@ -10,7 +10,7 @@ import game from './game';
 
 const bag = new Collection();
 
-bag.fill = function() {
+bag.fillWater = function() {
   let n = 0;
   this.forEach(o => {
     if (o.object==='bottle') {
@@ -34,7 +34,9 @@ const ctrlBag = new ol_control_Button({
   handleClick: () => {
     const ul = ol_ext_element.create('UL')
     dialog.show({
-      title: 'le sac',
+      title: 'sac à dos',
+      className: 'bag',
+      buttons: ['ok'],
       content: ul
     })
     if (bag.getLength()) {
@@ -60,18 +62,27 @@ const ctrlBag = new ol_control_Button({
             'data-type': o.type,
             text: action,
             click: () => {
-              switch(o.type) {
-                case 'food': {
+              // Reset
+              dialog.setInfo();
+              switch(action) {
+                case 'manger': {
                   if (game.setLife('food')) {
                     li.remove();
+                    bag.remove(o);
+                    dialog.setInfo(+1)
+                  } else {
+                    dialog.setInfo('Tu n\'as pas vraiment faim...');
                   }
                   break;
                 }
-                case 'fullbottle': {
+                case 'boire': {
                   if (game.setLife('hydro')) {
-                    o.type = 'bottle';
-                    bt.dataset.type = o.type;
-                  };
+                    o.object = 'bottle';
+                    bt.remove();
+                    dialog.setInfo(+1)
+                  } else {
+                    dialog.setInfo('Tu n\'as pas vraiment soif...');
+                  }
                   break;
                 }
               }

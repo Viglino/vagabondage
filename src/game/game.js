@@ -9,7 +9,7 @@ import 'ol-ext/render/Cspline'
 import 'ol-ext/geom/GeomUtils'
 
 import pages from '../page/pages'
-import map, { infoControl } from '../map/map';
+import map, { infoControl, notification } from '../map/map';
 import dialog, { info } from '../map/dialog';
 import { clcInfo } from '../vectorLoader/mapLoader';
 import vectorLoader from '../vectorLoader/vectorLoader';
@@ -24,6 +24,7 @@ import _T from '../i18n/i18n'
 import help from '../page/help'
 import { getRandomStory } from './story'
 import { formatDate, formatDuration, m2km } from '../page/utils';
+
 import { getIntersection } from '../vectorLoader/bdtopo'
 
 import ol_ext_Ajax from 'ol-ext/util/Ajax';
@@ -31,6 +32,7 @@ import showDialogInfo from '../page/dialogInfo'
 import bag from './bag';
 
 import './game.css'
+import ol_control_Button from 'ol-ext/control/Button';
 
 document.body.dataset.disableMap = '';
 
@@ -106,6 +108,15 @@ Game.prototype.flyTo = function(position) {
     center: position,
     zoomAt: Math.max(this.map.getView().getZoom() - .5, 13.01)
   })
+}
+
+/** Has shoes -1pt / 3km */
+Game.prototype.setShoes = function() {
+  this.set('shoes', true);
+  this.map.addControl(new ol_control_Button({ 
+    className: 'shoes',
+    handleClick: () => notification.show(_T('shoes'))
+  }));
 }
 
 /** Set current life value
@@ -312,41 +323,52 @@ Game.prototype.begin = function() {
 
 /** Goto next step
  */
-Game.prototype.nextStep = function(e) {
+Game.prototype.nextStep = function(e, shortcut) {
   // Crossing
-  let error = '';
-  if (e.crossing) {
+  let error = false;
+  if (e.crossing && !shortcut) {
     if (e.routing.distance > 250) {
-      error = _T('noCrossing:dist');
+      error = ['dist', _T('noCrossing:dist')];
     }
     if (e.deniv > 150) {
-      error = _T('noCrossing:alti') + ' (' + e.deniv.toFixed(0) + ' m)';
+      error = ['alti', _T('noCrossing:alti') + ' (' + e.deniv.toFixed(0) + ' m)'];
     } 
     if (e.maxD > .35) {
-      error = _T('noCrossing:slop') + ' (' + (e.maxD * 100).toFixed(0) + '%)';
+      error = ['slop', _T('noCrossing:slop') + ' (' + (e.maxD * 100).toFixed(0) + '%)'];
     } 
     // Check intersections
     if (e.intersect.count) {
       error = getIntersection(e.intersect);
     }
   }
+
   // Show Error
   if (error) {
+    const info = error[0]!=='water' ? game.bag.getArray().find((e) => e.type==='info') : false;
+    const buttons = info ?  { ok: 'OK', cancel: 'annuler' } : { cancel: 'OK' };
     dialog.show({
       title: _T('noCrossing'),
-      content: error,
+      content: error[1] + (info ? '<br/>' + _T('noCrossing:info'): ''),
       className: 'noCrossDlg',
-      buttons: { ok: 'OK' }
+      buttons: buttons,
+      onButton: (b) => {
+        // Use a shortcut ?
+        if (b==='ok') {
+          game.bag.remove(info);
+          this.nextStep(e, true);
+        }
+      }
     });
-    this.routing_.setStart(e.start);
+    if (!info) this.routing_.setStart(e.start);
     return;
   }
 
   // Calculate life / dist
   this.dist = (this.dist || 0) + e.routing.distance * (e.crossing ? 2 : 1);
-  while (this.dist > 2000) {
+  const dm = this.get('shoes') ? 3000 : 2000;
+  while (this.dist > dm) {
     this.setLife(-1);
-    this.dist -= 2000;
+    this.dist -= dm;
   }
   // Calculate distance / duration
   this.set('distance', (this.get('distance') || 0) + e.routing.distance);
@@ -445,7 +467,9 @@ Game.prototype.getArround = function(cback) {
     const zone = this.findArround(f => f.layer === 'zone_d_habitation', arround)
     const infos = {
       distance: (this.get('distance') ? formatDuration(this.get('duration')) +' (' + m2km(this.get('distance'), 1) +')' : ''),
-      road: (road ? (road.nom || '') + ' <span class="numero">' + road.numero + '</span> ' : (troncon ? troncon.nature + '<br/>' : ''))
+      road: (road ?
+          (road.nom || '') + (road.numero ? ' <span class="numero">' + road.numero + '</span> ' : ' ')
+        : (troncon ? troncon.nature + '<br/>' : ''))
         + (zone ? zone.toponyme : '')
         +' <i class="fa fa-step-forward"></i> ' + m2km(this.get('destination'), 1),
       time: formatDate(new Date(this.get('date').getTime() + (this.get('duration')*60*1000)))

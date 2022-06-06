@@ -300,6 +300,7 @@ VectorLoader.prototype.loadGame = function(options, cback) {
     // c = fromLonLat([0.27566, 48.84994])
     // c = [323543.6434601837, 6005868.6218002075];
     // c = [387449.9983805066, 6418829.499053937];
+    c = [117590.78562660344, 5789927.129110636];
     // Get the closest road
     this.getRoad(c, road => {
       // Found any road?

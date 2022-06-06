@@ -2,8 +2,9 @@ import ol_ext_element from "ol-ext/util/element";
 
 import './lock.css'
 
+document.body.dataset.lock = '';
+
 const lock = new ol_ext_element.create('DIV', {
-  id: 'lock',
   style: {
     position: 'absolute',
     top: '40%',
@@ -13,6 +14,7 @@ const lock = new ol_ext_element.create('DIV', {
 })
 
 new ol_ext_element.create('DIV', {
+  id: 'lock',
   html: lock,
   click: () => {
     inputs[0].focus();
@@ -43,6 +45,8 @@ for (let i=0; i<3; i++) {
       keyup: () => {
         if ('' + inputs[0].value + inputs[1].value + inputs[2].value === '192') {
           lock.parentNode.remove();
+          delete document.body.dataset.lock;
+          window.dispatchEvent(new Event('resize'));
           return;
         }
         inputs[(i+1)%3].focus();

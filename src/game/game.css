@@ -162,3 +162,14 @@
 .ol-ext-dialog.life ul .visible {
   display: block;
 }
+
+.ol-notification {
+  z-index: 1;
+  pointer-events: none!important;
+}
+.ol-notification div,
+.ol-notification div:hover {
+  padding: 1em 2em;
+  border-radius: 2em;
+  bottom: 1em;
+}

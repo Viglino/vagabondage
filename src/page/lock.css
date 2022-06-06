@@ -1,3 +1,10 @@
+body[data-lock] > * {
+  display: none;
+}
+
+#lock {
+  display: block;
+}
 #lock input {
   font-size: 3em;
   width: 1.2em;
@@ -7,7 +14,7 @@
   text-shadow: 0px 0px  #000;
   box-sizing: border-box;
 }
-#lock > div {
+#lock > div > div {
   position: relative;
   display: inline-block;
   margin: 0 .5em;

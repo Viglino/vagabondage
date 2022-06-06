@@ -30,18 +30,18 @@ function getWater(feature) {
 
 /** Get intersection message
  * @param {object}
- * @return {string}
+ * @return {Array<string>}
  */
 function getIntersection(intersect) {
   if (intersect.feature.troncon_de_route) {
-    error = _T('noCrossing:road');
+    return ['road', _T('noCrossing:road')];
   } else if (intersect.feature.batiment) {
-    error = _T('noCrossing:building');
+    return ['building', _T('noCrossing:building')];
   } else if ((intersect.feature.surface_hydrographique || intersect.feature.troncon_hydrographique)
     && !intersect.bridge) {
-    error = getWater(intersect.feature.surface_hydrographique || intersect.feature.troncon_hydrographique);
+    return ['water', getWater(intersect.feature.surface_hydrographique || intersect.feature.troncon_hydrographique)];
   } else if (intersect.feature.troncon_de_voie_ferree) {
-    error = _T('noCrossing:rail');
+    return ['rail', _T('noCrossing:rail')];
   }  
 }
 

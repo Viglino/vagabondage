@@ -37,7 +37,7 @@ function addLine(div, action, label, attr, onChange) {
         className: attr,
         parent: div
       });
-      ['none','info','drink','watter','watter,drink','food','rest','object','danger'].forEach(o => {
+      ['none','info','drink','water','water,drink','food','rest','object','danger'].forEach(o => {
         ol_ext_element.create('OPTION', {
           value: o,
           html: o,

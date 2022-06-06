@@ -20,7 +20,7 @@ Perdu %biome%, %routeInfo%, ilva falloir rester discret et prendre les petites r
 ..
 #--------------
 #missed:
-Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a una arme à la main !
+Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a un arme à la main !
 Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, ils ne t'ont pas vu !
 <>
 C'était moins une ! Il va falloir éviter ce genre de rencontre...

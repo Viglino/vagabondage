@@ -326,8 +326,12 @@ Drag.prototype.checkCross = function(start, end, route) {
     this.getElevation([start, end], Math.min(100, Math.round(dist/10)), r => {
       let deniv = 0;
       let maxD = 0;
+      const ele = [];
       if (r.elevations) {
-        const ele = r.elevations;
+        // filter bad elevation (-99999)
+        r.elevations.forEach(e => {
+          if (e.z > -999) ele.push(e)
+        })
         for (let i=1; i<ele.length; i++) {
           const d = Math.abs(ele[i-1].z - ele[i].z);
           const dist = getDistance([ele[i-1].lon, ele[i-1].lat], [ele[i].lon, ele[i].lat]);
@@ -342,7 +346,7 @@ Drag.prototype.checkCross = function(start, end, route) {
         intersect: intersect,
         start: start,
         end: end,
-        elevation: r.elevations,
+        elevation: ele,
         deniv: deniv,
         maxD: maxD,
         routing: {

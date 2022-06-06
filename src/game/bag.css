@@ -29,3 +29,94 @@
   display: none;
 }
 
+body > .ol-ext-dialog.bag > form {
+  overflow: hidden;
+  width: 35em;
+  border: 5px solid #ac6e22;
+  box-shadow: inset 1px 1px 6px currentColor;
+  color: #5f3303;
+}
+body > .ol-ext-dialog.place > form {
+  border: 1px solid #369;
+  box-shadow: none;
+  color: #369;
+}
+
+.ol-ext-dialog.bag .ol-content > div:before {
+  content: '+1 pdv';
+  position: absolute;
+  color: #f50;
+  font-weight: bold;
+  text-shadow: 3px 3px 5px #eb0, 3px -3px 5px #eb0, -3px -3px 5px #eb0, -3px 3px 5px #eb0;
+  left: 60%;
+  top: 100%;
+  opacity: 1;
+  transform: translateX(-50%);
+  transition: 0s;
+  padding: .5em 1em;
+}
+.ol-ext-dialog.bag .ol-content > div.newLife:before {
+  top: calc(100% - 5em);
+  opacity: 0;
+  transform: translateX(-50%) scale(1.5) rotate(-10deg);
+  transition: all 1s, .8s opacity 1s;
+}
+
+.ol-ext-dialog.bag h2 {
+  margin: 0;
+  color: currentColor;
+}
+.ol-ext-dialog.bag h2:before {
+  content: "";
+  background: url(../img/sac.svg) no-repeat center;
+  background-size: contain;
+  display: inline-block;
+  width: 2em;
+  height: 3em;
+  vertical-align: middle;
+  margin: 0 .5em 0 .2em;
+  transform: rotate(10deg);
+}
+.ol-ext-dialog.place h2:before {
+  background-image: url(../img/dice.png);
+  transform: none;
+}
+  
+.ol-ext-dialog.bag ul {
+  list-style: none;
+  text-align: center;
+  padding: 0 .5em;
+}
+.ol-ext-dialog.bag ul li {
+  padding: .5em;
+  border-radius: .5em;
+  border: 1px solid currentColor;
+  box-shadow: 0 0 .2em currentColor;
+  margin: .3em 0;
+}
+.ol-ext-dialog.bag ul li:hover {
+  box-shadow: 0 0 .4em currentColor;
+}
+.ol-ext-dialog div.info {
+  color: currentColor;
+  font-weight: bold;
+  font-style: italic;
+  background-color: rgba(0,0,80,.1);
+  padding: 0 1em;
+  line-height: 2.5em;
+}
+
+.ol-ext-dialog .ol-content button {
+  margin: 0 0 0 .5em;
+  padding: .3em .5em;
+  background-color: rgba(0,60,136,.1);
+  border: 0;
+  font-size: 1em;
+  color: rgba(0,60,136,1);
+  cursor: pointer;
+  border-radius: 0.25em;
+  outline-width: 0;
+}
+.ol-ext-dialog .ol-content button:hover {
+  background-color: rgba(0,60,136,.2);
+}

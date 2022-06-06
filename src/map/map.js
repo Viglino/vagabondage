@@ -2,6 +2,7 @@ import Map from 'ol/Map'
 import View from 'ol-ext/util/View'
 
 import element from 'ol-ext/util/element'
+import Notification from 'ol-ext/control/Notification'
 
 import 'ol/src/ol.css'
 import 'ol-ext/dist/ol-ext.css'
@@ -29,5 +30,9 @@ const infoControl = new ol_control_Status({
 map.addControl(infoControl);
 infoControl.setVisible(true);
 
+const notification = new Notification();
+map.addControl(notification)
+
 export { infoControl }
+export { notification }
 export default map

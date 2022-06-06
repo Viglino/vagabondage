@@ -51,8 +51,13 @@ function handleAction(action) {
   const ul = ol_ext_element.create('UL');
   dialog.show({
     title: action.place.toponyme || action.info.title,
+    className: 'bag place',
+    buttons: ['ok'],
     content: ul
   })
+  // Done action
+  doneFeatures[action.place.cleabs] = true;
+  // Show info
   action.info.actions.forEach(actions => {
     const a = actions[Math.floor(Math.random()*actions.length)] || actions[0];
     const li = ol_ext_element.create('LI', {
@@ -60,16 +65,43 @@ function handleAction(action) {
       parent: ul
     });
     const types = a.type instanceof Array ? a.type : [a.type];
-    const tabAction = { drink: 'boire un coup', watter: 'remplir une bouteille'}
+    const tabAction = { drink: 'boire un coup', water: 'remplir une bouteille'}
     if (a.action) {
       types.forEach(t => {
         const bt = ol_ext_element.create('BUTTON', {
           'data-type': t,
           text: tabAction[t] || a.action,
           click: () => {
+            // Reset
+            dialog.setInfo();
+            // Add actions
             switch(t) {
-              case 'drink': game.setLife('hydro'); break;
-              case 'watter': game.bag.fill(); break;
+              case 'drink': {
+                if (game.setLife('hydro')) {
+                  dialog.setInfo(+1);
+                } else {
+                  dialog.setInfo('Tu n\'as pas vraiment soif...');
+                }
+                break;
+              }
+              case 'water': {
+                if (!game.bag.fillWater()) {
+                  dialog.setInfo('Rien à remplir...');
+                }
+                break;
+              }
+              case 'object': {
+                if (a.object==='shoes') {
+                  const n = Math.trunc(Math.random() * (1 + a.nok.length));
+                  if (n>0) {
+                    dialog.setInfo(a.nok[n-1]);
+                  } else {
+                    game.setShoes();
+                    dialog.setInfo(a.ok);
+                  }
+                  break;
+                }
+              }
               default: game.bag.push(a)
             }
             bt.remove();
@@ -99,7 +131,7 @@ function doAction() {
 
   const ul = dialog.getContentElement().querySelector('ul');
   actions.forEach(a => {
-    let info = a.info.title;
+    let info = a.info['title-'+a.place.usage_1] || a.info.title;
     if (a.place.toponyme) info += ' "'+a.place.toponyme+'"';
     ol_ext_element.create('LI', {
       html: info,

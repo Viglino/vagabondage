@@ -34,7 +34,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "De l'eau fraiche coule d'une fontaine.",
@@ -49,7 +49,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Cette citerne est pleine !",
@@ -68,7 +68,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "De l'eau coule de cette source...",
@@ -87,7 +87,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Tu entends le glou-glou caractéristique, il y a de l'eau pas loin.",
@@ -102,7 +102,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Ce lavoir a l'air en bon état.",
@@ -122,7 +122,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "A l'entrée du cimetière tu trouves un robinet destiné à arroser les fleur.",
@@ -137,7 +137,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Tu trouves un robinet du côté des sanitaires du camping.",
@@ -178,7 +178,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Tu trouves un robinet accessible au bord sur le mur de l'écurie.",
@@ -271,7 +271,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Un robinet d'arrosage se trouve sur le bord du bâtiment.",
@@ -294,7 +294,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Un robinet d'arrosage se trouve sur le bord du bâtiment.",
@@ -339,6 +339,8 @@ export default {
   },
   "batiment-Industriel, agricole ou commercial": {
     "title": "Un entrepôt.",
+    "title-Agricole": "Un bâtiment agricole",
+    "title-Industriel": "Un bâtiment industriel",
     "actions": [
       [
         {
@@ -500,7 +502,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Tu entends le glou-glou caractérique, il y a de l'eau pas loin.",
@@ -515,7 +517,7 @@ export default {
       [
         {
           "type": [
-            "watter",
+            "water",
             "drink"
           ],
           "desc": "Tu entends le glou-glou caractérique, il y a de l'eau pas loin.",

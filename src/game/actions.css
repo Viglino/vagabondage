@@ -104,3 +104,17 @@
 	18% { transform: translate(-50%, -50%) rotate(12deg) }
 	20%,100% { transform: translate(-50%, -50%) rotate(0deg) }
 }
+
+.ol-control.shoes {
+  bottom: 0;
+  right: 11em;
+  background-color: transparent;
+}
+.ol-control.shoes button {
+  background-color: transparent;
+  width: 4.5em;
+  height: 4em;
+  background: url('../img/shoes.svg') no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+}
