@@ -15,13 +15,13 @@ Tu crois rèver, cet imbécile de Pignon vient de tirer une balle dans le moteur
 Une fumée blanche sort du capot...
 <>
 « C'est vachement sensible ces truc là ! » dit-t-il en secouant le révolver devant ton visage !
-« Arrètez de faire le con, Pignon ! Et donnez-moi ça avant de tuer quelqu'un ! »
+« Arrètez de faire le con, Pignon ! Et donnez-moi ça avant de blesser quelqu'un ! »
 Tu lui arraches le révolver qui ne te servira plus à grand chose, vu que la dernière balle est maintenant dans le moteur...
 <>
 Te voilà coincé avec cet abruti à %distance% de ton lieu de rendez-vous, %routeInfo%.
-Tu sors de la voiture en pestant, en espérant que personne ne remarque, perdu %biome%.
+Tu sors de la voiture en pestant, en espérant que personne ne vous a remarqué, perdu %biome%.
 <>
-Tu sors de la voiture en trainant Pignon en prenant soit de récupérer la carte IGN de la région avec le lieu du rendez-vous entouré d'un cercle rouge.
+Tu sors de la voiture, trainant Pignon, en prenant soit de récupérer la carte IGN de la région avec le lieu du rendez-vous entouré d'un cercle rouge.
 Vous vous éloignez discètement, il ne reste plus qu'à rejoindre le rendez-vous en suivant les petites routes pour éviter les ennuis...
 C'est pas gagné avec l'autre abruti accroché à tes basques...
 #--------------

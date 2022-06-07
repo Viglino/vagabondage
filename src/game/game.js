@@ -142,7 +142,12 @@ Game.prototype.setLife = function(inc) {
     if (!this.gauge.get('hydro')) this.gauge.set('hydro', true);
     else if (!this.gauge.get('food')) this.gauge.set('food', true);
   } else {
-    inc = +1;
+    if (nlife + (this.gauge.get('hydro') || 0) + (this.gauge.get('food') || 0) < 6) {
+      inc = +1;
+    } else {
+      inc = 0;
+      return 0;
+    }
   }
   const n = nlife + inc;
   this.gauge.val(n+2);

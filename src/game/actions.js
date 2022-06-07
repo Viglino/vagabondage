@@ -101,14 +101,20 @@ function handleAction(action) {
                     game.setShoes();
                     dialog.setInfo(a.ok);
                   }
-                  break;
+                } else {
+                  game.bag.push(a);
                 }
+                break;
               }
               case 'rest': {
-                game.setLife(+1);
-                game.set('duration', (this.get('duration') || 0) + 30);
-                game.getArround();
-                dialog.setInfo(+1);
+                if (game.setLife(+1)) {
+                  game.set('duration', (game.get('duration') || 0) + 30);
+                  game.getArround();
+                  dialog.setInfo(+1);
+                } else {
+                  dialog.setInfo(_T('noRest'));
+                }
+                break;
               }
               default: game.bag.push(a)
             }

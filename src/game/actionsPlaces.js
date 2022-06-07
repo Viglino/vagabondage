@@ -444,7 +444,7 @@ export default {
     ]
   },
   "gare": {
-    "search": "/zone_d_activite_ou_d_interet-Gare.*/",
+    "search": /zone_d_activite_ou_d_interet-Gare.*/,
     "title": "Une gare",
     "actions": [
       [
@@ -456,7 +456,7 @@ export default {
     ]
   },
   "gare2": {
-    "search": "/equipement_de_transport-Gare.*/",
+    "search": /equipement_de_transport-Gare.*/,
     "title": "Une gare",
     "actions": [
       [

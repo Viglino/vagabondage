@@ -1,5 +1,5 @@
 ########
-#title: Amnésie
+#title: Amnésique
 ########
 #lang: fr
 #type: classic
@@ -26,7 +26,7 @@ La seule solution pour savoir ce qu'il en ait te semble être de te rendre à ce
 #--------------
 #missed:
 Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a una arme à la main !
-Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'ont pas vu !
+Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, ils ne t'ont pas vu !
 <>
 C'était moins une ! Il va falloir éviter ce genre de rencontre...
 #fail:
