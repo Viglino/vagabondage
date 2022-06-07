@@ -11,7 +11,7 @@
 
 .ol-ext-dialog.intro form label {
   display: inline-block;
-  width: 8em;
+  width: 10em;
   text-align: right;
 }
 .ol-ext-dialog.intro form label.ol-ext-toggle-switch {
@@ -30,4 +30,22 @@
 }
 .ol-ext-dialog.intro form option:disabled {
   color: #ccc;
+}
+
+.ol-ext-dialog.intro form [data-diff] {
+  font-weight: bold;
+  font-style: italic;
+  padding: 0 .5em;
+}
+.ol-ext-dialog.intro form [data-diff="facile"] {
+  color: #080;
+}
+.ol-ext-dialog.intro form [data-diff="moyen"] {
+  color: #f80;
+}
+.ol-ext-dialog.intro form [data-diff="difficile"] {
+  color: #e00;
+}
+.ol-ext-dialog.intro form [data-diff="sportif"] {
+  color: #800;
 }

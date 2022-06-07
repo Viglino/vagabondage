@@ -36,6 +36,13 @@ regions.forEach((f, i) => {
 });
 region.value = Math.floor(Math.random() * regions.length);
 
+// Road length
+length.addEventListener('change', () => {
+  const opt = length.options[length.selectedIndex];
+  length.nextElementSibling.innerText = opt.dataset.txt;
+  length.nextElementSibling.dataset.diff = opt.dataset.txt;
+});
+
 // Add season month
 const deft = Math.floor(Math.random()*6) + 4;
 for (let m=1; m<=12; m++) {

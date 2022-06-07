@@ -6,7 +6,7 @@ export default {
       [
         {
           "type": "info",
-          "desc": "Un vieil homme est assis sous %info%.",
+          "desc": "Un vieil homme est assis sous la croix.",
           "action": "Il t'indique un raccourcis."
         },
         {
@@ -474,7 +474,7 @@ export default {
       [
         {
           "type": "info",
-          "desc": "Un viel homme est assis sous %info%.",
+          "desc": "Un viel homme est assis sous l'arbre.",
           "action": "Il t'indique un raccourcis."
         },
         {
