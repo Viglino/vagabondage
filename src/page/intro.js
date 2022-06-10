@@ -1,5 +1,5 @@
 import element from 'ol-ext/util/element';
-
+import { render } from 'github-buttons'
 import dialog from '../map/dialog';
 import game from '../game/game'
 
@@ -19,6 +19,16 @@ dialog.show({
 const region = dialog.getContentElement().querySelector('.region');
 const length = dialog.getContentElement().querySelector('.length');
 const month = dialog.getContentElement().querySelector('.month');
+/*
+var my_awesome_script = document.createElement('script');
+my_awesome_script.setAttribute('src','https://buttons.github.io/buttons.js');
+document.body.appendChild(my_awesome_script);
+*/
+dialog.getContentElement().querySelectorAll('.github-button').forEach(b => {
+  render(b, function (el) {
+    b.parentNode.replaceChild(el, b)
+  })
+})
 
 const helpBt = dialog.element.querySelector('.helpBt input')
 helpBt.checked = !localStorage.getItem('vagabond@help-main');

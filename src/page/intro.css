@@ -49,3 +49,7 @@
 .ol-ext-dialog.intro form [data-diff="sportif"] {
   color: #800;
 }
+
+.ol-ext-dialog.intro > form .ol-buttons input {
+  margin-top: 0;
+}

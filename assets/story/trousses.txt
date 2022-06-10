@@ -16,8 +16,7 @@ Te voilà bien embringué dans cette affaire. Entre la police et les services se
 Ta seule chance est de te rendre au lieux de rendez-vous à %distance% d'ici, pour retrouver Eve.
 Heureusement que tu as pris soins de noter le lieux par un cercle rouge sur une carte IGN.
 <>
-Perdu %biome%, %routeInfo%, ilva falloir rester discret et prendre les petites routes pour éviter les rencontres indésirables...
-..
+Perdu %biome%, %routeInfo%, il va falloir rester discret et prendre les petites routes pour éviter les rencontres indésirables...
 #--------------
 #missed:
 Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a un arme à la main !

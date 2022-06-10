@@ -204,6 +204,62 @@ export default {
       ]
     ]
   },
+  "construction_lineaire-Ruines": {
+    "title": "Une ruine.",
+    "actions": [
+      [
+        {
+          "type": "rest",
+          "desc": "Voilà l'endroit idéal pour se reposer un peu à l'abris.",
+          "action": "Se reposer"
+        },
+        {
+          "type": "none",
+          "desc": "Mieux vaut éviter se se promener par là, avant qu'une pierre ne te tombe dessus.",
+        },
+        {
+          "type": "none",
+          "desc": "Il n'y a rien a faire dans ces ruines",
+        }
+      ]
+    ]
+  },
+  "detail_orographique-grotte": {
+    "title": "Une grotte.",
+    "actions": [
+      [
+        {
+          "type": "rest",
+          "desc": "Voilà l'endroit idéal pour se reposer un peu à l'abris.",
+          "action": "Se reposer"
+        },
+        {
+          "type": "none",
+          "desc": "Mieux vaut éviter se se promener par là, avant qu'une pierre ne te tombe dessus.",
+        },
+        {
+          "type": "none",
+          "desc": "Il n'y a rien a faire dans cette grotte humide.",
+        }
+      ]
+    ]
+  },
+  "zone_d_activite_ou_d_interet-Refuge": {
+    "title": "Un refuge.",
+    "actions": [
+      [
+        {
+          "type": "rest",
+          "desc": "Voilà l'endroit idéal pour se reposer un peu.",
+          "action": "Se reposer"
+        },
+        {
+          "type": "none",
+          "desc": "Le regfuge est fermé",
+        }
+      ]
+    ]
+  },
   "zone_d_activite_ou_d_interet-Mégalithe": {
     "title": "Un mégalithe.",
     "actions": [
@@ -221,6 +277,25 @@ export default {
         {
           "type": "none",
           "desc": "Seulement quelques vielles pierres abandonnées."
+        }
+      ]
+    ]
+  },
+  "batiment-Tribune": {    
+    "title": "Une tribune.",
+    "actions": [
+      [
+        {
+          "type": [
+            "water",
+            "drink"
+          ],
+          "desc": "Tu trouves un robinet sur le batiment.",
+          "action": "Remplir une bouteille ou boire un coup"
+        },
+        {
+          "type": "none",
+          "desc": "Il ya trop de monde par ici..."
         }
       ]
     ]
@@ -534,6 +609,44 @@ export default {
           "type": "info",
           "desc": "On a vraiment un point de vue superbe depuis ici.",
           "action": "Découvrir un raccourcis"
+        }
+      ]
+    ]
+  },
+  "equipement_de_transport-Port": {
+    "title": "Le port",
+    "actions": [
+      [
+        {
+          "type": [
+            "water",
+            "drink"
+          ],
+          "desc": "Il y a un robinet disponible sur le port.",
+          "action": "Remplir une bouteille ou boire un coup"
+        },
+        {
+          "type": "none",
+          "desc": "La capitainerie du port t'a repéré, mieux vaut déguerpir au plus vite !"
+        }
+      ],
+      [
+        {
+          "type": "object",
+          "desc": "Tu trouve une bouteille vide dans une poubelle.",
+          "action": "Prendre la bouteille",
+          "object": "bottle",
+          "title": "une bouteille"
+        },
+        {
+          "type": "food",
+          "desc": "Tu trouve une barre de céréale dans une poubelle.",
+          "action": "Prendre la barre de céréale",
+          "title": "une barre de céréales"
+        },
+        {
+          "type": "none",
+          "desc": "Il ya trop de monde dans ce port, mieux vaut ne pas trainer par ici..."
         }
       ]
     ]

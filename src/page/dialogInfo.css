@@ -60,20 +60,29 @@
 
 .twitter-share-button {
   color: #fff;
+  font-size: 12px;;
   background-color: #1d9bf0;
   text-decoration: none;
   padding: 0.3em 1em;
   line-height: unset;
   display: inline-block;
   border-radius: 1em;
-  pointer-events: none;
+  display: inline-block;
+  vertical-align: top;
 }
+.twitter-share-button:hover {
+  box-shadow: none;
+}
+
 .twitter-share-button:before {
   content: '\f099';
   font-family: FontAwesome;
 }
 
-.ol-ext-dialog .twitter-share-button {
-  position: absolute;
-  bottom: 1em;
+.ol-ext-dialog .social-buttons {
+  text-align: center;
+  margin: .5em 0 0;
+}
+.ol-ext-dialog .social-buttons > * {
+  margin: 0 .2em;
 }

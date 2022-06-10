@@ -31,6 +31,7 @@
 .helpPage[data-step="2"] > .step-2,
 .helpPage[data-step="3"] > .step-3,
 .helpPage[data-step="4"] > .step-4,
+.helpPage[data-step="6"] > .step-6,
 .helpPage[data-step="5"] > .step-5 {
   display: block;
 }
@@ -49,6 +50,13 @@
 #mainHelp[data-step="3"] {
   background-image: radial-gradient(circle at calc(100% - 4.5em) calc(100% - 3.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
 }
+#mainHelp[data-step="4"] {
+  background-image: radial-gradient(circle at calc(100% - 16em) calc(2.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
+}
+#mainHelp[data-step="5"] {
+  background-image: radial-gradient(circle at calc(2.5em) calc(2.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
+}
+
 #mainHelp i.fa-arrows {
   margin-right: .2em;
 }
@@ -69,11 +77,26 @@
   right: 1em;
   text-align: right;
 }
-#mainHelp[data-step="4"] {
+#mainHelp p.step-4 {
+  top: 6em;
+  right: 10em;
+  text-align: center;
+  transform: translateX(50%);
+  width: 19em;
+  max-width: calc(100% - 5em);
+}
+#mainHelp p.step-5 {
+  top: .5em;
+  left: 5em;
+  max-width: calc(100% - 5em);
+}
+
+
+#mainHelp[data-step="6"] {
   background-image: none;
   background-color: rgba(0,0,0,.6);
 }
-#mainHelp p.step-4 {
+#mainHelp p.step-6 {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -40%);
@@ -85,7 +108,7 @@
   box-shadow: 3px 3px 4px rgba(0,0,0,.5);
   border-radius: 3px;
 }
-#mainHelp p.step-4 img {
+#mainHelp p.step-6 img {
   display: block;
   margin: .5em auto 0;
 }
