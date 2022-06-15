@@ -48,6 +48,7 @@ function getActions(arround) {
 
 function handleAction(action) {
   const ul = ol_ext_element.create('UL');
+  dialog.set('hideOnBack', false);
   dialog.show({
     title: action.place.toponyme || action.info.title,
     className: 'bag place',
@@ -139,6 +140,7 @@ function doAction() {
   dialog.show({
     className: 'actions',
     title: 'Autour de toi',
+    hideOnBack: true,
     content: dglAction,
     buttons: [_T('continue')]
   })

@@ -310,7 +310,7 @@ VectorLoader.prototype.loadGame = function(options, cback) {
     // Get the closest road
     this.getRoad(c, road => {
       // Found any road?
-      if (road) {
+      if (road && road.getGeometry().getCoordinates()[1]) {
         c = road.getGeometry().getCoordinates()[1];
         const land = this.source.clc.getClosestFeatureToCoordinate(c) || landscape;
         this.getBuilding(() => {
