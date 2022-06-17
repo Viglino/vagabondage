@@ -19,11 +19,8 @@ dialog.show({
 const region = dialog.getContentElement().querySelector('.region');
 const length = dialog.getContentElement().querySelector('.length');
 const month = dialog.getContentElement().querySelector('.month');
-/*
-var my_awesome_script = document.createElement('script');
-my_awesome_script.setAttribute('src','https://buttons.github.io/buttons.js');
-document.body.appendChild(my_awesome_script);
-*/
+
+// Render buttons
 dialog.getContentElement().querySelectorAll('.github-button').forEach(b => {
   render(b, function (el) {
     b.parentNode.replaceChild(el, b)
@@ -46,12 +43,15 @@ regions.forEach((f, i) => {
 });
 region.value = Math.floor(Math.random() * regions.length);
 
-// Road length
+// Road length / difficulty
 length.addEventListener('change', () => {
   const opt = length.options[length.selectedIndex];
   length.nextElementSibling.innerText = opt.dataset.txt;
   length.nextElementSibling.dataset.diff = opt.dataset.txt;
+  localStorage.setItem('vagabondage@length', length.value);
 });
+length.value = localStorage.getItem('vagabondage@length') || 10;
+length.dispatchEvent(new Event('change'));
 
 // Add season month
 const deft = Math.floor(Math.random()*6) + 4;

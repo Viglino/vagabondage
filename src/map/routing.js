@@ -1,6 +1,6 @@
 import PointerInteraction from 'ol/interaction/Pointer';
 
-import map from './map'
+import map, { notification } from './map'
 import vector, { debug } from './layer'
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
@@ -183,7 +183,9 @@ Drag.prototype.showRouting = function(start, end, route, go) {
     content: _T('loading:route'),
     className: 'loading'
   })
+  const tout = setTimeout(() => notification.show(_T('badNetwork')), 10000);
   vectorLoader.getRouting(start, end, resp => {
+    clearTimeout(tout);
     if (go) {
       dialog.hide();
       const pt = resp.feature.getGeometry().getCoordinates().pop();
