@@ -14,7 +14,7 @@
 « Donne moi cette carte ! » dis-tu en arrachant la carte des mains de Delmar.
 « Mais on n'est pas du tout là ! »
 <>
-Décidément tu n'es pas aidé avec ces deux imbéciles. Tu savais que tu faisait une erreur en t'échappant avec eux.
+Décidément tu n'es pas aidé avec ces deux imbéciles. Tu savais que tu faisais une erreur en t'échappant avec eux.
 « On est à %distance% du rendez-vous, %routeInfo%. Perdu %biome% ! 
 Regarde, le lieu du rendez-vous est entouré d'un cercle rouge, c'est pourtant pas compliqué ! »
 <>
@@ -29,17 +29,17 @@ C'était moins une !
 Tu regardes Delmar et Pete, il va falloir éviter les lieux trop fréquentés si tu ne veux pas te faire repérer avec ces deux abrutis...
 #fail:
 Une voiture de police s'arrête devant vous en crissant des pneus, une autre arrive dans votre dos.
-Les policiers en sortent en braquant leurs armes sur vous trois.
+Des policiers en sortent en braquant leurs armes sur vous trois.
 Tu lèves les mains en l'air...
 #--------------
 #failConclusion:
 Tu t'avances vers la maison. Tout semble tranquille et pourtant...
-Au moment où tu t'apprètes à sonner à la porte, un régiment de police sortent d'on ne sait où et vous braque.
+Au moment où tu t'apprètes à sonner à la porte, un régiment de police sort d'on ne sait où et vous braque.
 <>
 « Vous êtes en état d'arrestation, ne bougez plus ! »
 Tu lèves les mains en l'air...
 #conclusion:
-La porte s'ouvre au premier coup de sonnette. La tête de tonfrère s'encadre dans le chambranle.
+La porte s'ouvre au premier coup de sonnette. La tête de ton frère s'encadre dans le chambranle.
 « Qu'est-ce que tu fichais ! Entre ! C'est qui ces deux-là ? »
 <>
 « C'est trop long à expliquer ! »
