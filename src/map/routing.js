@@ -1,4 +1,5 @@
 import PointerInteraction from 'ol/interaction/Pointer';
+import LongTouch from 'ol-ext/interaction/LongTouch'
 
 import map, { notification } from './map'
 import vector, { debug } from './layer'
@@ -27,8 +28,8 @@ const tooltip = new Tooltip({
 });
 map.addOverlay(tooltip);
 
-/**
- * 
+/** Drag interaction + routing on pointer up
+ *  * 
  */
 class Drag extends PointerInteraction {
   constructor(options) {
@@ -55,6 +56,13 @@ class Drag extends PointerInteraction {
       geometry: new Point([])
     })
     this.layer_.getSource().addFeature(this.feature_);
+
+    // Stop on ESC
+    window.addEventListener('keydown', e => {
+      if (e.keyCode === 27) {
+        this.stopDragging();
+      }
+    })
   }
 }
 
@@ -74,8 +82,10 @@ Drag.prototype.setActive = function(b) {
 /**
  * @param {import("../src/ol/MapBrowserEvent.js").default} evt Map browser event.
  * @return {boolean} `true` to start the drag sequence.
+ * @private
  */
 Drag.prototype.handleDownEvent = function(evt) {
+  // Only on 'carte' mode
   if (document.body.dataset.mode === 'carte') return;
 
   const feature = this.hasFeatureAt(evt.pixel);
@@ -84,6 +94,7 @@ Drag.prototype.handleDownEvent = function(evt) {
     this.feature_ = feature;
     this.start_ = feature.getGeometry().getCoordinates();
   }
+  this.set('crossing', platformModifierKeyOnly(evt));
   return !!feature;
 }
 
@@ -94,7 +105,7 @@ Drag.prototype.handleDragEvent = function(evt) {
   if (this.tout_) clearTimeout(this.tout_);
   // Too long stage
   const d = getDistance(toLonLat(this.start_), toLonLat(evt.coordinate));
-  if (d > maxDist || (platformModifierKeyOnly(evt) && d > maxCross)) {
+  if (d > maxDist || (this.get('crossing') && d > maxCross)) {
     tooltip.setInfo(_T('longStage'));
     this.route_.getGeometry().setCoordinates([]);
     this.coordinate_ = null;
@@ -102,8 +113,8 @@ Drag.prototype.handleDragEvent = function(evt) {
     return;
   }
   this.cross_ = false;
-  // Alt key pressed
-  if (platformModifierKeyOnly(evt)) {
+  // Crossing? (Ctrl key pressed)
+  if (this.get('crossing')) {
     // Get clossest road
     vtLoader.getFeaturesAt(evt.coordinate, { filter: 'troncon_de_route', tolerance: 10 }, (f) => {
       const feature = vtLoader.vtFeature(f[0]);
@@ -112,12 +123,13 @@ Drag.prototype.handleDragEvent = function(evt) {
         this.coordinate_ = cpoint;
         this.route_.getGeometry().setCoordinates([this.start_, this.coordinate_]);
         this.cross_ = true;
+        tooltip.setInfo(_T('crossThrough'))
       } else {
         this.route_.getGeometry().setCoordinates([]);
         this.coordinate_ = null;
         this.feature_.getGeometry().setCoordinates(this.start_);
+        tooltip.setInfo(_T('crossThrough') + '<br/>' + _T('noFeatureCross'))
       }
-      tooltip.setInfo(_T('crossThrough'))
     })
   } else {
     // Get routing
@@ -404,6 +416,26 @@ Drag.prototype.handleUpEvent = function() {
   return false;
 }
 
+/** Stop dragging
+ */
+Drag.prototype.stopDragging = function() {
+  this.handlingDownUpSequence = false;
+  this.route_.getGeometry().setCoordinates([]);
+  this.coordinate_ = null;
+  this.feature_.getGeometry().setCoordinates(this.start_);
+  tooltip.setInfo('');
+}
+
+/** Start crossing sequence
+ * @param {*} event
+ */
+Drag.prototype.startCrossing = function(e) {
+  if (this.hasFeatureAt(e.pixel)) {
+    this.set('crossing', true);
+    tooltip.setInfo(_T('crossThrough'));
+  }
+}
+
 // Template for the routes
 const route = new Feature({
   type: 'route',
@@ -416,5 +448,15 @@ const routing = new Drag({
   route: route
 });
 map.addInteraction(routing);
+
+// Crossing on longtouch
+const ltouch = new LongTouch({
+  pixelTolerance: 1,
+  // Handle longtouch > start crossing sequence
+  handleLongTouchEvent: (e) => {
+    routing.startCrossing(e);
+  }
+})
+map.addInteraction(ltouch);
 
 export default routing

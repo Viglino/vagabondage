@@ -52,6 +52,8 @@ function hideHelp(h) {
   help[h].classList.remove('visible');
 }
 
+window.showHelp = showHelp
+
 /** handle help */
 export default {
   show: showHelp,

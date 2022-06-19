@@ -6,6 +6,7 @@
   "loading:route": "Recherche du chemin...",
   "lookArround": "Autour de moi",
   "crossThrough": "Couper à travers champs",
+  "noFeatureCross": "Déplace-toi jusque sur un chemin ou une route",
   "noCrossing" : "Impossible de traverser ici !",
   "noCrossing:road": "Tu ne peux pas traverser une autoroute !",
   "noCrossing:rail": "Tu ne peux pas traverser cette voie ferrée !",
