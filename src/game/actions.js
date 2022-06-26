@@ -103,7 +103,7 @@ function handleAction(action) {
                     dialog.setInfo(a.ok);
                   }
                 } else {
-                  game.bag.push(a);
+                  game.bag.push(Object.assign({}, a));
                 }
                 break;
               }
@@ -117,7 +117,10 @@ function handleAction(action) {
                 }
                 break;
               }
-              default: game.bag.push(a)
+              default: {
+                game.bag.push(Object.assign({}, a))
+                break;
+              }
             }
             bt.remove();
           },
