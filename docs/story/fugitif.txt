@@ -15,13 +15,13 @@ Comble de malchance, la voiture vient de tomber en panne, à %distance% de ton l
 <>
 Tu regrettes un peu de t'être débarassé de ton smartphone, il t'aurait été bien utile, perdu %biome%.
 Mais c'était trop risqué, la police aurait pû te localiser trop facilement.
-Ta seule chance et de retrouver le témoins qui pourra t'innocenter avant que tes poursuivant ne le retrouve...
+Ta seule chance et de retrouver le témoins qui pourra t'innocenter avant que tes poursuivants ne le retrouve...
 <>
 Dans la boîte à gants tu trouves une carte IGN de la région. Un cercle rouge indique le lieu du rendez-vous sur la carte.
 Il ne te reste plus qu'à t'y rendre en passant par les petites routes pour éviter les barrages et le patrouilles...
 #--------------
 #missed:
-Une voiture de poilce s'arrête le long de la route ! Deux hommes en sortent et scruttent l'horizon !
+Une voiture de police s'arrête le long de la route ! Deux hommes en sortent et scruttent l'horizon !
 Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne t'ont pas vu !
 <>
 C'était moins une ! Il va falloir éviter les lieux trop fréquentés...

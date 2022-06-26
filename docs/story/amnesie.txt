@@ -18,11 +18,11 @@ Sur le siège avant de la voiture tu trouves une carte IGN de la région avec un
 Un post-it jaune est collé sur la carte avec cette inscription « Méfie-toi des autres ! »
 <>
 Impossible de te souvenir de qui tu es et de ce que tu fais là !
-Tu fouille tes poches sans rien trouver.
+Tu fouilles tes poches sans rien trouver.
 Quelque chose cloche quelque part, que fais-tu perdu ici, %biome% ? 
 Et ce post-it ne te dis rien qui vaille !
 <>
-La seule solution pour savoir ce qu'il en ait te semble être de te rendre à ce lieu de "rendez-vous" en passant par les petites routes pour éviter les rencontres indésirables...
+La seule solution pour savoir ce qu'il en est te semble être de te rendre à ce lieu de "rendez-vous" en passant par les petites routes pour éviter les rencontres indésirables...
 #--------------
 #missed:
 Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a una arme à la main !
@@ -40,7 +40,7 @@ Au moment où tu t'apprètes à sonner à la porte, un bruissement te fait te re
 « Assez joué ! Ta route s'arrête ici... »
 #conclusion:
 La porte s'ouvre au premier coup de sonnette. Une tête, qui te dit vaguement quelque chose, s'encadre dans le chambranle.
-« Qu'est-ce que tu fichais ! Entre ! lance-t-il en jetant un coup d'oeil derrière toi. »
+« Qu'est-ce que tu fichais ! Entre ! lance-t-il en jetant un coup d'œil derrière toi. »
 <>
 Une jeune femme à l'air angoissé se jette à ton cou.
 Un nom te revient : Jessica !

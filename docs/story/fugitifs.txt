@@ -19,21 +19,21 @@ Une fumée blanche sort du capot...
 Tu lui arraches le révolver qui ne te servira plus à grand chose, vu que la dernière balle est maintenant dans le moteur...
 <>
 Te voilà coincé avec cet abruti à %distance% de ton lieu de rendez-vous, %routeInfo%.
-Tu sors de la voiture en pestant, en espérant que personne ne vous a remarqué, perdu %biome%.
+Tu sors de la voiture en pestant, en espérant que personne ne vous a remarqués, perdus %biome%.
 <>
 Tu sors de la voiture, trainant Pignon, en prenant soit de récupérer la carte IGN de la région avec le lieu du rendez-vous entouré d'un cercle rouge.
 Vous vous éloignez discètement, il ne reste plus qu'à rejoindre le rendez-vous en suivant les petites routes pour éviter les ennuis...
 C'est pas gagné avec l'autre abruti accroché à tes basques...
 #--------------
 #missed:
-Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a una arme à la main !
+Une voiture s'arrête le long de la route ! Deux types en sortent, l'un deux a une arme à la main !
 Tu t'élances dans une course effrénée et tu te jettes à bout de souffle %hiddingPlace%, il ne vous ont pas vu !
 <>
 C'était moins une ! 
 Tu regardes Pignon en soupirant, cet imbécile a réussit à se fouller la cheville !
 Il va falloir éviter les lieux trop fréquentés...
 #fail:
-Une voiture s'arrète et deux hommes en sortent une arme à la main. Pignon a réussit à vous faire repérer.
+Une voiture s'arrète et deux hommes en sortent une arme à la main. Pignon a réussi à vous faire repérer.
 Tu essayes de t'enfuir mais ils ont déjà rattrapé Pignon.
 « Assez joué Lucas ! Vous allez nous suivre gentiment ! »
 #--------------
@@ -45,9 +45,9 @@ Deux hommes armés te barrent la route, l'un d'eux tient Pignon par le coup.
 « Assez joué Lucas ! Vous allez nous suivre gentiment ! »
 #conclusion:
 La porte s'ouvre au premier coup de sonnette. La tête de Martin s'encadre dans le chambranle.
-« Qu'est-ce que tu fichais ! Entre ! lance-t-il en jetant un coup d'oeil derrière toi, Qui c'est celui-là ? »
+« Qu'est-ce que tu fichais ! Entre ! lance-t-il en jetant un coup d'œil derrière toi, Qui c'est celui-là ? »
 <>
 « T'inquiète, je t'expliquerai ! »
-Pignon s'effondres sur le canapé en renversant une lampe qui avait le malheur de se trouver sur la table basse.
+Pignon s'effondre sur le canapé en renversant une lampe qui avait le malheur de se trouver sur la table basse.
 <>
 Te voilà en sécurité, tu vas pouvoir te débarasser de Pignon... ou pas...
