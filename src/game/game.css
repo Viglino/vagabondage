@@ -173,3 +173,29 @@
   border-radius: 2em;
   bottom: 1em;
 }
+
+div.reload {
+  position: fixed;
+  font-size: 2em;
+  padding: .2em .8em .2em .8em;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255,255,255,.7);
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: .1em .1em .2em rgba(0,0,0,.5);
+}
+div.reload:hover {
+  background-color: rgba(255,255,255,.8);
+}
+div.reload:before {
+  content: '';
+  display: inline-block;
+  background-image: url("../img/dices.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 3em;
+  height: 2em;
+  vertical-align: middle;
+}

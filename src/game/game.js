@@ -571,6 +571,16 @@ Game.prototype.altercation = function(altercation) {
  * @param {boolean} fail
  */
 Game.prototype.finish = function(fail) {
+  function reload() {
+    console.log('reload')
+    element.create('DIV', {
+      className: 'reload',
+      text: _T('reload'),
+      click: () => location.reload(),
+      parent: document.body
+    })
+  }
+  // Finish
   this.routing_.setActive(false);
   if (fail) {
     dialog.show({
@@ -579,14 +589,17 @@ Game.prototype.finish = function(fail) {
       content: '',
       buttons: [ _T('close') ]
     })
+    dialog.once('close', reload)
   } else {
     showDialogInfo(this.story.conclusion, {}, () => {
       dialog.show({
         title: _T('end:win'),
         className: 'winDialog',
         content: '',
-        buttons: [ _T('close') ]
+        buttons: [ _T('close') ],
+        onButton: reload
       })
+      dialog.once('close', reload)
     })
   }
 };

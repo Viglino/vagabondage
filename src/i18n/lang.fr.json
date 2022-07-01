@@ -36,6 +36,7 @@
   "nextBt": "continuer...",
   "end:win": "Bravo, tu as gagné !",
   "end:fail": "Tu as perdu !",
+  "reload": "Nouvelle partie",
   "close": "fermer",
   "continue": "continuer...",
   "noRest": "Tu n'es pas vraiment fatigué...",

@@ -53,3 +53,11 @@
 .ol-ext-dialog.intro > form .ol-buttons input {
   margin-top: 0;
 }
+
+.ol-ext-dialog.intro > form p a {
+  float: right;
+}
+.ol-ext-dialog.intro > form p a:after {
+  content: '\f08e';
+  font-family: FontAwesome;
+}
