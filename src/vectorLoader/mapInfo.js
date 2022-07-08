@@ -17,16 +17,23 @@ mapInfo.getAround = function(around=20, coord) {
   return getFeaturesProp(features);
 }
 
-//
+// Get features by layer/ nature
 function getFeaturesProp(features) {
+  const done = {};
   // Get info / nature
   const result = {}
   features.forEach(f => {
-    const p = f.getProperties()
-    const id = p.layer + (p.nature ? '-' + p.nature : '');
-    // p.original = f;
-    if (!result[id]) result[id] = [];
-    result[id].push(p);
+    const p = f.getProperties();
+    // Only if not done
+    if (!done[f.get('cleabs')]) {
+      done[f.get('cleabs')] = true;
+      const id = p.layer + (p.nature ? '-' + p.nature : '');
+      // p.original = f;
+      if (!result[id]) result[id] = [];
+      result[id].push(p);
+    } else {
+      console.log(f)
+    }
   })
   return result;
 }

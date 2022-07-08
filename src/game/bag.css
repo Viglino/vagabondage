@@ -42,7 +42,7 @@ body > .ol-ext-dialog.place > form {
   color: #369;
 }
 
-.ol-ext-dialog.bag .ol-content > div:before {
+.ol-ext-dialog.bag .info:before {
   content: '+1 pdv';
   position: absolute;
   color: #f50;
@@ -55,7 +55,7 @@ body > .ol-ext-dialog.place > form {
   transition: 0s;
   padding: .5em 1em;
 }
-.ol-ext-dialog.bag .ol-content > div.newLife:before {
+.ol-ext-dialog.bag .info.newLife:before {
   top: calc(100% - 5em);
   opacity: 0;
   transform: translateX(-50%) scale(1.5) rotate(-10deg);

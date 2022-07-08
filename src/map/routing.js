@@ -27,7 +27,7 @@ const tooltip = new Tooltip({
   offsetBox: [15, 0]
 });
 map.addOverlay(tooltip);
-
+window.tooltip = tooltip
 /** Drag interaction + routing on pointer up
  *  * 
  */
@@ -398,6 +398,7 @@ Drag.prototype.getElevation = function(pts, sampling, cback) {
  * @return {boolean} `false` to stop the drag sequence.
  */
 Drag.prototype.handleUpEvent = function() {
+  tooltip.setInfo('')
   if (!this.coordinate_) return;
   if (this.tout_) clearTimeout(this.tout_);
   if (this.cross_) {
@@ -432,7 +433,7 @@ Drag.prototype.stopDragging = function() {
 Drag.prototype.startCrossing = function(e) {
   if (this.hasFeatureAt(e.pixel)) {
     this.set('crossing', true);
-    tooltip.setInfo(_T('crossThrough'));
+    tooltip.show(e.coordinate, _T('crossThrough'));
   }
 }
 
@@ -443,17 +444,19 @@ const route = new Feature({
   geometry: new LineString([])
 });
 
+// Create routing interaction
 const routing = new Drag({
   layer: vector,
   route: route
 });
 map.addInteraction(routing);
 
-// Crossing on longtouch
+// Longtouch > start crossing
 const ltouch = new LongTouch({
   pixelTolerance: 1,
   // Handle longtouch > start crossing sequence
   handleLongTouchEvent: (e) => {
+    tooltip.setInfo('')
     routing.startCrossing(e);
   }
 })

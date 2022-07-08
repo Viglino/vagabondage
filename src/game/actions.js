@@ -95,12 +95,16 @@ function handleAction(action) {
               }
               case 'object': {
                 if (a.object==='shoes') {
-                  const n = Math.trunc(Math.random() * (1 + a.nok.length));
-                  if (n>0) {
-                    dialog.setInfo(a.nok[n-1]);
+                  if (game.get('shoes')) {
+                    dialog.setInfo(_T('hasShoes'))
                   } else {
-                    game.setShoes();
-                    dialog.setInfo(a.ok);
+                    const n = Math.trunc(Math.random() * (1 + a.nok.length));
+                    if (n>0) {
+                      dialog.setInfo(a.nok[n-1]);
+                    } else {
+                      game.setShoes();
+                      dialog.setInfo(a.ok);
+                    }
                   }
                 } else {
                   game.bag.push(Object.assign({}, a));
