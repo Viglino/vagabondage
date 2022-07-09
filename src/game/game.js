@@ -318,7 +318,7 @@ Game.prototype.begin = function() {
   }
   showDialogInfo(intro, this.story, () => {
     // Show help
-    help.show('main').then(() => {
+    help.show(() => {
       this.map.getView().animate({ zoom: 19.5 });
       this.getArround();
       setTimeout(() => {

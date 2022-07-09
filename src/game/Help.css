@@ -1,0 +1,26 @@
+[data-role="helpPage"] {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  cursor: help;
+  background-color: rgba(0,0,0,.6);
+}
+[data-role="helpPage"].visible {
+  display: block;
+}
+
+[data-role="helpPage"] > * {
+  display: none;
+}
+
+[data-role="helpPage"] > p {
+  position: absolute;
+  margin: 0;
+  width: 21em;
+  max-width: 90%;
+  font-size: 1.5em;  
+}
