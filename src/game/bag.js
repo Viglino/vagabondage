@@ -10,7 +10,7 @@ import game from './game';
 import helpInfo from './helpInfo';
 
 const bag = new Collection();
-helpInfo.create('bag', 'les objets sont placés dans ton sac...')
+helpInfo.create('bag', 'ce que tu trouve sur le chemin<br/>est rangé dans ton sac...')
 
 // Show what's in the bag
 dialog.on('hide', () => {

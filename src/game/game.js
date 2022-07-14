@@ -527,7 +527,7 @@ Game.prototype.encounter = function(arround) {
   this.arround = arround;
 
   // Show what's arround
-  console.log(arround)
+  this.dispatchEvent({ type: 'arround' });
 
   /* DEBUG: Show table info */
   const tInfo = {};

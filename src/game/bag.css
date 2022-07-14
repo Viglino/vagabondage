@@ -124,6 +124,7 @@ body > .ol-ext-dialog.place > form {
 [data-role="helpInfo"].bag {
   bottom: 6em;
   right: 1em;
+  text-align: center;
 }
 [data-role="helpInfo"].bag:before {
   content: "";
