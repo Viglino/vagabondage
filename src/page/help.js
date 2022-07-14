@@ -1,11 +1,11 @@
-import olObject from 'ol/Object'
-import ol_ext_element from 'ol-ext/util/element'
-import './help-main.css'
 import mainHelp from './help-main.html'
 import Help from '../game/Help'
 
+import './help-main.css'
+
+// New help page
 const help = new Help({
-  className: 'helpPage',
+  className: 'main',
   content: mainHelp,
 })
 

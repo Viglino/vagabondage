@@ -2,7 +2,7 @@
   "movePoint": "Déplace le point",
   "longStage": "<i class=\"fa fa-warning\"></i> Etape trop longue...",
   "goTo": "Relâche pour aller jusqu'ici...",
-  "badNetwork": "Le réseau semble perturbé...",
+  "badNetwork": "Calcul de l'itinéraire en cours<br/>...le réseau semble perturbé...",
   "loading:route": "Recherche du chemin...",
   "lookArround": "Autour de moi",
   "crossThrough": "Couper à travers champs",

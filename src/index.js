@@ -1,8 +1,9 @@
-import './page/lock'
+// import './page/lock'
 import './i18n/lang.js'
 import map from './map/map'
 import './map/layer'
 
+// CSS
 import './index.css'
 import 'font-awesome/css/font-awesome.min.css'
 import 'font-gis/css/font-gis.css'
@@ -14,7 +15,7 @@ import './page/about'
 // Game
 import game from './game/game'
 import './game/actions'
-// Edit action places
+// Edit action places (debug)
 import './game/editActions'
 
 /* DEBUG */

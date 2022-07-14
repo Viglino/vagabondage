@@ -1,5 +1,9 @@
 import _T from "../i18n/i18n";
 
+/** Get water message (on 'nature' property)
+ * @param {Feature} feature ol Feature
+ * @returns {string}
+ */
 function getWater(feature) {
   const nature = feature.get('nature');
   if (/ecoulement/i.test(nature)) {

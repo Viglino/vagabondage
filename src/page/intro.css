@@ -14,6 +14,10 @@
   width: 10em;
   text-align: right;
 }
+.ol-ext-dialog.intro > form  select {
+  max-width: calc(100% - 10em);
+}
+
 .ol-ext-dialog.intro form label.ol-ext-toggle-switch {
   display: block;
   width: auto;
@@ -54,10 +58,18 @@
   margin-top: 0;
 }
 
+.ol-ext-dialog.intro > form  {
+  font-size: 1.2em;
+}
+
 .ol-ext-dialog.intro > form p a {
   float: right;
 }
 .ol-ext-dialog.intro > form p a:after {
   content: '\f08e';
   font-family: FontAwesome;
+}
+
+.ol-ext-dialog.intro .ol-content {
+  max-height: calc(100vh - 5em);
 }

@@ -14,9 +14,9 @@
 « Donne moi cette carte ! » dis-tu en arrachant la carte des mains de Delmar.
 « Mais on n'est pas du tout là ! »
 <>
-Décidément tu n'es pas aidé avec ces deux imbéciles. Tu savais que tu faisais une erreur en t'échappant avec eux.
+Décidément tu n'es pas aidé avec ces deux imbéciles. Tu savais que tu faisais une erreur en t'évadant avec eux.
 « On est à %distance% du rendez-vous, %routeInfo%. Perdu %biome% ! 
-Regarde, le lieu du rendez-vous est entouré d'un cercle rouge, c'est pourtant pas compliqué ! »
+Regarde, le lieu du rendez-vous est entouré d'un cercle rouge sur la carte, c'est pourtant pas compliqué ! »
 <>
 Le gendarme Cooley a du déployer toute son armée pour vous retrouver...
 Il va falloir passer par les petites routes pour éviter les barrages et les patrouilles...

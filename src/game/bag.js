@@ -7,8 +7,17 @@ import map from '../map/map';
 
 import './bag.css'
 import game from './game';
+import helpInfo from './helpInfo';
 
 const bag = new Collection();
+helpInfo.create('bag', 'les objets sont placés dans ton sac...')
+
+// Show what's in the bag
+dialog.on('hide', () => {
+  if (dialog.element.classList.contains('actions') && bag.getLength()) {
+    helpInfo.show('bag');
+  }
+})
 
 bag.fillWater = function() {
   let n = 0;
@@ -32,7 +41,8 @@ const ctrlBag = new ol_control_Button({
   html: info,
   title: 'Ton sac...',
   handleClick: () => {
-    const ul = ol_ext_element.create('UL')
+    const ul = ol_ext_element.create('UL');
+    helpInfo.hide();
     dialog.show({
       title: 'sac à dos',
       className: 'bag',

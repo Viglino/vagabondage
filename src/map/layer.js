@@ -165,7 +165,7 @@ map.addLayer(debug);
 // Carte layer
 const carte = new Geoportail({ 
   layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS',
-  preload: 10, 
+  preload: 5, 
   key: 'om5z6xk76byacxz46km17jkx', 
   visible: false 
 }, {

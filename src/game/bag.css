@@ -120,3 +120,15 @@ body > .ol-ext-dialog.place > form {
 .ol-ext-dialog .ol-content button:hover {
   background-color: rgba(0,60,136,.2);
 }
+
+[data-role="helpInfo"].bag {
+  bottom: 6em;
+  right: 1em;
+}
+[data-role="helpInfo"].bag:before {
+  content: "";
+  border-top: 2em solid rgba(0,0,0,.5);
+  bottom: -3em;
+  right: 7.5em;
+}
+

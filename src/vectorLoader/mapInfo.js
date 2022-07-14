@@ -2,9 +2,9 @@ import vtMap from './vtMap'
 
 const mapInfo = {};
 
-/** Get info
- * @param {number} around pixel around
- * @param {ol/Coordinate} coord
+/** Get info around coordinates
+ * @param {number} [around=20] pixel around
+ * @param {ol/Coordinate} [coord] default current position
  * @return {object}
  */
 mapInfo.getAround = function(around=20, coord) {

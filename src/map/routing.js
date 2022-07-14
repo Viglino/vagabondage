@@ -59,7 +59,7 @@ class Drag extends PointerInteraction {
 
     // Stop on ESC
     window.addEventListener('keydown', e => {
-      if (e.keyCode === 27) {
+      if (e.key === 'Escape') {
         this.stopDragging();
       }
     })
@@ -420,11 +420,13 @@ Drag.prototype.handleUpEvent = function() {
 /** Stop dragging
  */
 Drag.prototype.stopDragging = function() {
-  this.handlingDownUpSequence = false;
-  this.route_.getGeometry().setCoordinates([]);
-  this.coordinate_ = null;
-  this.feature_.getGeometry().setCoordinates(this.start_);
-  tooltip.setInfo('');
+  if (this.handlingDownUpSequence) {
+    this.handlingDownUpSequence = false;
+    this.route_.getGeometry().setCoordinates([]);
+    this.coordinate_ = null;
+    this.feature_.getGeometry().setCoordinates(this.start_);
+    tooltip.setInfo('');
+  }
 }
 
 /** Start crossing sequence

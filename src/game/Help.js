@@ -3,7 +3,7 @@ import ol_ext_element from 'ol-ext/util/element'
 
 import './Help.css'
 
-/** Create help page with steps
+/** Create help page with steps: [data-step] element attributes
  * @param {Object} options
  *  @param {string} options.className
  *  @param {Element|string} options.content
@@ -27,21 +27,35 @@ class Help extends olObject{
   }
 }
 
-/** Reset help 
+/** Reset help (show it next time)
  */
 Help.prototype.reset = function() {
   localStorage.removeItem('help@help-' + this._className);
 }
 
-/** Show help
- * @param {string|number} step
+/** Mark as done
  */
-Help.prototype.show = function(onFinish) {
-  if (!localStorage.getItem('help@help-' + this._className)) {
+Help.prototype.done = function() {
+  localStorage.setItem('help@help-' + this._className, 1);
+}
+
+/** Is help done
+ * @returns {boolean}
+ */
+Help.prototype.isDone = function() {
+  return !!localStorage.getItem('help@help-' + this._className)
+}
+
+/** Show help
+ * @param {function} [onFinish] do something when done
+ * @param {boolean} [keepIt=false] if false prevent showing help next time
+ */
+Help.prototype.show = function(onFinish, keepIt) {
+  if (!this.isDone()) {
     if (onFinish) this.onFinish = onFinish;
     this.element.classList.add('visible');
     this.showStep(1);
-    localStorage.setItem('help@help-' + this._className, 1);
+    if (!keepIt) this.done();
     this.dispatchEvent({ type: 'start' })
   }
 }
@@ -60,11 +74,13 @@ Help.prototype.showStep = function(i) {
 /** Show next step
  */
 Help.prototype.nextStep = function() {
+  // Current step
   const step = parseInt(this.element.dataset.step);
-  // Has a next step
   if (this.element.querySelector('[data-step="'+(step+1)+'"]')) {
+    // Has a next step
     this.showStep(step+1);
   } else {
+    // Finish help
     this.element.classList.remove('visible');
     if (this._onFinish) this._onFinish();
     this.dispatchEvent({ type: 'end' })

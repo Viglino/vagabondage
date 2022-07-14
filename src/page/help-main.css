@@ -1,4 +1,4 @@
-.helpPage kbd {
+[data-role="helpPage"] kbd {
   display: inline-block;
   background-image: linear-gradient(90deg, #ddd, #ccc, #ddd);
   border-radius: 3px;
@@ -10,48 +10,43 @@
   margin: 0 .25em;
 }
 
-[data-role="helpPage"].helpPage {
+[data-role="helpPage"] {
   background-color: transparent;
   background-image: radial-gradient(circle at center, transparent 5.5em, rgba(0,0,0,.6) 6em);
 }
-.helpPage[data-step="3"] {
-  background-image: radial-gradient(circle at calc(100% - 4.5em) calc(100% - 3.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
-}
-.helpPage[data-step="4"] {
+[data-role="helpPage"][data-step="3"] {
   background-image: radial-gradient(circle at calc(100% - 16em) calc(2.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
 }
-.helpPage[data-step="5"] {
+[data-role="helpPage"][data-step="4"] {
   background-image: radial-gradient(circle at calc(2.5em) calc(2.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
 }
-.helpPage[data-step="6"] {
+[data-role="helpPage"][data-step="5"] {
   background-image: radial-gradient(circle at calc(100% - 9.5em) calc(100% - 2.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
 }
-.helpPage[data-step="7"] {
+[data-role="helpPage"][data-step="6"] {
+  background-image: radial-gradient(circle at calc(100% - 4.5em) calc(100% - 3.5em), transparent 4em, rgba(0,0,0,.6) 4.5em);
+}
+[data-role="helpPage"][data-step="7"] {
   background-image: none;
   background-color: rgba(0,0,0,.6);
 }
 
-.helpPage i.fa-arrows {
+[data-role="helpPage"] i.fa-arrows {
   margin-right: .2em;
 }
 
-.helpPage p[data-step="1"] {
+[data-role="helpPage"] p[data-step="1"] {
   bottom: calc(50% + 4em);
   left: 50%;
   transform: translateX(-40%);
 }
-.helpPage p[data-step="2"] {
+[data-role="helpPage"] p[data-step="2"] {
   top: calc(50% + 4em);
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
 }
-.helpPage p[data-step="3"] {
-  bottom: 6em;
-  right: 1em;
-  text-align: right;
-}
-.helpPage p[data-step="4"] {
+[data-role="helpPage"] p[data-step="3"] {
   top: 5.5em;
   right: 10em;
   text-align: center;
@@ -59,18 +54,23 @@
   width: 19em;
   max-width: calc(100% - 5em);
 }
-.helpPage p[data-step="5"] {
+[data-role="helpPage"] p[data-step="4"] {
   top: .5em;
   left: 5em;
   max-width: calc(100% - 5em);
 }
-.helpPage p[data-step="6"] {
+[data-role="helpPage"] p[data-step="5"] {
   bottom: 5em;
   right: 1em;
   text-align: right;
 }
+[data-role="helpPage"] p[data-step="6"] {
+  bottom: 6em;
+  right: 1em;
+  text-align: right;
+}
 
-.helpPage p[data-step="7"] {
+[data-role="helpPage"] p[data-step="7"] {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -40%);
@@ -82,7 +82,7 @@
   box-shadow: 3px 3px 4px rgba(0,0,0,.5);
   border-radius: 3px;
 }
-.helpPage p[data-step="7"] img {
+[data-role="helpPage"] p[data-step="7"] img {
   display: block;
   margin: .5em auto 0;
 }

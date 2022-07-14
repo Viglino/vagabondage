@@ -8,6 +8,8 @@ import regions from '../vectorLoader/regions'
 
 import intro from './intro.html'
 import './intro.css'
+import help from './help';
+import helpInfo from '../game/helpInfo';
 
 // Show intro dialog
 dialog.show({
@@ -28,12 +30,13 @@ dialog.getContentElement().querySelectorAll('.github-button').forEach(b => {
 })
 
 const helpBt = dialog.element.querySelector('.helpBt input')
-helpBt.checked = !localStorage.getItem('vagabond@help-main');
+helpBt.checked = !help.isDone();
 helpBt.addEventListener('change', () => {
   if (helpBt.checked) {
-    localStorage.removeItem('vagabond@help-main');
+    help.reset();
+    helpInfo.reset();
   } else {
-    localStorage.setItem('vagabond@help-main', 1);
+    help.done();
   }
 })
 
@@ -53,7 +56,7 @@ length.addEventListener('change', () => {
 length.value = localStorage.getItem('vagabondage@length') || 10;
 length.dispatchEvent(new Event('change'));
 
-// Add season month
+// Add season month (@TODO)
 const deft = Math.floor(Math.random()*6) + 4;
 for (let m=1; m<=12; m++) {
   const o = element.create('OPTION', {
@@ -68,8 +71,7 @@ for (let m=1; m<=12; m++) {
   }
 }
 
-// Start playing
+// Start playing when done
 dialog.once('hide', () => {
   game.load(region.value, parseInt(length.value), month.value);
 })
-

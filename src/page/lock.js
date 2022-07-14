@@ -1,7 +1,10 @@
+/** @file lock screen
+ */
 import ol_ext_element from "ol-ext/util/element";
 
 import './lock.css'
 
+// Hide body elements
 document.body.dataset.lock = '';
 
 const lock = new ol_ext_element.create('DIV', {
@@ -13,6 +16,7 @@ const lock = new ol_ext_element.create('DIV', {
   }
 })
 
+// Lock div
 new ol_ext_element.create('DIV', {
   id: 'lock',
   html: lock,
@@ -31,33 +35,42 @@ new ol_ext_element.create('DIV', {
   parent: document.body
 })
 
+// Add 3 inputs
 const inputs = [];
 for (let i=0; i<3; i++) {
+  // Container
   const d =   ol_ext_element.create('DIV', {
     parent: lock
   })
+  // Input
   const input = ol_ext_element.create('INPUT', {
     type: 'text',
     on: {
       keydown: () => {
         input.value = '';
       },
+      keypress: () => {
+        setTimeout(() => inputs[(i+1)%3].focus());
+      },
       keyup: () => {
         if ('' + inputs[0].value + inputs[1].value + inputs[2].value === '192') {
+          // Hide/remove lock
           lock.parentNode.remove();
           delete document.body.dataset.lock;
+          // Resize
           window.dispatchEvent(new Event('resize'));
           return;
         }
-        inputs[(i+1)%3].focus();
       }
     },
     parent: d
   });
   inputs.push(input);
+  // Underscore
   ol_ext_element.create('DIV', {
     parent: d
   })
 }
 
+// Focus on first input
 setTimeout(() => inputs[0].focus(), 100)

@@ -38,11 +38,10 @@
   transform: translate(-50%, -50%) rotate(0);
   z-index: 1;
 }
+.ol-button.actions button.ring,
 .ol-button.actions button:hover {
   animation: ring 2s ease;
 }
-
-
 
 .ol-ext-dialog.actions .ol-content {
   margin: 0 -1em;
@@ -117,4 +116,17 @@
   background: url('../img/shoes.svg') no-repeat center;
   background-size: contain;
   cursor: pointer;
+}
+
+[data-role="helpInfo"].arround {
+  top: 1.5em;
+  left: 6em;
+  white-space: nowrap;
+}
+[data-role="helpInfo"].arround:before {
+  content: "";
+  left: -3em;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right: 2em solid rgba(0,0,0,.5);
 }

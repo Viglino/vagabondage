@@ -9,6 +9,7 @@ import dglAction from './actions.html'
 
 import game from './game'
 import actionsPlaces from './actionsPlaces'
+import helpInfo from './helpInfo';
 
 const doneFeatures = {};
 
@@ -138,11 +139,10 @@ function handleAction(action) {
 /** Do an action */
 function doAction() {
   const arround = game.arround || {};
+  helpInfo.hide();
 
   // Check actions
   const actions = getActions(arround)
-
-  console.log('ACTIONS:', actions)
 
   dialog.show({
     className: 'actions',
@@ -175,5 +175,21 @@ const actionBt = new ol_control_Button({
   handleClick: doAction
 })
 map.addControl(actionBt);
+
+// Help info
+helpInfo.create('arround', 'regarde ce qui se passe autour de toi...')
+
+/* Check arround */
+game.on('arround', () => {
+  // Check actions
+  const actions = getActions(game.arround || {})
+  if (actions.length) {
+    // Ring the button
+    actionBt.getButtonElement().classList.add('ring');
+    setTimeout(() => actionBt.getButtonElement().classList.remove('ring'), 300);
+    // Show help info
+    helpInfo.show('arround')
+  }
+})
 
 export default actionBt

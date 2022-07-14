@@ -9,6 +9,14 @@ const dialog = new Dialog({
 });
 map.addControl(dialog);
 
+window.dialog = dialog
+// Close dialog on ESC
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && dialog.isOpen() && dialog.element.classList.contains('bag')) {
+    dialog.close();
+  }
+})
+
 // Add life info in the dialog
 const lifeInfo = ol_ext_element.create('DIV', {
   className: 'info',
