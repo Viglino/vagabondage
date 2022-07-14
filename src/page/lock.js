@@ -49,9 +49,6 @@ for (let i=0; i<3; i++) {
       keydown: () => {
         input.value = '';
       },
-      keypress: () => {
-        setTimeout(() => inputs[(i+1)%3].focus());
-      },
       keyup: () => {
         if ('' + inputs[0].value + inputs[1].value + inputs[2].value === '192') {
           // Hide/remove lock
@@ -61,6 +58,7 @@ for (let i=0; i<3; i++) {
           window.dispatchEvent(new Event('resize'));
           return;
         }
+        inputs[(i+1)%3].focus();
       }
     },
     parent: d
