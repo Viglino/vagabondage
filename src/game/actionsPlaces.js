@@ -17,6 +17,7 @@ export default {
         {
           "type": "food",
           "title": "une pomme",
+          "what": "apple",
           "desc": "Une vielle femme porte des paniers plein. Elle trébuche et tu l'aides à se relever.<br/>Elle te propose une pomme",
           "action": "Prendre la pomme."
         },
@@ -149,12 +150,13 @@ export default {
           "type": "object",
           "object": "bottle",
           "title": "une bouteille",
-          "desc": "Tu trouve une bouteille vide dans une poubelle.",
+          "desc": "Tu trouves une bouteille vide dans une poubelle.",
           "action": "Prendre la bouteille"
         },
         {
           "type": "food",
           "title": "une barre de céréales",
+          "what": "bar",
           "dec": "Quelqu'un a oublié une barre de céréale sur une chaise.",
           "action": "Prendre la barre de céréale"
         },
@@ -188,12 +190,13 @@ export default {
           "type": "object",
           "object": "bottle",
           "title": "une bouteille",
-          "desc": "Tu trouve une bouteille vide dans une poubelle.",
+          "desc": "Tu trouves une bouteille vide dans une poubelle.",
           "action": "Prendre la bouteille"
         },
         {
           "type": "food",
           "title": "une pomme",
+          "what": "apple",
           "desc": "Il y a un cageot pomme déposé devant le centre.",
           "action": "Prendre une pomme discrètement"
         },
@@ -255,7 +258,7 @@ export default {
         },
         {
           "type": "none",
-          "desc": "Le regfuge est fermé",
+          "desc": "Le refuge est fermé",
         }
       ]
     ]
@@ -335,6 +338,7 @@ export default {
         {
           "type": "food",
           "title": "un fruit",
+          "what": "fruit",
           "desc": "Des caisses de fruits sont entreposées dans un coin.",
           "action": "Prendre un fruit discrètement."
         },
@@ -362,6 +366,7 @@ export default {
         {
           "type": "food",
           "title": "une banane",
+          "what": "banana",
           "desc": "Des caisses de fruits sont entreposées dans un coin.",
           "action": "Prendre une banane discrètement."
         }
@@ -385,6 +390,7 @@ export default {
         {
           "type": "food",
           "title": "un fruit",
+          "what": "fruit",
           "desc": "Ce verger a de beaux arbres fruitiers.",
           "action": "Cueillir un fruit discrètement."
         },
@@ -401,7 +407,8 @@ export default {
       [
         {
           "type": "food",
-          "title": "une banane",
+          "title": "du raisin",
+          "what": "grape",
           "desc": "Des grappes de raisins pendent à la vigne",
           "action": "Cueillir des raisins discrètement."
         },
@@ -422,7 +429,7 @@ export default {
           "type": "object",
           "object": "bottle",
           "title": "une bouteille",
-          "desc": "Tu trouve une bouteille vide qui traine.",
+          "desc": "Tu trouves une bouteille vide qui traine.",
           "action": "Prendre la bouteille"
         },
         {
@@ -459,6 +466,7 @@ export default {
         {
           "type": "food",
           "title": "un morceau de pain",
+          "what": "bread",
           "desc": "Un jeune homme au look de hippie semble habiter là.",
           "action": "Il te donne un morceau de pain."
         },
@@ -478,7 +486,7 @@ export default {
           "type": "object",
           "object": "bottle",
           "title": "une bouteille",
-          "desc": "Tu trouve une bouteille vide dans une poubelle.",
+          "desc": "Tu trouves une bouteille vide dans une poubelle.",
           "action": "Prendre la bouteille"
         },
         {
@@ -496,7 +504,7 @@ export default {
           "type": "object",
           "object": "bottle",
           "title": "une bouteille",
-          "desc": "Tu trouve une bouteille vide dans une poubelle.",
+          "desc": "Tu trouves une bouteille vide dans une poubelle.",
           "action": "Prendre la bouteille"
         },
         {
@@ -560,6 +568,7 @@ export default {
         {
           "type": "food",
           "title": "une pomme",
+          "what": "apple",
           "desc": "Une vielle femme porte des paniers plein. Elle trébuche et tu l'aides à se relever.",
           "action": "Elle te donne une pomme."
         },
@@ -633,16 +642,17 @@ export default {
       [
         {
           "type": "object",
-          "desc": "Tu trouve une bouteille vide dans une poubelle.",
-          "action": "Prendre la bouteille",
           "object": "bottle",
+          "desc": "Tu trouves une bouteille vide dans une poubelle.",
+          "action": "Prendre la bouteille",
           "title": "une bouteille"
         },
         {
           "type": "food",
-          "desc": "Tu trouve une barre de céréale dans une poubelle.",
+          "title": "une barre de céréales",
+          "what": "bar",
+          "desc": "Tu trouves une barre de céréale dans une poubelle.",
           "action": "Prendre la barre de céréale",
-          "title": "une barre de céréales"
         },
         {
           "type": "none",

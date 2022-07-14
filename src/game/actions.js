@@ -67,10 +67,14 @@ function handleAction(action) {
     const types = a.type instanceof Array ? a.type : [a.type];
     const tabAction = { drink: 'boire un coup', water: 'remplir des bouteilles'}
     const li = ol_ext_element.create('LI', {
-      html: a.desc,
+      html: ol_ext_element.create('P', {
+        html: a.desc
+      }),
+      className: a.object || a.what || a.type[0] ,
       parent: ul
     });
     if (a.action) {
+      const d = ol_ext_element.create('DIV', { className: 'actions', parent: li });
       types.forEach(t => {
         const bt = ol_ext_element.create('BUTTON', {
           'data-type': t,
@@ -91,6 +95,8 @@ function handleAction(action) {
               case 'water': {
                 if (!game.bag.fillWater()) {
                   dialog.setInfo('Rien à remplir...');
+                } else {
+                  li.className = a.object || a.what || a.type[0];
                 }
                 break;
               }
@@ -129,7 +135,7 @@ function handleAction(action) {
             }
             bt.remove();
           },
-          parent: li
+          parent: d
         })
       })
     }

@@ -9,7 +9,10 @@ import './bag.css'
 import game from './game';
 import helpInfo from './helpInfo';
 
+// The bag
 const bag = new Collection();
+
+// Help bag
 helpInfo.create('bag', 'ce que tu trouve sur le chemin<br/>est rangé dans ton sac...')
 
 // Show what's in the bag
@@ -30,12 +33,12 @@ bag.fillWater = function() {
   return !!n;
 }
     
+const info = ol_ext_element.create('SPAN', { 'data-size': 0 });
 bag.on(['add', 'remove'], () => {
   info.innerHTML = bag.getLength();
   info.dataset.size = bag.getLength();
 });
 
-const info = ol_ext_element.create('SPAN', { 'data-size': 0 });
 const ctrlBag = new ol_control_Button({
   className: 'bag',
   html: info,
@@ -52,7 +55,10 @@ const ctrlBag = new ol_control_Button({
     if (bag.getLength()) {
       bag.forEach(o => {
         const li = ol_ext_element.create('LI', {
-          html: (o.title || _T('type:' + o.type)) + ' ' + (o.object ? _T('object:' + o.object) : ''),
+          html: ol_ext_element.create('P', {
+            html: (o.title || _T('type:' + o.type)) + ' ' + (o.object ? _T('object:' + o.object) : '')
+          }),
+          className: o.object || o.what || o.type,
           parent: ul
         })
         let action;

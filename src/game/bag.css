@@ -86,17 +86,51 @@ body > .ol-ext-dialog.place > form {
   list-style: none;
   text-align: center;
   padding: 0 .5em;
+  display: flex;
+  flex-wrap: wrap;
 }
 .ol-ext-dialog.bag ul li {
-  padding: .5em;
+  position: relative;
+  padding: 1em 0;
   border-radius: .5em;
   border: 1px solid currentColor;
   box-shadow: 0 0 .2em currentColor;
   margin: .3em 0;
+  height: 5em;
+  flex-grow: 1;
 }
 .ol-ext-dialog.bag ul li:hover {
   box-shadow: 0 0 .4em currentColor;
 }
+.ol-ext-dialog.bag ul li p,
+.ol-ext-dialog.bag ul li div.actions,
+.ol-ext-dialog.bag ul li > button {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  margin: 0;
+  transform: translateX(-50%);
+  z-index: inherit;
+  background-color: rgba(255,255,255,.5);
+}
+.ol-ext-dialog.bag ul li div.actions,
+.ol-ext-dialog.bag ul li > button {
+  top: auto;
+  bottom: 0;
+  width: 100%;
+}
+.ol-ext-dialog.bag ul li:before {
+  content: '';
+  display: block;
+  height: 5em;
+  width: 5em;
+  margin: auto;
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
 .ol-ext-dialog div.info {
   color: currentColor;
   font-weight: bold;
@@ -133,3 +167,23 @@ body > .ol-ext-dialog.place > form {
   right: 7.5em;
 }
 
+.ol-ext-dialog.bag ul li:before {
+  background-image: url("../img/actions/undef.svg");
+}
+
+.ol-ext-dialog.bag ul li.none:before {
+  background-image: url("../img/actions/none.svg");
+}
+
+.ol-ext-dialog.bag ul li.shoes:before {
+  background-image: url("../img/shoes.svg");
+}
+.ol-ext-dialog.bag ul li.bottle:before {
+  background-image: url("../img/actions/bottle.svg");
+}
+.ol-ext-dialog.bag ul li.fullbottle:before {
+  background-image: url("../img/actions/fullbottle.svg");
+}
+.ol-ext-dialog.bag ul li.water:before {
+  background-image: url("../img/actions/water.svg");
+}
