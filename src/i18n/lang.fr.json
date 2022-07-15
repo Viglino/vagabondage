@@ -22,6 +22,8 @@
   "noCrossing:info": "Voulez-vous utiliser un raccourcis ?",
   "shoes": "Avec ces chaussures tu ne dépenses qu'un point de survie tous les 3km",
   "hasShoes": "Tu as déjà une bonne paire de chaussure !",
+  "eating": "manger",
+  "drinking": "boire",
   "type:info": "un renseignement",
   "type:drink": "à boire",
   "type:water": "à boire",

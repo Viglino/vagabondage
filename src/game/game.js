@@ -604,24 +604,10 @@ Game.prototype.finish = function(fail) {
   }
 };
 
-/** Set debug mode
+/** Switch debug mode
  * @param {boolean} b
  */
 Game.prototype.debug = function(b) {
-  // Switch debug mode
-  /*
-  if (b) {
-    document.body.dataset.debug = '';
-    this.layer.zai.setStyle(redStyle);
-    this.layer.building.setStyle();
-    this.layer.road.setStyle();
-  } else {
-    delete document.body.dataset.debug;
-    this.layer.zai.setStyle(() => { return [] });
-    this.layer.building.setStyle(() => { return [] });
-    this.layer.road.setStyle(() => { return [] });
-  }
-  */
   if (!window.vectorLoader) {
     this.map.addControl(info);
     this.map.on('click', e => {

@@ -98,6 +98,7 @@ body > .ol-ext-dialog.place > form {
   margin: .3em 0;
   height: 5em;
   flex-grow: 1;
+  min-width: 7em;
 }
 .ol-ext-dialog.bag ul li:hover {
   box-shadow: 0 0 .4em currentColor;
@@ -114,12 +115,37 @@ body > .ol-ext-dialog.place > form {
   z-index: inherit;
   background-color: rgba(255,255,255,.5);
 }
+.ol-ext-dialog.bag ul li.empty p {
+  position: unset;
+  margin: 1em 0;
+  transform: unset;
+}
 .ol-ext-dialog.bag ul li div.actions,
 .ol-ext-dialog.bag ul li > button {
   top: auto;
   bottom: 0;
   width: 100%;
 }
+.ol-ext-dialog.bag ul li > button.delete {
+  top: 0;
+  right: 0;
+  left: auto;
+  bottom: auto;
+  width: auto;
+  height: auto;
+  transform: unset;
+  color: #999;
+  z-index: 1;
+  font-size: 1.25em;
+}
+.ol-ext-dialog.bag ul li > button.delete:before {
+  content: "\f1f8";
+  font-family: FontAwesome; 
+}
+.ol-ext-dialog.bag ul li > button.delete:hover {
+  color: #555;
+}
+
 .ol-ext-dialog.bag ul li:before {
   content: '';
   display: block;
@@ -186,4 +212,22 @@ body > .ol-ext-dialog.place > form {
 }
 .ol-ext-dialog.bag ul li.water:before {
   background-image: url("../img/actions/water.svg");
+}
+.ol-ext-dialog.bag ul li.fruit:before {
+  background-image: url("../img/actions/fruit.svg");
+}
+.ol-ext-dialog.bag ul li.apple:before {
+  background-image: url("../img/actions/apple.svg");
+}
+.ol-ext-dialog.bag ul li.banana:before {
+  background-image: url("../img/actions/banana.svg");
+}
+.ol-ext-dialog.bag ul li.grape:before {
+  background-image: url("../img/actions/grape.svg");
+}
+.ol-ext-dialog.bag ul li.bar:before {
+  background-image: url("../img/actions/bar.svg");
+}
+.ol-ext-dialog.bag ul li.empty:before {
+  content: none;
 }

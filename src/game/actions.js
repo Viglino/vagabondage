@@ -70,7 +70,7 @@ function handleAction(action) {
       html: ol_ext_element.create('P', {
         html: a.desc
       }),
-      className: a.object || a.what || a.type[0] ,
+      className: a.object || a.what || types[0] ,
       parent: ul
     });
     if (a.action) {
@@ -95,8 +95,6 @@ function handleAction(action) {
               case 'water': {
                 if (!game.bag.fillWater()) {
                   dialog.setInfo('Rien à remplir...');
-                } else {
-                  li.className = a.object || a.what || a.type[0];
                 }
                 break;
               }
