@@ -37,6 +37,7 @@
   left: 50%;
   transform: translate(-50%, -50%) rotate(0);
   z-index: 1;
+  outline: none;
 }
 .ol-button.actions button.ring,
 .ol-button.actions button:hover {

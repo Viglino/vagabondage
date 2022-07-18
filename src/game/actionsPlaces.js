@@ -18,7 +18,7 @@ export default {
           "type": "food",
           "title": "une pomme",
           "what": "apple",
-          "desc": "Une vielle femme porte des paniers plein. Elle trébuche et tu l'aides à se relever.<br/>Elle te propose une pomme",
+          "desc": "Une vielle femme porte des paniers pleins. Elle trébuche et tu l'aides à se relever.<br/>Elle te propose une pomme",
           "action": "Prendre la pomme."
         },
         {
@@ -569,7 +569,7 @@ export default {
           "type": "food",
           "title": "une pomme",
           "what": "apple",
-          "desc": "Une vielle femme porte des paniers plein. Elle trébuche et tu l'aides à se relever.",
+          "desc": "Une vielle femme porte des paniers pleins. Elle trébuche et tu l'aides à se relever.",
           "action": "Elle te donne une pomme."
         },
         {

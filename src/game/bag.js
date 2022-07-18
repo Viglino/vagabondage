@@ -2,15 +2,16 @@ import ol_control_Button from 'ol-ext/control/Button';
 import ol_ext_element from 'ol-ext/util/element';
 import Collection from 'ol/Collection';
 import _T from '../i18n/i18n';
-import dialog from '../map/dialog';
 import map from '../map/map';
 
 import './bag.css'
 import game from './game';
 import helpInfo from './helpInfo';
+import { bagDialog as dialog } from '../map/dialog';
 
 // The bag
 const bag = new Collection();
+const maxObject = 10;
 
 // Help bag
 helpInfo.create('bag', 'ce que tu trouve sur le chemin<br/>est rangé dans ton sac...')
@@ -21,6 +22,16 @@ dialog.on('hide', () => {
     helpInfo.show('bag');
   }
 })
+
+/** Add new object to the bag
+ * @param {Object} a
+ */
+bag.addObject = function(a) {
+  bag.push(Object.assign({}, a));
+  if (bag.getLength() > maxObject) {
+    bag.show(true)
+  }
+}
 
 /** Fill water containers
  */
@@ -36,12 +47,13 @@ bag.fillWater = function() {
 }
 
 /** Show bag dialog
+ * @param {boolean} drop ask for drop
  */
-bag.show = function() {
+bag.show = function(drop) {
   const ul = ol_ext_element.create('UL');
   dialog.show({
     title: 'sac à dos',
-    className: 'bag',
+    className: 'bag' + (drop ? ' drop' : ''),
     buttons: ['ok'],
     content: ul
   })
@@ -55,6 +67,14 @@ bag.show = function() {
       parent: ul
     })
     return;
+  }
+  // Force to drop one object
+  if (bag.getLength() > maxObject)  {
+    ol_ext_element.create('LI', {
+      className: 'drop',
+      html: _T('dropObject').replace(/%NB%/, maxObject).replace(/%DROP%/, bag.getLength() - maxObject),
+      parent: ul
+    });
   }
   // Show bag content
   bag.forEach(o => {
@@ -73,6 +93,9 @@ bag.show = function() {
       click: () => {
         bag.remove(o);
         li.remove();
+        if (drop && bag.getLength() <= maxObject) {
+          dialog.close();
+        }
       },
       parent: li
     })

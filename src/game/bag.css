@@ -42,7 +42,7 @@ body > .ol-ext-dialog.place > form {
   color: #369;
 }
 
-.ol-ext-dialog.bag .info:before {
+.ol-ext-dialog.bag div.info:before {
   content: '+1 pdv';
   position: absolute;
   color: #f50;
@@ -237,3 +237,28 @@ body > .ol-ext-dialog.place > form {
 .ol-ext-dialog.bag ul li.empty:before {
   content: none;
 }
+
+.ol-ext-dialog.bag ul li.info {
+  min-width: 10em;
+}
+
+.ol-ext-dialog.bag ul li.drop {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0 0 .5em;
+  color: #f80;
+  font-weight: bold;
+}
+.ol-ext-dialog.bag ul li.drop:before {
+  display: none;
+}
+
+.ol-ext-dialog.bag.drop > form.ol-closebox .ol-closebox,
+.ol-ext-dialog.bag.drop .ol-buttons {
+  display: none;
+}
+

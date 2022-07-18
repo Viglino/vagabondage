@@ -112,7 +112,7 @@ function handleAction(action) {
                     }
                   }
                 } else {
-                  game.bag.push(Object.assign({}, a));
+                  game.bag.addObject(a);
                 }
                 break;
               }
@@ -127,7 +127,7 @@ function handleAction(action) {
                 break;
               }
               default: {
-                game.bag.push(Object.assign({}, a))
+                game.bag.addObject(a)
                 break;
               }
             }

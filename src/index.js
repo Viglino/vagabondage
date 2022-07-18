@@ -15,6 +15,7 @@ import './page/about'
 // Game
 import game from './game/game'
 import './game/actions'
+import './game/keys'
 // Edit action places (debug)
 import './game/editActions'
 

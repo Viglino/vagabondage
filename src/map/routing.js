@@ -56,13 +56,6 @@ class Drag extends PointerInteraction {
       geometry: new Point([])
     })
     this.layer_.getSource().addFeature(this.feature_);
-
-    // Stop on ESC
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        this.stopDragging();
-      }
-    })
   }
 }
 
@@ -195,9 +188,10 @@ Drag.prototype.showRouting = function(start, end, route, go) {
     content: _T('loading:route'),
     className: 'loading'
   })
-  const tout = setTimeout(() => notification.show(_T('badNetwork')), 10000);
+  clearTimeout(this.tout);
+  this.tout = setTimeout(() => notification.show(_T('badNetwork')), 10000);
   vectorLoader.getRouting(start, end, resp => {
-    clearTimeout(tout);
+    clearTimeout(this.tout);
     if (go) {
       dialog.hide();
       const pt = resp.feature.getGeometry().getCoordinates().pop();

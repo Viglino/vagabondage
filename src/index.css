@@ -11,6 +11,9 @@ select, input, textarea {
 input:focus, textarea:focus, select:focus {
   outline: none;
 }
+button {
+  outline: none;
+}
 
 select {
   padding: .5em

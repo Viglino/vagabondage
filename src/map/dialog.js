@@ -9,36 +9,42 @@ const dialog = new Dialog({
 });
 map.addControl(dialog);
 
-window.dialog = dialog
-// Close dialog on ESC
-window.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && dialog.isOpen() && dialog.element.classList.contains('bag')) {
-    dialog.close();
-  }
-})
-
-// Add life info in the dialog
-const lifeInfo = ol_ext_element.create('DIV', {
-  className: 'info',
+// Bag dialog
+const bagDialog = new Dialog({
+  target: document.body
 });
-dialog.element.querySelector('form').insertBefore(lifeInfo, dialog.element.querySelector('.ol-buttons'));
-// Remove info on hide
-dialog.on('hide', () => lifeInfo.innerHTML = '');
+map.addControl(bagDialog);
 
-/** Add info to a dialog */
-dialog.setInfo = function(i) {
-  if (i===1) {
-    lifeInfo.innerHTML = '';
-    lifeInfo.classList.add('newLife')
-    setTimeout(() => lifeInfo.classList.remove('newLife'), 1500);
-  } else {
-    lifeInfo.innerHTML = i || '';
+// Add info dialog + life on dialog
+function setInfoDialog(dialog) {
+
+  // Add life info in the dialog
+  const lifeInfo = ol_ext_element.create('DIV', {
+    className: 'info',
+  });
+  dialog.element.querySelector('form').insertBefore(lifeInfo, dialog.element.querySelector('.ol-buttons'));
+  // Remove info on hide
+  dialog.on('hide', () => lifeInfo.innerHTML = '');
+
+  /** Add info to a dialog */
+  dialog.setInfo = function(i) {
+    if (i===1) {
+      lifeInfo.innerHTML = '';
+      lifeInfo.classList.add('newLife')
+      setTimeout(() => lifeInfo.classList.remove('newLife'), 1500);
+    } else {
+      lifeInfo.innerHTML = i || '';
+    }
   }
 }
+
+// Add info to the dialog
+setInfoDialog(dialog)
+setInfoDialog(bagDialog)
 
 // Status information
 const info = new Status;
 info.setVisible(true);
 
-export { info }
+export { info, bagDialog }
 export default dialog
