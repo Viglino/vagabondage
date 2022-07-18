@@ -33,6 +33,7 @@ import bag from './bag';
 
 import './game.css'
 import ol_control_Button from 'ol-ext/control/Button';
+import helpInfo from './helpInfo';
 
 document.body.dataset.disableMap = '';
 
@@ -71,32 +72,8 @@ class Game extends olObject {
     this.routing_ = routing;
     this.set('roads', 0);
     routing.on('routing', e => this.nextStep(e));
-    /** /
-    // Add layers
-    this.layer = {
-      zai: new VectorLayer({
-        title: 'zai',
-        source: vectorLoader.source.zai,
-        minZoom: 15,
-        style: []
-      }),
-      building: new VectorLayer({
-        title: 'building',
-        source: vectorLoader.source.bati,
-        minZoom: 15,
-        style: []
-      }),
-      road: new VectorLayer({
-        title: 'road',
-        source: vectorLoader.source.route,
-        minZoom: 14,
-        style: []
-      })
-    };
-    for (let l in this.layer) {
-      this.map.addLayer(this.layer[l]);
-    }
-    /**/
+    // help info
+    helpInfo.create('carte', 'afficher / masquer la carte...')
   }
 }
 
@@ -324,7 +301,10 @@ Game.prototype.begin = function() {
       setTimeout(() => {
         infoControl.element.classList.add('start');
         infoControl.element.classList.remove('start0');
-        map.once('click', () => infoControl.element.classList.remove('start'));
+        map.once('click', () => {
+          infoControl.element.classList.remove('start');
+          helpInfo.show('carte');
+        })
       }, 500);
     });
   });

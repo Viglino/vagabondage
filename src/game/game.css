@@ -199,3 +199,14 @@ div.reload:before {
   height: 2em;
   vertical-align: middle;
 }
+
+[data-role="helpInfo"].carte {
+  bottom: 7em;
+  right: .5em;
+}
+[data-role="helpInfo"].carte:before {
+  content: "";
+  border-top: 2em solid rgba(0,0,0,.5);
+  bottom: -3em;
+  right: 3em;
+}

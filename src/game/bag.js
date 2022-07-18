@@ -124,7 +124,10 @@ bag.show = function(drop) {
               if (game.setLife('food')) {
                 li.remove();
                 bag.remove(o);
-                dialog.setInfo(+1)
+                dialog.setInfo(+1);
+                if (drop && bag.getLength() <= maxObject) {
+                  dialog.close();
+                }
               } else {
                 dialog.setInfo('Tu n\'as pas vraiment faim...');
               }

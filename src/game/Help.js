@@ -52,11 +52,13 @@ Help.prototype.isDone = function() {
  */
 Help.prototype.show = function(onFinish, keepIt) {
   if (!this.isDone()) {
-    if (onFinish) this.onFinish = onFinish;
+    if (onFinish) this._onFinish = onFinish;
     this.element.classList.add('visible');
     this.showStep(1);
     if (!keepIt) this.done();
     this.dispatchEvent({ type: 'start' })
+  } else {
+    if (onFinish) onFinish();
   }
 }
 
