@@ -1,4 +1,4 @@
-import vtMap from './vtMap'
+import vtMap, { vtLoader } from './vtMap'
 
 const mapInfo = {};
 
@@ -17,6 +17,19 @@ mapInfo.getAround = function(around=20, coord) {
   return getFeaturesProp(features);
 }
 
+/** Fibnd all features around position
+ */
+mapInfo.findAround = function(around=1000, coord, cback) {
+  vtLoader.getFeaturesInExtent(
+    coord, {
+      tolerance: around
+    }, (features) => {
+      cback(getFeaturesProp(features))
+    }
+  );
+}
+
+
 // Get features by layer/ nature
 function getFeaturesProp(features) {
   const done = {};
@@ -28,11 +41,11 @@ function getFeaturesProp(features) {
     if (!done[f.get('cleabs')]) {
       done[f.get('cleabs')] = true;
       const id = p.layer + (p.nature ? '-' + p.nature : '');
-      // p.original = f;
+      p.original = f;
       if (!result[id]) result[id] = [];
       result[id].push(p);
     } else {
-      console.log(f)
+//      console.log(f)
     }
   })
   return result;

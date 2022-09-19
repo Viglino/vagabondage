@@ -11,6 +11,9 @@ import FoldFilter from 'ol-ext/filter/Fold'
 import ToggleControl from 'ol-ext/control/Toggle'
 import FontSymbol from 'ol-ext/style/FontSymbol'
 import RegularShape from 'ol/style/RegularShape';
+import TextStyle from 'ol/style/Text';
+import pages from '../page/pages'
+import helpInfo from '../game/helpInfo';
 
 map.addLayer(new Geoportail({ layer: 'ORTHOIMAGERY.ORTHOPHOTOS', preload: 5 }));
 // map.addLayer(new Geoportail({ layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', preload: 5, visible: false }));
@@ -204,12 +207,62 @@ map.addControl(new ToggleControl({
     document.body.dataset.mode = b ? 'carte' : 'photo';
     layerCarte.setVisible(b);
     carte.setVisible(b);
+    helpInfo.hide('carte');
     if (b && map.getView().getZoom() > 15) {
       map.getView().setZoom(15);
+    }
+    if (b && !localStorage.getItem('vagabondage@help-legend')) {
+      pages.showLegend(true);
+      localStorage.setItem('vagabondage@help-legend', 1)
     }
   }
 }))
 
+
+// Help layer
+const helpSymbol = {
+  'default': new Style({
+    image: new RegularShape({
+      radius: 10,
+      radius2: 5,
+      points: 5,
+      fill: new Fill({ color: [255,128,0] }),
+      stroke: new Stroke({ color: [255,255,255], width: 2 })
+    })
+  }),
+  'info': new Style({
+    image: new Icon({
+      src: './actions/undef.svg',
+      opacity: 1,
+      scale: .02
+    })
+  }),
+  'food': new Style({
+    image: new Circle({
+      radius: 6,
+      fill: new Fill({ color: [80,0,0] }),
+      stroke: new Stroke({ color: [255,255,255], width: 2 })
+    })
+  }),
+  'water': new Style({
+    image: new Circle({
+      radius: 6,
+      fill: new Fill({ color: [0,128,255] }),
+      stroke: new Stroke({ color: [255,255,255], width: 2 })
+    })
+  })
+}
+
+const layerHelp = new VectorLayer({
+  source: new VectorSource(),
+  visible: true,
+  opacity: .7,
+  declutter: true,
+  style: f => helpSymbol[f.get('type')] || helpSymbol['default']
+});
+map.addLayer(layerHelp)
+
+
 export { style }
-export { layerCarte, debug }
+export { layerCarte, layerHelp, debug }
 export default vector

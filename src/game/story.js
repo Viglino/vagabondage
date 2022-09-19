@@ -73,7 +73,7 @@ function getRandomStory() {
   }
   const keys = Object.keys(stories);
   const k = keys[Math.floor(Math.random() * keys.length)] || 'default';
-  console.log(k)
+  console.log('🎬 ' + k)
   return stories[k];
 }
 

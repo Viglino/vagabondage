@@ -131,3 +131,15 @@
   transform: translateY(-50%);
   border-right: 2em solid rgba(0,0,0,.5);
 }
+
+.ol-ext-dialog.actions .ol-content button {
+  display: block;
+  margin: .5em auto 0; 
+}
+.ol-ext-dialog.actions .ol-content button {
+  background-image: url('../img/actions/undef.svg');
+  background-size: 1.2em;
+  background-repeat: no-repeat;
+  background-position: .5em center;
+  padding-left: 2em;
+}
