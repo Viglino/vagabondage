@@ -10,13 +10,6 @@ import dglAction from './actions.html'
 import game from './game'
 import actionsPlaces from './actionsPlaces'
 import helpInfo from './helpInfo';
-import { getCenter } from 'ol/extent';
-import mapInfo from '../vectorLoader/mapInfo';
-import { getDistance } from 'ol/sphere';
-import { layerHelp } from '../map/layer';
-import { Feature } from 'ol';
-import { Point } from 'ol/geom';
-import { toLonLat } from 'ol/proj';
 
 const doneFeatures = {};
 
@@ -53,6 +46,7 @@ function getActions(arround) {
   }
   return actions;
 }
+game.getActions = getActions;
 
 function handleAction(action) {
   const ul = ol_ext_element.create('UL');
@@ -103,6 +97,10 @@ function handleAction(action) {
                 if (!game.bag.fillWater()) {
                   dialog.setInfo('Rien à remplir...');
                 }
+                break;
+              }
+              case 'info': {
+                game.compass++;
                 break;
               }
               case 'object': {
@@ -164,40 +162,16 @@ function doAction() {
   })
 
   // Add help
-  ol_ext_element.create('BUTTON', {
-    html: 'Afficher autour de moi...',
-    click: () => {
-      dialog.hide();
-      const position = game.get('position');
-      // Find features arround
-      mapInfo.findAround(
-        1000,
-        position,
-        (features) => {
-          layerHelp.getSource().clear();
-          const lonlat = toLonLat(position);
-          // Get possible actions
-          getActions(features).forEach((f) => {
-            const c = getCenter(f.place.original.getExtent())
-            if (getDistance(toLonLat(c), lonlat) < 1500) {
-              const type = f.info.actions[0][0].type;
-              // console.log(Array.isArray(type) ? type[0] : type)
-              layerHelp.getSource().addFeature(new Feature({
-                title: f.info.title,
-                type: Array.isArray(type) ? type[0] : type,
-                geometry: new Point(c)
-              }))
-            }
-          })
-          if (layerHelp.getSource().getExtent()) {
-            map.getView().fit(layerHelp.getSource().getExtent());
-            if (map.getView().getZoom() > 16) map.getView().setZoom(16)
-          }
-        }
-      )
-    },
-    parent: dialog.getContentElement()
-  })
+  if (game.compass > 0) {
+    ol_ext_element.create('BUTTON', {
+      html: 'Trouver les points d\'intérêt autour de moi (' + game.compass + ')...',
+      click: () => {
+        dialog.hide();
+        game.showAround();
+      },
+      parent: dialog.getContentElement()
+    })
+  }
 
   const ul = dialog.getContentElement().querySelector('ul');
   actions.forEach(a => {

@@ -31,6 +31,9 @@ import ol_ext_Ajax from 'ol-ext/util/Ajax';
 import showDialogInfo from '../page/dialogInfo'
 import bag from './bag';
 
+import { getCenter } from 'ol/extent';
+import { layerHelp } from '../map/layer';
+
 import './game.css'
 import ol_control_Button from 'ol-ext/control/Button';
 import helpInfo from './helpInfo';
@@ -46,6 +49,7 @@ class Game extends olObject {
     // Life gauge
     this.gauge = gauge;
     map.addControl(this.gauge);
+    this.compass = 5;
     // Bag
     this.bag = bag;
     // Show destination / 
@@ -333,17 +337,17 @@ Game.prototype.nextStep = function(e, shortcut) {
 
   // Show Error
   if (error) {
-    const info = error[0]!=='water' ? game.bag.getArray().find((e) => e.type==='info') : false;
+    const info = error[0]!=='water' ? (game.compass > 0) : false;
     const buttons = info ?  { ok: 'OK', cancel: 'annuler' } : { cancel: 'OK' };
     dialog.show({
       title: _T('noCrossing'),
-      content: error[1] + (info ? '<br/>' + _T('noCrossing:info'): ''),
+      content: error[1] + (info ? '<br/>' + _T('noCrossing:info').replace('XX', game.compass) : ''),
       className: 'noCrossDlg',
       buttons: buttons,
       onButton: (b) => {
         // Use a shortcut ?
         if (b==='ok') {
-          game.bag.remove(info);
+          game.compass--;
           this.nextStep(e, true);
         }
       }
@@ -486,6 +490,39 @@ Game.prototype.getArround = function(cback) {
     if (cback) cback(arround);
   });
 };
+
+Game.prototype.showAround = function() {
+  const position = game.get('position');
+  // Find features arround
+  mapInfo.findAround(
+    1000,
+    position,
+    (features) => {
+      layerHelp.getSource().clear();
+      const lonlat = toLonLat(position);
+      // Get possible actions
+      game.getActions(features).forEach((f) => {
+        const c = getCenter(f.place.original.getExtent())
+        if (getDistance(toLonLat(c), lonlat) < 1500) {
+          const type = f.info.actions[0][0].type;
+          // console.log(Array.isArray(type) ? type[0] : type)
+          layerHelp.getSource().addFeature(new Feature({
+            title: f.info.title,
+            type: Array.isArray(type) ? type[0] : type,
+            geometry: new Point(c)
+          }))
+        }
+      })
+      try {
+        this.map.getView().fit(layerHelp.getSource().getExtent());
+        if (this.map.getView().getZoom() > 16) this.map.getView().setZoom(16)
+      } catch(e) {
+        return;
+      }
+      this.compass--;
+    }
+  )
+}
 
 /** Find something arround
  * @param {function} filter

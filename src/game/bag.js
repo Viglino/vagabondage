@@ -58,6 +58,7 @@ bag.show = function(drop) {
     content: ul
   })
   // Nothing to show
+  /*
   if (!bag.getLength())  {
     ol_ext_element.create('LI', {
       className: 'empty',
@@ -68,6 +69,7 @@ bag.show = function(drop) {
     })
     return;
   }
+  */
   // Force to drop one object
   if (bag.getLength() > maxObject)  {
     ol_ext_element.create('LI', {
@@ -76,6 +78,25 @@ bag.show = function(drop) {
       parent: ul
     });
   }
+  // Help
+  const li0 = ol_ext_element.create('LI', {
+    html: ol_ext_element.create('P', {
+      html: 'Boussole'
+    }),
+    className: 'poi',
+    parent: ul
+  })
+  if (game.compass) {
+    li0.appendChild(ol_ext_element.create('BUTTON', {
+      text: 'Trouver les points d\'intérêt (' + game.compass +')',
+      click: () => {
+        game.showAround();
+        dialog.close();
+      },
+      parent: li0
+    }));
+  }
+
   // Show bag content
   bag.forEach(o => {
     // New object in the bag list

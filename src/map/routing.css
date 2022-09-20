@@ -1,0 +1,7 @@
+.ol-ext-dialog.wait .ol-content {
+  background-image: url("../img/compass.png");
+  background-repeat: no-repeat;
+  background-size: 3em;
+  padding-left: 4em;
+  height: 3em;
+}

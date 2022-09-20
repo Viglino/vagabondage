@@ -9,6 +9,5 @@ const help = new Help({
   content: mainHelp,
 })
 
-window.help = help;
 
 export default help;

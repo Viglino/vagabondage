@@ -137,9 +137,11 @@
   margin: .5em auto 0; 
 }
 .ol-ext-dialog.actions .ol-content button {
-  background-image: url('../img/actions/undef.svg');
-  background-size: 1.2em;
+  background-image: url('../img/compass.png');
+  background-size: 2.5em;
   background-repeat: no-repeat;
-  background-position: .5em center;
-  padding-left: 2em;
+  background-position: 1em center;
+  padding: 1em;
+  padding-left: 4em;
+  margin-top: 1em;
 }

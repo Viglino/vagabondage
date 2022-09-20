@@ -114,6 +114,18 @@
   }
 }
 
+.ol-ext-dialog.noCrossDlg i.compass {
+  display: inline-block;
+  font-size: 3em;
+  width: 1em;
+  height: 1em;
+  background-image: url("../img/compass.png");
+  background-size: contain;
+  vertical-align: middle;
+  margin: 10px 5px;
+}
+
+
 .ol-ext-dialog.life  {
   font-size: 1.2em;
 }

@@ -73,6 +73,12 @@
   height: 33.5px;
 }
 
+
+/* HELP */
+.legendDialog.smooth .ol-content {
+  scroll-behavior: smooth;
+}
+
 .legendDialog .ol-content .help,
 .legendDialog .ol-content .help > div {
   display: none;
@@ -84,7 +90,8 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-image: radial-gradient(ellipse 80% 100px at 50% 120px, transparent 90%, rgba(0,0,0,.7) 100%);
+  background-image: radial-gradient(ellipse 80% 100px at 50% 200px, transparent 90%, rgba(0,0,0,.7) 100%);
+  font-size: 1.5em;
 }
 .legendDialog .ol-content.help3 .help {
   background-image: radial-gradient(ellipse 80% 40% at 50% 60%, transparent 90%, rgba(0,0,0,.7) 100%);
@@ -94,12 +101,26 @@
 .legendDialog .ol-content.help3 .help-3 {
   position: absolute;
   display: block;
-  top: 230px;
+  top: 300px;
   left: 50%;
   color: #fff;
   transform: translateX(-50%);
   text-align: center;
+  width: 80%;
 }
 .legendDialog .ol-content.help3 .help-3 {
-  top: 10%;
+  top: .5em;
 }
+
+[data-role="helpInfo"].legend2 {
+  bottom: 1em;
+  left: .5em;
+  z-index: 1;
+}
+[data-role="helpInfo"].legend2:before {
+  content: "";
+  border-bottom: 2em solid rgba(0,0,0,.5);
+  top: -3em;
+  left: 0.5em;
+}
+

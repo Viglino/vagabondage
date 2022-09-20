@@ -18,6 +18,8 @@ import { vtLoader } from '../vectorLoader/vtMap';
 import Ajax from 'ol-ext/util/Ajax';
 import dialog from './dialog';
 
+import './routing.css'
+
 // Max distance:  1.5km
 const maxDist = 1500;
 // Max crossing distance: 500m
@@ -271,7 +273,7 @@ Drag.prototype.setStart = function(pt) {
 Drag.prototype.checkCross = function(start, end, route) {
   dialog.show({
     className: 'wait',
-    content: _T('crossThrough')
+    content: _T('crossThrough') + '<br/>Calcul en cours...'
   })
   const extent = boundingExtent([start,end])
   route = route.clone();

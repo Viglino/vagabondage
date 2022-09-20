@@ -302,8 +302,10 @@ const vtLoader = {
   vtFeature: vtFeature,
   vtFeatures: vtFeatures
 }
+
 /* DEBUG */
 window.vtLoader = vtLoader;
+/**/
 
 export { vtLoader }
 export default mapLoader

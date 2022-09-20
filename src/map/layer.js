@@ -212,7 +212,7 @@ map.addControl(new ToggleControl({
       map.getView().setZoom(15);
     }
     if (b && !localStorage.getItem('vagabondage@help-legend')) {
-      pages.showLegend(true);
+      pages.showHelpLegend();
       localStorage.setItem('vagabondage@help-legend', 1)
     }
   }
