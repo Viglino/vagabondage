@@ -244,6 +244,32 @@ body > .ol-ext-dialog.place > form {
   content: none;
 }
 
+.ol-ext-dialog.bag ul li b {
+  position: absolute;
+  display: none;
+  font-weight: unset;
+  color: #fff;
+  background-color: rgba(0,0,0,.7);
+  bottom: calc(100% + 1em);
+  left: 50%;
+  min-width: min(90%, 20em);
+  padding: .2em .5em;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.ol-ext-dialog.bag ul li b:after {
+  content: "";
+  position: absolute;
+  border: 1em solid transparent;
+  border-top-color: rgba(0,0,0,.7);
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+}
+.ol-ext-dialog.bag ul li button:hover b {
+  display: block;
+}
+
 .ol-ext-dialog.bag ul li.info {
   min-width: 10em;
 }

@@ -19,6 +19,7 @@ dialog.show({
   buttons: ['Commencer le jeu']
 })
 const region = dialog.getContentElement().querySelector('.region');
+const level = dialog.getContentElement().querySelector('.level');
 const length = dialog.getContentElement().querySelector('.length');
 const month = dialog.getContentElement().querySelector('.month');
 
@@ -56,6 +57,12 @@ length.addEventListener('change', () => {
 length.value = localStorage.getItem('vagabondage@length') || 10;
 length.dispatchEvent(new Event('change'));
 
+// Level
+level.addEventListener('change', () => {
+  localStorage.setItem('vagabondage@level', level.value);
+})
+level.value = localStorage.getItem('vagabondage@level') || 'novice';
+
 // Add season month (@TODO)
 const deft = Math.floor(Math.random()*6) + 4;
 for (let m=1; m<=12; m++) {
@@ -73,5 +80,5 @@ for (let m=1; m<=12; m++) {
 
 // Start playing when done
 dialog.once('hide', () => {
-  game.load(region.value, parseInt(length.value), month.value);
+  game.load(region.value, parseInt(length.value), level.value, month.value);
 })

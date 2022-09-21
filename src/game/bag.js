@@ -88,7 +88,7 @@ bag.show = function(drop) {
   })
   if (game.compass) {
     li0.appendChild(ol_ext_element.create('BUTTON', {
-      text: 'Trouver les points d\'intérêt (' + game.compass +')',
+      html: 'Trouver les points d\'intérêt (' + game.compass +')<b>Afficher les points sur la carte</b>',
       click: () => {
         game.showAround();
         dialog.close();
