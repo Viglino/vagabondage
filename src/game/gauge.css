@@ -1,0 +1,114 @@
+/* Gauge */
+.ol-gauge {
+  z-index: 1;
+  background-color: transparent!important;
+  top: 1.25em;
+  left: auto;
+  right: 3em;
+  transform: none;
+}
+.ol-gauge > div {
+  position: relative;
+  border-radius: 0 1em 1em 0;
+  padding: 0;
+  border: 2px solid #fff;
+  background-color: rgba(0,0,0,.5);
+  overflow: hidden;
+}
+.ol-gauge span {
+  margin-right: 1em;
+  position: relative;
+  font-weight: bold;
+  color: #fff;
+}
+.ol-gauge span:before,
+.ol-gauge span:after {
+  font-size: 1.1em;
+  content: "\f004";
+  font-family: FontAwesome;
+  position: absolute;
+  top: 50%;
+  right: -1.5em;
+  color: #f00;
+  z-index: 1;
+  transform: translateY(-50%) scale(1);
+}
+.ol-gauge span:before {
+  color: #fff;
+  transform: translateY(-50%) scale(1.3);
+}
+.ol-gauge.anim span:after {
+  animation: .6s animateHeart .3s;
+}
+
+.ol-gauge button {
+  border-radius: 0;
+  background-color: #3993f3;
+  background-image: linear-gradient(
+    90deg, 
+    rgba(80,0,0,1) 0,
+    rgba(255,0,0,.5) 50px,
+    transparent 50px
+  );
+  cursor: pointer;
+}
+
+@keyframes animateHeart {
+  0% {
+    transform: translateY(-50%) scale(1);
+  }
+  25% {
+    transform: translateY(-50%) scale(1.3);
+  }
+  50% {
+    transform: translateY(-50%) scale(1);
+  }
+  75% {
+    transform: translateY(-50%) scale(1.4);
+  }
+  100% {
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+/* Road */
+.ol-gauge.road {
+  top: 3em;
+}
+.ol-gauge.road span:after {
+  display: none;
+}
+.ol-gauge.road span:before {
+  content: "\f018";
+  color: #900;
+  text-shadow: 1px 1px #fff, 1px -1px #fff, -1px -1px #fff, -1px 1px #fff;
+}
+.ol-gauge.road button {
+  background-color: #080;
+  background-image: linear-gradient(
+    90deg, 
+    rgba(0,80,0,1) 0,
+    orange 100px,
+    #800 150px
+  );
+}
+
+.ol-ext-dialog.roads > form {
+  width: 30em;
+}
+.ol-ext-dialog.roads .ol-content {
+  padding-left: 5em;
+}
+.ol-ext-dialog.roads > form img {
+  position: absolute;
+  left: 1em;
+  margin-right: .5em;
+}
+.ol-ext-dialog.roads .ol-content .good,
+.ol-ext-dialog.roads .ol-content .bad {
+  display: none;
+}
+.ol-ext-dialog.roads .ol-content.good .good,
+.ol-ext-dialog.roads .ol-content.bad .bad {
+  display: block;
+}

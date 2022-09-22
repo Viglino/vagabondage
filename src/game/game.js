@@ -16,7 +16,7 @@ import vectorLoader from '../vectorLoader/vectorLoader';
 import layer, { layerCarte } from '../map/layer'
 import routing from '../map/routing';
 import { getRegionNameByPos, getDepartementName } from '../vectorLoader/regions'
-import gauge from './gauge'
+import gauge, { roadGauge } from './gauge'
 
 import vtlayer from '../vectorLoader/vtMap'
 import mapInfo from '../vectorLoader/mapInfo'
@@ -50,6 +50,10 @@ class Game extends olObject {
     this.gauge = gauge;
     map.addControl(this.gauge);
     this.compass = 5;
+    // Road
+    this.roadGauge = roadGauge;
+    map.addControl(this.roadGauge);
+    this.set('roads', 0);
     // Bag
     this.bag = bag;
     // Show destination / 
@@ -74,7 +78,6 @@ class Game extends olObject {
     })
     // Goto next step on walk
     this.routing_ = routing;
-    this.set('roads', 0);
     routing.on('routing', e => this.nextStep(e));
     // help info
     helpInfo.create('carte', 'afficher / masquer la carte...')
@@ -410,6 +413,7 @@ Game.prototype.nextStep = function(e, shortcut) {
     }
   })
   this.set('roads', nbRoads);
+  this.roadGauge.val(nbRoads);
 
   // New destination
   this.set('destination', getDistance(toLonLat(this.get('position')), toLonLat(this.get('end'))))

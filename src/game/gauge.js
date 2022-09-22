@@ -2,6 +2,9 @@ import Gauge from 'ol-ext/control/Gauge'
 
 import dialog from '../map/dialog';
 import gaugeInfo from './gauge.html'
+import roadInfo from './roadGauge.html'
+
+import './gauge.css'
 
 const gauge = new Gauge({
   title: '+6', 
@@ -27,4 +30,20 @@ gauge.element.addEventListener('click', () => {
   dialog.getContentElement().querySelector('.inan').classList[nlife <= 0 ? 'add' : 'remove']('visible');
 })
 
+const roadGauge = new Gauge({
+  className: 'road',
+  max: 200,
+  val: 0
+});
+roadGauge.element.addEventListener('click', () => {
+  dialog.show({
+    title: 'Cheminement',
+    className: 'roads',
+    content: roadInfo
+  })
+  const good = roadGauge.val() < 100;
+  dialog.getContentElement().classList.add(good ? 'good' : 'bad');
+})
+
+export { roadGauge }
 export default gauge;
