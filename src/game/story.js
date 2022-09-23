@@ -17,6 +17,7 @@ const loader = [
   'fugitif',
   'fugitifs',
   'pandemic',
+  'adieu',
   'trousses'
 ]
 

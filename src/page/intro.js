@@ -60,8 +60,10 @@ length.dispatchEvent(new Event('change'));
 // Level
 level.addEventListener('change', () => {
   localStorage.setItem('vagabondage@level', level.value);
+  level.parentNode.querySelector('span').innerText = level.value;
 })
-level.value = localStorage.getItem('vagabondage@level') || 'novice';
+level.value = localStorage.hasOwnProperty('vagabondage@level') ? parseInt(localStorage.getItem('vagabondage@level')) : 10;
+level.parentNode.querySelector('span').innerText = level.value;
 
 // Add season month (@TODO)
 const deft = Math.floor(Math.random()*6) + 4;
@@ -80,5 +82,5 @@ for (let m=1; m<=12; m++) {
 
 // Start playing when done
 dialog.once('hide', () => {
-  game.load(region.value, parseInt(length.value), level.value, month.value);
+  game.load(region.value, parseInt(length.value), parseInt(level.value), month.value);
 })

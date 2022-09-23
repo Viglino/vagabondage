@@ -13,9 +13,25 @@
   display: inline-block;
   width: 10em;
   text-align: right;
+  padding-right: .5em;
+  box-sizing: border-box;
 }
 .ol-ext-dialog.intro > form  select {
   max-width: calc(100% - 10em);
+}
+.ol-ext-dialog.intro > form  li img {
+  height: 1.5em;
+  vertical-align: middle;
+  margin: 0 .5em;
+}
+.ol-ext-dialog.intro > form  li span.count {
+  font-size: .85em;
+}
+.ol-ext-dialog.intro > form  li span.count:before {
+  content: "(";
+}
+.ol-ext-dialog.intro > form  li span.count:after {
+  content: ")";
 }
 
 .ol-ext-dialog.intro form label.ol-ext-toggle-switch {

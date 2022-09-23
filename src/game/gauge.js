@@ -15,7 +15,8 @@ gauge.element.addEventListener('click', () => {
   dialog.show({
     title: 'Ton état',
     className: 'life',
-    content: gaugeInfo
+    content: gaugeInfo,
+    buttons: ['ok']
   })
   const hydro = gauge.get('hydro') ? 0 : 1;
   const food = gauge.get('food') ? 0 : 1;
@@ -39,7 +40,8 @@ roadGauge.element.addEventListener('click', () => {
   dialog.show({
     title: 'Cheminement',
     className: 'roads',
-    content: roadInfo
+    content: roadInfo,
+    buttons: ['ok']
   })
   const good = roadGauge.val() < 100;
   dialog.getContentElement().classList.add(good ? 'good' : 'bad');

@@ -1,0 +1,46 @@
+########
+#title: Amnésique
+########
+#lang: fr
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/adieu.jpg
+#start: 
+#end: 
+#--------------
+#introduction:
+Décidément rien ne marche dans cette histoire.
+« Qu'est-ce qui se passe ? On n'avance plus ? » demande Serge depuis le siège arrière...
+La voiture est en rade %routeInfo%, %biome%
+<>
+« La voiture est en panne et il nous reste encore %distance% à faire avant le point de rendez-vous, dit JB en consultant la carte IGN. »
+« Vous n'avez pas fait le plein ? » croit bon d'ajouter Serge.
+<>
+Il va falloir prendre les petites routes pour arriver jusqu'à l'adresse donnée par le docteur Lint, en évitant la police à vos trousses...
+#--------------
+#missed:
+Une voiture de police s'arrête le long de la route !
+JB te tire avec l'aveugle %hiddingPlace%, ils ne vous ont pas vu !
+<>
+C'était moins une ! Il va falloir éviter ce genre de rencontre...
+#fail:
+Une voiture de police s'arrète et des gendarmes en sortent. Ils vous ont repéré.
+« Non, pas la police ! » hurle Serge.
+Mais il sont déjà sur vous et vous arrêtent.
+#--------------
+#failConclusion:
+Vous vous avancez tout doucement. Tout semble tranquille et pourtant...
+Au moment où tu t'apprètes à sonner vous êtes ébloui par la lumière d'un projecteur...
+<>
+Une voix sort d'un mégaphone.
+« Rendez-vous vous êtes cernés ! » 
+#conclusion:
+Tu t'avances jusqu'à la porte pendant que Serge et JB t'encourage depuis la rue.
+Tu aperçois un jeune homme qui lit un livre par la fenêtre du salon.
+<>
+Tu sonnes à la porte un peu engoissée quand même.
+« Qu'est-ce qu'elle fait ? » chuchote Serge dans ton dos.
+<>
+Le jeune homme vient t'ouvrir et il te sourit...

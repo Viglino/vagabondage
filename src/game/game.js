@@ -174,12 +174,7 @@ Game.prototype.getStatus = function(road, land, bati) {
  */
 Game.prototype.load = function(region, length, level, month) {
   this.story = getRandomStory();
-  const compassNb = {
-    novice: 10,
-    advanced: 5,
-    carto: 0
-  }
-  this.compass = compassNb[level] || 0;
+  this.compass = level || 0;
   vectorLoader.loadGame({
     story: this.story, 
     region: region, 

@@ -104,6 +104,14 @@
   left: 1em;
   margin-right: .5em;
 }
+.ol-ext-dialog.roads .ol-content p {
+  margin-top: 0;
+}
+.ol-ext-dialog.roads .ol-content .info {
+  font-style: italic;
+  border-top: 2px solid #369;
+  padding-top: .5em;
+}
 .ol-ext-dialog.roads .ol-content .good,
 .ol-ext-dialog.roads .ol-content .bad {
   display: none;

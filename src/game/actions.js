@@ -164,7 +164,7 @@ function doAction() {
   // Add help
   if (game.compass > 0) {
     ol_ext_element.create('BUTTON', {
-      html: 'Trouver les points d\'intérêt autour de moi (' + game.compass + ')...',
+      html: 'Afficher les points d\'intérêt autour de moi (' + game.compass + ')...',
       click: () => {
         dialog.hide();
         game.showAround();
