@@ -62,7 +62,7 @@ level.addEventListener('change', () => {
   localStorage.setItem('vagabondage@level', level.value);
   level.parentNode.querySelector('span').innerText = level.value;
 })
-level.value = localStorage.hasOwnProperty('vagabondage@level') ? parseInt(localStorage.getItem('vagabondage@level')) : 10;
+level.value = localStorage.hasOwnProperty('vagabondage@level') ? parseInt(localStorage.getItem('vagabondage@level')) || 10 : 10;
 level.parentNode.querySelector('span').innerText = level.value;
 
 // Add season month (@TODO)
