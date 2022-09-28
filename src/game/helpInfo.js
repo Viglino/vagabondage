@@ -20,11 +20,13 @@ const helpInfo = {
   },
   // Show help info
   show: (help) => {
+    /*
     if (!localStorage.getItem('vagabondage@help-' + help)) {
-      document.querySelector('[data-role="helpInfo"].' + help).classList.add('visible');
-      setTimeout(() => helpInfo.hide(), 5000);
       // localStorage.setItem('vagabondage@help-' + help, 1)
     }
+    */
+    document.querySelector('[data-role="helpInfo"].' + help).classList.add('visible');
+    setTimeout(() => helpInfo.hide(), 5000);
   },
   // Reset all help info
   reset: () => {
