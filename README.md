@@ -1,6 +1,6 @@
 # <img src="https://viglino.github.io/vagabondage/img/dices.png" align="left"/> Vagab🧭ndage
 
-Vagabondage est un jeu de rôle en solitaire qui se joue en ligne sur les [cartes et photographies aériennes de l'IGN](Data).
+Vagabondage est un jeu de rôle en solitaire qui se joue en ligne sur les [cartes et photographies aériennes de l'IGN](https://github.com/Viglino/vagabondage/wiki/X.-Data).
 Entre survie et rencontres, vous incarnez un personnage en fuite dans la campagne française.
 
 ![](https://github.com/Viglino/vagabondage/raw/main/assets/img/banner.jpg)
