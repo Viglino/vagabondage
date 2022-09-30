@@ -9,6 +9,20 @@ const dialog = new Dialog({
 });
 map.addControl(dialog);
 
+dialog.on('show', () => {
+
+  // Twitter link
+  const link = dialog.getContentElement().querySelector('a.twitter-share-button')
+  if (link) {
+    console.log('twitter')
+    link.href = 'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent(
+`🧭 Vagabondage #leJeu 🎲 #vagabondage
+@jmviglino @TSolonce https://viglino.github.io/vagabondage/`
+    );
+  }
+})
+
 // Bag dialog
 const bagDialog = new Dialog({
   target: document.body

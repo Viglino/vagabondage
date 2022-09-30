@@ -18,6 +18,7 @@ dialog.show({
   closeBox: false,
   buttons: ['Commencer le jeu']
 })
+
 const region = dialog.getContentElement().querySelector('.region');
 const level = dialog.getContentElement().querySelector('.level');
 const length = dialog.getContentElement().querySelector('.length');
