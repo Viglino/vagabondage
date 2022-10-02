@@ -93,9 +93,10 @@
   transform: rotate(15deg);
 }
 .ol-ext-dialog.about ul i.fa {
+  font-size: 1.5em;
   position: relative;
   display: inline-block;
-  margin-right: 5em;
+  margin-right: 4em;
   text-shadow: 1px 1px #fff, -1px 1px #fff, -1px -1px #fff, 1px -1px #fff;
   color: #f00;
 }
@@ -105,12 +106,14 @@
 .ol-ext-dialog.about ul i.fa:after {
   content: "";
   position: absolute;
-  left: .5em;
-  width: 5em;
-  height: .8em;
+  left: .4em;
+  top: 50%;
+  width: 4.4em;
+  height: .6em;
   border: 2px solid #fff;
-  box-shadow: 0 0 2px #000;
+  box-shadow: 0 0 5px rgba(0,0,0,.5);
   background-color: #ccc;
   z-index: -1;
   border-radius: 0 .5em .5em 0;
+  transform: translateY(-50%);
 }
