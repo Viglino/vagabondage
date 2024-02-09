@@ -165,14 +165,15 @@ const debug = new VectorLayer({
 });
 map.addLayer(debug);
 
+Geoportail.register("GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR", {"layer":"GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR","key":"ign_scan_ws","theme":"cartes","desc":"La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbre isolé, rivière, source... </br>En France, la carte topographique de base est réalisée par l'IGN. Le SCAN 25 Touristique comprend les pictogrammes du thème tourisme de la carte de base.","server":"https://data.geopf.fr/private/wmts","bbox":[-178.206,-46.5029,77.6492,51.1751],"format":"image/jpeg","minZoom":6,"maxZoom":16,"originators":{"Geoservices":{"attribution":"Géoservices","href":"https://geoservices.ign.fr/"}},"queryable":false,"style":"normal","tilematrix":"PM","title":"Carte topographique (IGN Scan25)","legend":["https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg"]});
 // Carte layer
 const carte = new Geoportail({ 
-  layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS',
+  layer: 'GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR',
   preload: 5, 
-  key: 'om5z6xk76byacxz46km17jkx', 
+  key: 'ign_scan_ws', 
   visible: false 
 }, {
-  minZoom: 15
+  // minZoom: 15
 });
 
 // Fold map

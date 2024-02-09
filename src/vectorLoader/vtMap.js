@@ -155,7 +155,8 @@ const vtLayer = new VectorTileLayer({
   source: new VectorTileSource({
     // maxZoom: 15,
     format: new MVT,
-    url: 'https://wxs.ign.fr/latuile/geoportail/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf',
+    //url: 'https://wxs.ign.fr/latuile/geoportail/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf',
+    url: 'https://data.geopf.fr/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf'
     // url: 'https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf',
   }),
   style: (f) => {

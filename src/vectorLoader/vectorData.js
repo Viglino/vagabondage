@@ -7,7 +7,8 @@ import mapLoader from './mapLoader';
 // Source
 function _getSource(key, type, zoom) {
   return new TileWFS({
-    url: 'https://wxs.ign.fr/'+key+'/geoportail/wfs',
+    // url: 'https://wxs.ign.fr/'+key+'/geoportail/wfs',
+    url: 'https://data.geopf.fr/wfs/ows',
     typeName: type,
     tileZoom: zoom,
     pagination: true

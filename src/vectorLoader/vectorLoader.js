@@ -348,7 +348,9 @@ VectorLoader.prototype.getRouting = function(start, end, cback) {
   this.cback = cback;
   start = toLonLat(start);
   end = toLonLat(end);
-  this.ajax.send('https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?'
+  this.ajax.send(
+    // 'https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?'
+    'https://data.geopf.fr/navigation/itineraire?'
     + 'resource=bdtopo-osrm'
     + '&profile=pedestrian'
     + '&optimization=shortest'

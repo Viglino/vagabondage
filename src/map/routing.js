@@ -374,15 +374,19 @@ Drag.prototype.checkCross = function(start, end, route) {
  * @param {function} cback
  */
 Drag.prototype.getElevation = function(pts, sampling, cback) {
+  console.log('getelevation')
   const lon= [], lat =[];
   pts.forEach(p => {
     p = toLonLat(p);
     lon.push(p[0]);
     lat.push(p[1]);
   });
-  const url = 'https://wxs.ign.fr/essentiels/alti/rest/elevationLine.json?sampling=' + sampling
+  //const url = 'https://wxs.ign.fr/essentiels/alti/rest/elevationLine.json?'
+  const url = 'https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevationLine.json?resource=ign_rge_alti_wld&'
+    + 'sampling=' + sampling
     + '&lon=' + lon.join('|')
     + '&lat=' + lat.join('|');
+
   Ajax.get({
     url: url,
     success: cback,

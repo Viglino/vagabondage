@@ -90,7 +90,8 @@ class Game extends olObject {
 Game.prototype.flyTo = function(position) {
   this.map.getView().flyTo({
     center: position,
-    zoomAt: Math.max(this.map.getView().getZoom() - .5, 13.01)
+    zoom: Math.max(this.map.getView().getZoom(), 14)
+    //zoomAt: Math.max(this.map.getView().getZoom() - .5, 13.01)
   })
 }
 
@@ -281,7 +282,7 @@ Game.prototype.start = function() {
     zoomAt: map.getView().getZoom() - .1
   }], {
     done: () => {
-      this.map.getView().setMinZoom(13.01);
+      // this.map.getView().setMinZoom(13.01);
       delete document.body.dataset.disableMap;
       this.begin();
     }
