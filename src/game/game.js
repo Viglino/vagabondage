@@ -371,7 +371,7 @@ Game.prototype.nextStep = function(e, shortcut) {
   }
   // Calculate distance / duration
   this.set('distance', (this.get('distance') || 0) + e.routing.distance);
-  this.set('duration', (this.get('duration') || 0) + e.routing.duration);
+  this.set('duration', (this.get('duration') || 0) + e.routing.duration/60);
   // Set new position
   const position = e.end;
   this.set('position', position);
