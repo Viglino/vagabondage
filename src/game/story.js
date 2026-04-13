@@ -1,6 +1,7 @@
 import DropFile from 'ol-ext/interaction/DropFile'
 import dialog from "../map/dialog";
 import map from "../map/map";
+import { getLang } from '../i18n/i18n';
 
 const data = {
   ready: false,
@@ -21,9 +22,12 @@ const loader = [
   'trousses'
 ]
 
-// Load stories
+// Load stories with language fallback: [name].[lang].txt → [name].txt
+const lang = getLang();
 loader.forEach(s => {
-  fetch('./story/' + s + '.txt')
+  const url = lang === 'fr' ? './story/' + s + '.txt' : './story/' + s + '.' + lang + '.txt';
+  fetch(url)
+  .then(response => response.ok ? response : fetch('./story/' + s + '.txt'))
   .then(response => response.text())
   .then(st => {
     stories[s] = decode(st);

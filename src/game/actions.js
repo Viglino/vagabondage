@@ -3,6 +3,7 @@ import ol_ext_element from 'ol-ext/util/element';
 import map from '../map/map'
 import dialog from '../map/dialog';
 import _T from '../i18n/i18n';
+import applyI18n from '../i18n/applyI18n';
 
 import './actions.css'
 import dglAction from './actions.html'
@@ -66,7 +67,7 @@ function handleAction(action) {
   action.info.actions.forEach(actions => {
     const a = actions[Math.floor(Math.random()*actions.length)] || actions[0];
     const types = a.type instanceof Array ? a.type : [a.type];
-    const tabAction = { drink: 'boire un coup', water: 'remplir des bouteilles'}
+    const tabAction = { drink: _T('actionsDrink'), water: _T('actionsWater') }
     const li = ol_ext_element.create('LI', {
       html: ol_ext_element.create('P', {
         html: a.desc
@@ -89,13 +90,13 @@ function handleAction(action) {
                 if (game.setLife('hydro')) {
                   dialog.setInfo(+1);
                 } else {
-                  dialog.setInfo('Tu n\'as pas vraiment soif...');
+                  dialog.setInfo(_T('notThirsty'));
                 }
                 break;
               }
               case 'water': {
                 if (!game.bag.fillWater()) {
-                  dialog.setInfo('Rien à remplir...');
+                  dialog.setInfo(_T('nothingToFill'));
                 }
                 break;
               }
@@ -155,16 +156,17 @@ function doAction() {
 
   dialog.show({
     className: 'actions',
-    title: 'Autour de toi',
+    title: _T('aroundMe'),
     hideOnBack: true,
     content: dglAction,
     buttons: [_T('continue')]
   })
+  applyI18n(dialog.getContentElement());
 
   // Add help
   if (game.compass > 0) {
     ol_ext_element.create('BUTTON', {
-      html: 'Afficher les points d\'intérêt autour de moi (' + game.compass + ')...',
+      html: _T('lookAroundHelp').replace('%N%', game.compass),
       click: () => {
         dialog.hide();
         game.showAround();
@@ -198,7 +200,7 @@ const actionBt = new ol_control_Button({
 map.addControl(actionBt);
 
 // Help info
-helpInfo.create('arround', 'regarde autour de toi...')
+helpInfo.create('arround', _T('lookAroundInfo'))
 
 /* Check arround */
 game.on('arround', () => {

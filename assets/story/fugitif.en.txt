@@ -1,0 +1,43 @@
+########
+#title: The Fugitive
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/fugitif.jpg
+#start:
+#end:
+#--------------
+#introduction:
+Of all the bad luck — the car has just broken down, %distance% from your meeting point, %routeInfo%.
+<>
+You somewhat regret getting rid of your smartphone; it would have come in handy right now, lost out here %biome%.
+But it was too risky — the police could have tracked you far too easily.
+Your only chance is to reach the witness who can prove your innocence before your pursuers find him first...
+<>
+In the glove compartment you find an IGN map of the area. A red circle marks the meeting point on the map.
+All you have to do now is get there, keeping to the back roads to dodge the roadblocks and patrols...
+#--------------
+#missed:
+A police car pulls up along the road! Two officers step out and scan the horizon!
+You sprint off in a desperate run and throw yourself breathless %hiddingPlace% — they didn't see you!
+<>
+That was close! You'll have to stay away from busy areas...
+#fail:
+A car screeches to a halt and two officers step out with weapons drawn. They've spotted you.
+You try to run but they're already on you, pinning you to the ground.
+"You are under arrest!" says the officer, snapping the handcuffs on your wrists.
+#--------------
+#failConclusion:
+You approach the house. Everything seems quiet — but it's already too late...
+As you push open the door left ajar, you know it before you even step inside...
+<>
+The witness didn't wait for you. There is no one left who can prove your innocence...
+#conclusion:
+You ring at the door and after a few minutes it opens a crack.
+When he recognises you, the witness removes the chain and lets you in.
+<>
+"Here — this is the security camera footage I managed to get hold of, do what you will with it," he says, handing you a DVD.
+You hold in your hands the proof of your innocence — and enough to send the real culprit to prison.

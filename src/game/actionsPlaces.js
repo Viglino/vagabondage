@@ -1,662 +1,616 @@
+import _T from '../i18n/i18n';
+
 export default {
   "construction_ponctuelle-Croix": {
-    "title": "Une croix plantée sur le bord du chemin.",
-    "info": "la croix",
+    get title() { return _T('place:croix:title'); },
+    get info() { return _T('place:croix:info'); },
     "actions": [
       [
         {
           "type": "info",
-          "desc": "Un vieil homme est assis sous la croix.",
-          "action": "Il t'indique un raccourcis."
+          get desc() { return _T('place:croix:0:0:desc'); },
+          get action() { return _T('place:croix:0:0:action'); }
         },
         {
           "type": "drink",
-          "desc": "Un promeneur vient à passer. Il te propose à boire.",
-          "action": "Boire un coup."
+          get desc() { return _T('place:croix:0:1:desc'); },
+          get action() { return _T('place:croix:0:1:action'); }
         },
         {
           "type": "food",
-          "title": "une pomme",
+          get title() { return _T('place:croix:0:2:title'); },
           "what": "apple",
-          "desc": "Une vielle femme porte des paniers pleins. Elle trébuche et tu l'aides à se relever.<br/>Elle te propose une pomme",
-          "action": "Prendre la pomme."
+          get desc() { return _T('place:croix:0:2:desc'); },
+          get action() { return _T('place:croix:0:2:action'); }
         },
         {
           "type": "info",
-          "desc": "Un paysan laboure son champ non loin de là.",
-          "action": "Il t'indique un raccourcis."
+          get desc() { return _T('place:croix:0:3:desc'); },
+          get action() { return _T('place:croix:0:3:action'); }
         }
       ]
     ]
   },
   "detail_hydrographique-Fontaine": {
-    "title": "Une fontaine.",
+    get title() { return _T('place:fontaine:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "De l'eau fraiche coule d'une fontaine.",
-          "action": "Remplir une bouteille ou boire un coup."
+          "type": ["water", "drink"],
+          get desc() { return _T('place:fontaine:0:0:desc'); },
+          get action() { return _T('place:fontaine:0:0:action'); }
         }
       ]
     ]
   },
   "detail_hydrographique-Citerne": {
-    "title": "Une citerne.",
+    get title() { return _T('place:citerne:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Cette citerne est pleine !",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:citerne:0:0:desc'); },
+          get action() { return _T('place:citerne:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "L'eau dans cette citerne n'a pas l'air potable..."
+          get desc() { return _T('place:citerne:0:1:desc'); }
         }
       ]
     ]
   },
   "detail_hydrographique-Source captée": {
-    "title": "Une source captée.",
+    get title() { return _T('place:sourcecap:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "De l'eau coule de cette source...",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:sourcecap:0:0:desc'); },
+          get action() { return _T('place:sourcecap:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Impossible d'accéder à cette sources..."
+          get desc() { return _T('place:sourcecap:0:1:desc'); }
         }
       ]
     ]
   },
   "detail_hydrographique-Source": {
-    "title": "Une source.",
+    get title() { return _T('place:source:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Tu entends le glou-glou caractéristique, il y a de l'eau pas loin.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:source:0:0:desc'); },
+          get action() { return _T('place:source:0:0:action'); }
         }
       ]
     ]
   },
   "detail_hydrographique-Lavoir": {
-    "title": "Un lavoir.",
+    get title() { return _T('place:lavoir:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Ce lavoir a l'air en bon état.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:lavoir:0:0:desc'); },
+          get action() { return _T('place:lavoir:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Un panneau indique \"eau non potable\"..."
+          get desc() { return _T('place:lavoir:0:1:desc'); }
         }
       ]
     ]
   },
   "cimetiere": {
     "search": /^cimetiere-/,
-    "title": "Un cimetière.",
+    get title() { return _T('place:cimetiere:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "A l'entrée du cimetière tu trouves un robinet destiné à arroser les fleur.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:cimetiere:0:0:desc'); },
+          get action() { return _T('place:cimetiere:0:0:action'); }
         }
       ]
     ]
   },
   "zone_d_activite_ou_d_interet-Camping": {
-    "title": "Un camping.",
+    get title() { return _T('place:camping:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Tu trouves un robinet du côté des sanitaires du camping.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:camping:0:0:desc'); },
+          get action() { return _T('place:camping:0:0:action'); }
         }
       ],
       [
         {
           "type": "object",
           "object": "bottle",
-          "title": "une bouteille",
-          "desc": "Tu trouves une bouteille vide dans une poubelle.",
-          "action": "Prendre la bouteille"
+          get title() { return _T('place:camping:1:0:title'); },
+          get desc() { return _T('place:camping:1:0:desc'); },
+          get action() { return _T('place:camping:1:0:action'); }
         },
         {
           "type": "food",
-          "title": "une barre de céréales",
+          get title() { return _T('place:camping:1:1:title'); },
           "what": "bar",
-          "dec": "Quelqu'un a oublié une barre de céréale sur une chaise.",
-          "action": "Prendre la barre de céréale"
+          get desc() { return _T('place:camping:1:1:desc'); },
+          get action() { return _T('place:camping:1:1:action'); }
         },
         {
           "type": "object",
           "object": "shoes",
-          "desc": "Quelqu'un a laissé une paire de chaussure de marche près des sanitaires",
-          "action": "Prendre la paire de chaussure",
-          "ok": "Avec des chaussures comme cela tu marcheras bien mieux...",
-          "nok": [
-            "Désolé, elles ne sont pas à ta taille...",
-            "Ooops, voilà son propriétaire qui revient."
-          ]
+          get desc() { return _T('place:camping:1:2:desc'); },
+          get action() { return _T('place:camping:1:2:action'); },
+          get ok() { return _T('place:camping:1:2:ok'); },
+          get nok() { return [_T('place:camping:1:2:nok0'), _T('place:camping:1:2:nok1')]; }
         }
       ]
     ]
   },
   "zone_d_activite_ou_d_interet-Centre équestre": {
-    "title": "Un centre équestre.",
+    get title() { return _T('place:equestre:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Tu trouves un robinet accessible au bord sur le mur de l'écurie.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:equestre:0:0:desc'); },
+          get action() { return _T('place:equestre:0:0:action'); }
         },
         {
           "type": "object",
           "object": "bottle",
-          "title": "une bouteille",
-          "desc": "Tu trouves une bouteille vide dans une poubelle.",
-          "action": "Prendre la bouteille"
+          get title() { return _T('place:equestre:0:1:title'); },
+          get desc() { return _T('place:equestre:0:1:desc'); },
+          get action() { return _T('place:equestre:0:1:action'); }
         },
         {
           "type": "food",
-          "title": "une pomme",
+          get title() { return _T('place:equestre:0:2:title'); },
           "what": "apple",
-          "desc": "Il y a un cageot pomme déposé devant le centre.",
-          "action": "Prendre une pomme discrètement"
+          get desc() { return _T('place:equestre:0:2:desc'); },
+          get action() { return _T('place:equestre:0:2:action'); }
         },
         {
           "type": "none",
-          "desc": "Un cavalier te regarde avec méfiance. Il vaut mieux ne pas rester ici."
+          get desc() { return _T('place:equestre:0:3:desc'); }
         }
       ]
     ]
   },
   "construction_lineaire-Ruines": {
-    "title": "Une ruine.",
+    get title() { return _T('place:ruines:title'); },
     "actions": [
       [
         {
           "type": "rest",
-          "desc": "Voilà l'endroit idéal pour se reposer un peu à l'abris.",
-          "action": "Se reposer"
+          get desc() { return _T('place:ruines:0:0:desc'); },
+          get action() { return _T('place:ruines:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Mieux vaut éviter se se promener par là, avant qu'une pierre ne te tombe dessus.",
+          get desc() { return _T('place:ruines:0:1:desc'); }
         },
         {
           "type": "none",
-          "desc": "Il n'y a rien a faire dans ces ruines",
+          get desc() { return _T('place:ruines:0:2:desc'); }
         }
       ]
     ]
   },
   "detail_orographique-grotte": {
-    "title": "Une grotte.",
+    get title() { return _T('place:grotte:title'); },
     "actions": [
       [
         {
           "type": "rest",
-          "desc": "Voilà l'endroit idéal pour se reposer un peu à l'abris.",
-          "action": "Se reposer"
+          get desc() { return _T('place:grotte:0:0:desc'); },
+          get action() { return _T('place:grotte:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Mieux vaut éviter se se promener par là, avant qu'une pierre ne te tombe dessus.",
+          get desc() { return _T('place:grotte:0:1:desc'); }
         },
         {
           "type": "none",
-          "desc": "Il n'y a rien a faire dans cette grotte humide.",
+          get desc() { return _T('place:grotte:0:2:desc'); }
         }
       ]
     ]
   },
   "zone_d_activite_ou_d_interet-Refuge": {
-    "title": "Un refuge.",
+    get title() { return _T('place:refuge:title'); },
     "actions": [
       [
         {
           "type": "rest",
-          "desc": "Voilà l'endroit idéal pour se reposer un peu.",
-          "action": "Se reposer"
+          get desc() { return _T('place:refuge:0:0:desc'); },
+          get action() { return _T('place:refuge:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Le refuge est fermé",
+          get desc() { return _T('place:refuge:0:1:desc'); }
         }
       ]
     ]
   },
   "zone_d_activite_ou_d_interet-Mégalithe": {
-    "title": "Un mégalithe.",
+    get title() { return _T('place:megalith:title'); },
     "actions": [
       [
         {
           "type": "rest",
-          "desc": "Voilà l'endroit idéal pour se reposer un peu.",
-          "action": "Se reposer"
+          get desc() { return _T('place:megalith:0:0:desc'); },
+          get action() { return _T('place:megalith:0:0:action'); }
         },
         {
           "type": "info",
-          "desc": "Un vieil homme ramasse du bois près du megalithe.",
-          "action": "Il t'indique un raccourcis."
+          get desc() { return _T('place:megalith:0:1:desc'); },
+          get action() { return _T('place:megalith:0:1:action'); }
         },
         {
           "type": "none",
-          "desc": "Seulement quelques vielles pierres abandonnées."
+          get desc() { return _T('place:megalith:0:2:desc'); }
         }
       ]
     ]
   },
-  "batiment-Tribune": {    
-    "title": "Une tribune.",
+  "batiment-Tribune": {
+    get title() { return _T('place:tribune:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Tu trouves un robinet sur le batiment.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:tribune:0:0:desc'); },
+          get action() { return _T('place:tribune:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Il ya trop de monde par ici..."
+          get desc() { return _T('place:tribune:0:1:desc'); }
         }
       ]
     ]
   },
   "batiment-Chapelle": {
-    "title": "Une chapelle.",
+    get title() { return _T('place:chapelle:title'); },
     "actions": [
       [
         {
           "type": "rest",
-          "desc": "Voilà l'endroit idéal pour se reposer un peu.",
-          "action": "Se reposer"
+          get desc() { return _T('place:chapelle:0:0:desc'); },
+          get action() { return _T('place:chapelle:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Cette chapelle est fermée..."
+          get desc() { return _T('place:chapelle:0:1:desc'); }
         }
       ]
     ]
   },
   "batiment-Fort, blockhaus, casemate": {
-    "title": "Un vieu fort.",
+    get title() { return _T('place:fort:title'); },
     "actions": [
       [
         {
           "type": "rest",
-          "desc": "Voilà l'endroit idéal pour se reposer un peu.",
-          "action": "Se reposer"
+          get desc() { return _T('place:fort:0:0:desc'); },
+          get action() { return _T('place:fort:0:0:action'); }
         }
       ]
     ]
   },
   "batiment-Serre": {
-    "title": "Une serre.",
+    get title() { return _T('place:serre:title'); },
     "actions": [
       [
         {
           "type": "food",
-          "title": "un fruit",
+          get title() { return _T('place:serre:0:0:title'); },
           "what": "fruit",
-          "desc": "Des caisses de fruits sont entreposées dans un coin.",
-          "action": "Prendre un fruit discrètement."
+          get desc() { return _T('place:serre:0:0:desc'); },
+          get action() { return _T('place:serre:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Il y a du monde dans cette serre, mieux vaut ne pas trainer ici"
+          get desc() { return _T('place:serre:0:1:desc'); }
         }
       ],
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Un robinet d'arrosage se trouve sur le bord du bâtiment.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:serre:1:0:desc'); },
+          get action() { return _T('place:serre:1:0:action'); }
         }
       ]
     ]
   },
   "zone_de_vegetation-Bananeraie": {
-    "title": "Une plantation de banane.",
+    get title() { return _T('place:bananerie:title'); },
     "actions": [
       [
         {
           "type": "food",
-          "title": "une banane",
+          get title() { return _T('place:bananerie:0:0:title'); },
           "what": "banana",
-          "desc": "Des caisses de fruits sont entreposées dans un coin.",
-          "action": "Prendre une banane discrètement."
+          get desc() { return _T('place:bananerie:0:0:desc'); },
+          get action() { return _T('place:bananerie:0:0:action'); }
         }
       ],
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Un robinet d'arrosage se trouve sur le bord du bâtiment.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:bananerie:1:0:desc'); },
+          get action() { return _T('place:bananerie:1:0:action'); }
         }
       ]
     ]
   },
   "zone_de_vegetation-Verger": {
-    "title": "Un verger.",
+    get title() { return _T('place:verger:title'); },
     "actions": [
       [
         {
           "type": "food",
-          "title": "un fruit",
+          get title() { return _T('place:verger:0:0:title'); },
           "what": "fruit",
-          "desc": "Ce verger a de beaux arbres fruitiers.",
-          "action": "Cueillir un fruit discrètement."
+          get desc() { return _T('place:verger:0:0:desc'); },
+          get action() { return _T('place:verger:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Des ouvriers travaillent dans le verger et te regardent bizarrement, mieux vaut ne pas trainer ici."
+          get desc() { return _T('place:verger:0:1:desc'); }
         }
       ]
     ]
   },
   "zone_de_vegetation-Vigne": {
-    "title": "Une vigne.",
+    get title() { return _T('place:vigne:title'); },
     "actions": [
       [
         {
           "type": "food",
-          "title": "du raisin",
+          get title() { return _T('place:vigne:0:0:title'); },
           "what": "grape",
-          "desc": "Des grappes de raisins pendent à la vigne",
-          "action": "Cueillir des raisins discrètement."
+          get desc() { return _T('place:vigne:0:0:desc'); },
+          get action() { return _T('place:vigne:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Des ouvriers travaillent sur les plans de vigne et te regardent bizarrement, mieux vaut ne pas trainer ici."
+          get desc() { return _T('place:vigne:0:1:desc'); }
         }
       ]
     ]
   },
   "batiment-Industriel, agricole ou commercial": {
-    "title": "Un entrepôt.",
-    "title-Agricole": "Un bâtiment agricole",
-    "title-Industriel": "Un bâtiment industriel",
+    get title() { return _T('place:entrepot:title'); },
+    get "title-Agricole"() { return _T('place:entrepot:titleAgricole'); },
+    get "title-Industriel"() { return _T('place:entrepot:titleIndustriel'); },
     "actions": [
       [
         {
           "type": "object",
           "object": "bottle",
-          "title": "une bouteille",
-          "desc": "Tu trouves une bouteille vide qui traine.",
-          "action": "Prendre la bouteille"
+          get title() { return _T('place:entrepot:0:0:title'); },
+          get desc() { return _T('place:entrepot:0:0:desc'); },
+          get action() { return _T('place:entrepot:0:0:action'); }
         },
         {
           "type": "object",
           "object": "shoes",
-          "desc": "Tu trouves une paire de chaussure de marche",
-          "action": "Prendre la paire de chaussure",
-          "ok": "Avec des chaussures comme cela tu macheras bien mieux...",
-          "nok": [
-            "Désolé, elles ne sont pas à ta taille...",
-            "Non, elles sont en trop mauvais état..."
-          ]
+          get desc() { return _T('place:entrepot:0:1:desc'); },
+          get action() { return _T('place:entrepot:0:1:action'); },
+          get ok() { return _T('place:entrepot:0:1:ok'); },
+          get nok() { return [_T('place:entrepot:0:1:nok0'), _T('place:entrepot:0:1:nok1')]; }
         },
         {
           "type": "none",
-          "desc": "Ce bâtiment est fermé... rien à faire par ici"
+          get desc() { return _T('place:entrepot:0:2:desc'); }
         },
         {
           "type": "none",
-          "desc": "Il y a du monde dans ce bâtiment, mieux vaut partir rapidement."
+          get desc() { return _T('place:entrepot:0:3:desc'); }
         }
       ]
     ]
   },
   "batiment-Moulin à vent": {
-    "title": "Un moulin à vent.",
+    get title() { return _T('place:moulin:title'); },
     "actions": [
       [
         {
           "type": "drink",
-          "desc": "Une jeune fille lit un livre sur les marche du moulin.",
-          "action": "Elle te propose à boire."
+          get desc() { return _T('place:moulin:0:0:desc'); },
+          get action() { return _T('place:moulin:0:0:action'); }
         },
         {
           "type": "food",
-          "title": "un morceau de pain",
+          get title() { return _T('place:moulin:0:1:title'); },
           "what": "bread",
-          "desc": "Un jeune homme au look de hippie semble habiter là.",
-          "action": "Il te donne un morceau de pain."
+          get desc() { return _T('place:moulin:0:1:desc'); },
+          get action() { return _T('place:moulin:0:1:action'); }
         },
         {
           "type": "drink",
-          "desc": "Un promeneur vient à passer. Il te propose à boire.",
-          "action": "Boire un coup."
+          get desc() { return _T('place:moulin:0:2:desc'); },
+          get action() { return _T('place:moulin:0:2:action'); }
         }
       ]
     ]
   },
   "zone_d_activite_ou_d_interet-Aire de détente": {
-    "title": "Une aire de détente.",
+    get title() { return _T('place:detente:title'); },
     "actions": [
       [
         {
           "type": "object",
           "object": "bottle",
-          "title": "une bouteille",
-          "desc": "Tu trouves une bouteille vide dans une poubelle.",
-          "action": "Prendre la bouteille"
+          get title() { return _T('place:detente:0:0:title'); },
+          get desc() { return _T('place:detente:0:0:desc'); },
+          get action() { return _T('place:detente:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Rien de spécial par ici..."
+          get desc() { return _T('place:detente:0:1:desc'); }
         }
       ]
     ]
   },
   "equipement_de_transport-Parking": {
-    "title": "Un parking.",
+    get title() { return _T('place:parking:title'); },
     "actions": [
       [
         {
           "type": "object",
           "object": "bottle",
-          "title": "une bouteille",
-          "desc": "Tu trouves une bouteille vide dans une poubelle.",
-          "action": "Prendre la bouteille"
+          get title() { return _T('place:parking:0:0:title'); },
+          get desc() { return _T('place:parking:0:0:desc'); },
+          get action() { return _T('place:parking:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "Rien de spécial par ici..."
+          get desc() { return _T('place:parking:0:1:desc'); }
         }
       ]
     ]
   },
   "zone_d_activite_ou_d_interet-Police": {
-    "title": "La police !",
+    get title() { return _T('place:police:title'); },
     "actions": [
       [
         {
           "type": "danger",
-          "desc": "C'est un commissariat, tu déguerpis à toute vitesse et tu perds un point de survie...",
-          "action": "Tu perds un point de vie"
+          get desc() { return _T('place:police:0:0:desc'); },
+          get action() { return _T('place:police:0:0:action'); }
         }
       ]
     ]
   },
   "gare": {
     "search": /zone_d_activite_ou_d_interet-Gare.*/,
-    "title": "Une gare",
+    get title() { return _T('place:gare:title'); },
     "actions": [
       [
         {
           "type": "none",
-          "desc": "Mieux vaut ne pas rester par ici, il y a trop de monde..."
+          get desc() { return _T('place:gare:0:0:desc'); }
         }
       ]
     ]
   },
   "gare2": {
     "search": /equipement_de_transport-Gare.*/,
-    "title": "Une gare",
+    get title() { return _T('place:gare:title'); },
     "actions": [
       [
         {
           "type": "none",
-          "desc": "Mieux vaut ne pas rester par ici, il y a trop de monde..."
+          get desc() { return _T('place:gare:0:0:desc'); }
         }
       ]
     ]
   },
   "lieu_dit_non_habite-Arbre": {
-    "title": "Un arbre majestueux.",
-    "info": "l'arbre",
+    get title() { return _T('place:arbre:title'); },
+    get info() { return _T('place:arbre:info'); },
     "actions": [
       [
         {
           "type": "info",
-          "desc": "Un viel homme est assis sous l'arbre.",
-          "action": "Il t'indique un raccourcis."
+          get desc() { return _T('place:arbre:0:0:desc'); },
+          get action() { return _T('place:arbre:0:0:action'); }
         },
         {
           "type": "drink",
-          "desc": "Un promeneur vient à passer. Il te propose à boire.",
-          "action": "Boire un coup."
+          get desc() { return _T('place:arbre:0:1:desc'); },
+          get action() { return _T('place:arbre:0:1:action'); }
         },
         {
           "type": "food",
-          "title": "une pomme",
+          get title() { return _T('place:arbre:0:2:title'); },
           "what": "apple",
-          "desc": "Une vielle femme porte des paniers pleins. Elle trébuche et tu l'aides à se relever.",
-          "action": "Elle te donne une pomme."
+          get desc() { return _T('place:arbre:0:2:desc'); },
+          get action() { return _T('place:arbre:0:2:action'); }
         },
         {
           "type": "info",
-          "desc": "Un paysan laboure son champ non loins de là.",
-          "action": "Il t'indique un raccourcis."
+          get desc() { return _T('place:arbre:0:3:desc'); },
+          get action() { return _T('place:arbre:0:3:action'); }
         }
       ]
     ]
   },
   "detail_hydrographique-Résurgence": {
-    "title": "Une résurgence.",
+    get title() { return _T('place:resurgence:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Tu entends le glou-glou caractérique, il y a de l'eau pas loin.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:resurgence:0:0:desc'); },
+          get action() { return _T('place:resurgence:0:0:action'); }
         }
       ]
     ]
   },
   "detail_hydrographique-Point d'eau": {
-    "title": "Un point d'eau.",
+    get title() { return _T('place:pointdeau:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Tu entends le glou-glou caractérique, il y a de l'eau pas loin.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:pointdeau:0:0:desc'); },
+          get action() { return _T('place:pointdeau:0:0:action'); }
         }
       ]
     ]
   },
   "zone_d_activite_ou_d_interet-Point de vue": {
-    "title": "Point de vue",
+    get title() { return _T('place:pointvue:title'); },
     "actions": [
       [
         {
           "type": "info",
-          "desc": "On a vraiment un point de vue superbe depuis ici.",
-          "action": "Découvrir un raccourcis"
+          get desc() { return _T('place:pointvue:0:0:desc'); },
+          get action() { return _T('place:pointvue:0:0:action'); }
         }
       ]
     ]
   },
   "equipement_de_transport-Port": {
-    "title": "Le port",
+    get title() { return _T('place:port:title'); },
     "actions": [
       [
         {
-          "type": [
-            "water",
-            "drink"
-          ],
-          "desc": "Il y a un robinet disponible sur le port.",
-          "action": "Remplir une bouteille ou boire un coup"
+          "type": ["water", "drink"],
+          get desc() { return _T('place:port:0:0:desc'); },
+          get action() { return _T('place:port:0:0:action'); }
         },
         {
           "type": "none",
-          "desc": "La capitainerie du port t'a repéré, mieux vaut déguerpir au plus vite !"
+          get desc() { return _T('place:port:0:1:desc'); }
         }
       ],
       [
         {
           "type": "object",
           "object": "bottle",
-          "desc": "Tu trouves une bouteille vide dans une poubelle.",
-          "action": "Prendre la bouteille",
-          "title": "une bouteille"
+          get desc() { return _T('place:port:1:0:desc'); },
+          get action() { return _T('place:port:1:0:action'); },
+          get title() { return _T('place:port:1:0:title'); }
         },
         {
           "type": "food",
-          "title": "une barre de céréales",
+          get title() { return _T('place:port:1:1:title'); },
           "what": "bar",
-          "desc": "Tu trouves une barre de céréale dans une poubelle.",
-          "action": "Prendre la barre de céréale",
+          get desc() { return _T('place:port:1:1:desc'); },
+          get action() { return _T('place:port:1:1:action'); }
         },
         {
           "type": "none",
-          "desc": "Il ya trop de monde dans ce port, mieux vaut ne pas trainer par ici..."
+          get desc() { return _T('place:port:1:2:desc'); }
         }
       ]
     ]

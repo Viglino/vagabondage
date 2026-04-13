@@ -14,7 +14,7 @@ const bag = new Collection();
 const maxObject = 10;
 
 // Help bag
-helpInfo.create('bag', 'ce que tu trouve sur le chemin<br/>est rangé dans ton sac...')
+helpInfo.create('bag', _T('backpackHelp'))
 
 // Show what's in the bag
 dialog.on('hide', () => {
@@ -52,7 +52,7 @@ bag.fillWater = function() {
 bag.show = function(drop) {
   const ul = ol_ext_element.create('UL');
   dialog.show({
-    title: 'sac à dos',
+    title: _T('backpackTitle'),
     className: 'bag' + (drop ? ' drop' : ''),
     buttons: ['ok'],
     content: ul
@@ -81,14 +81,14 @@ bag.show = function(drop) {
   // Help
   const li0 = ol_ext_element.create('LI', {
     html: ol_ext_element.create('P', {
-      html: 'Boussole'
+      html: _T('compassItem')
     }),
     className: 'poi',
     parent: ul
   })
   if (game.compass) {
     li0.appendChild(ol_ext_element.create('BUTTON', {
-      html: 'Trouver les points d\'intérêt (' + game.compass +')<b>Afficher les points sur la carte</b>',
+      html: _T('compassShow').replace('%N%', game.compass),
       click: () => {
         game.showAround();
         dialog.close();
@@ -110,7 +110,7 @@ bag.show = function(drop) {
     // Remove object in the bag
     ol_ext_element.create('BUTTON', {
       className: 'delete',
-      title: 'jeter cet objet',
+      title: _T('dropItem'),
       click: () => {
         bag.remove(o);
         li.remove();
@@ -150,7 +150,7 @@ bag.show = function(drop) {
                   dialog.close();
                 }
               } else {
-                dialog.setInfo('Tu n\'as pas vraiment faim...');
+                dialog.setInfo(_T('notHungry'));
               }
               break;
             }
@@ -161,7 +161,7 @@ bag.show = function(drop) {
                 dialog.setInfo(+1)
                 li.className = o.object || o.what || o.type
               } else {
-                dialog.setInfo('Tu n\'as pas vraiment soif...');
+                dialog.setInfo(_T('notThirsty'));
               }
               break;
             }
@@ -182,7 +182,7 @@ bag.on(['add', 'remove'], () => {
 const ctrlBag = new ol_control_Button({
   className: 'bag',
   html: info,
-  title: 'Ton sac...',
+  title: _T('bagControl'),
   handleClick: () => {
     helpInfo.hide();
     bag.show();

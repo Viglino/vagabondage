@@ -1,0 +1,47 @@
+########
+#title: Run, Lola, Run
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/lola.jpg
+#start:
+#end:
+#--------------
+#introduction:
+It's just not your day — the car has completely given up on you.
+Now you're stuck %distance% from your meeting point, %routeInfo%.
+<>
+If you don't get there in time with the money, things will get very bad for Manni!
+And here you are, lost %biome%, being chased by a gang that would very much like to get their hands on that cash...
+<>
+You grab the bag with the 100,000 € and the IGN map of the area, a red circle marking the meeting point.
+Then you take off on the back roads to stay ahead of your pursuers...
+#--------------
+#missed:
+A car pulls up along the road! Two men step out and scan the horizon!
+You sprint off in a desperate run and throw yourself breathless %hiddingPlace% — they didn't spot you!
+<>
+That was close! You'll have to stay well clear of busy places...
+#fail:
+A car screeches to a halt and two men step out with weapons drawn. They've spotted you.
+You try to run but they're already on you, your legs crumpling beneath you.
+"Game over! Now hand over the money!" snarls the man, ripping the bag from your grip.
+#--------------
+#failConclusion:
+You approach the house. Everything seems quiet — but something feels wrong...
+The door is ajar and a man steps out, aiming a weapon straight at your face.
+<>
+"Game over! Hand over the money — now!"
+#conclusion:
+You ring the bell and the door swings open.
+"Took you long enough! I was starting to lose patience!" says the man, taking the bag containing the money.
+<>
+Manni is tied to a chair, flanked by two stone-faced thugs.
+"Good count," says the man, flicking through the notes. "Let him go!"
+"You're lucky to have a friend like that, Manni. I know people who'd have kept the money for themselves!"
+<>
+"Now get out of here," says the man, releasing Manni.
+You walk away, supporting Manni. That was far too close!

@@ -7,6 +7,7 @@ import './github-corner.css'
 import aboutTxt from './about.html'
 import helpTxt from './help.html'
 import _T from '../i18n/i18n'
+import applyI18n from '../i18n/applyI18n'
 
 map.addControl(new Button({
   className: 'about',
@@ -18,6 +19,7 @@ map.addControl(new Button({
       closeBox: false,
       buttons: { cancel: _T('close') }
     })
+    applyI18n(dialog.getContentElement());
     dialog.getContentElement().querySelector('button').addEventListener('click', () => {
       dialog.show({
         className: 'about',
@@ -25,6 +27,7 @@ map.addControl(new Button({
         closeBox: false,
         buttons: { cancel: _T('close') }
       })
+      applyI18n(dialog.getContentElement());
     })
   }
 }));

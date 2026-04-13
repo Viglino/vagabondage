@@ -3,21 +3,37 @@ import { render } from 'github-buttons'
 import dialog from '../map/dialog';
 import game from '../game/game'
 
-
 import regions from '../vectorLoader/regions'
 
 import intro from './intro.html'
 import './intro.css'
 import help from './help';
 import helpInfo from '../game/helpInfo';
+import _T, { getLang, setLang } from '../i18n/i18n';
+import applyI18n from '../i18n/applyI18n';
 
 // Show intro dialog
 dialog.show({
   content: intro,
   className: 'intro',
   closeBox: false,
-  buttons: ['Commencer le jeu']
+  buttons: [_T('startGame')]
 })
+applyI18n(dialog.getContentElement());
+
+// Language switcher
+const langSwitcher = element.create('SELECT', {
+  className: 'lang-switcher',
+  parent: dialog.getContentElement(),
+  change: (e) => {
+    setLang(e.target.value);
+    location.reload();
+  }
+});
+[['en', 'EN - English'], ['fr', 'FR - French'], ['uk', 'UK - \u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430']].forEach(([lang, label]) => {
+  const opt = element.create('OPTION', { value: lang, text: label, parent: langSwitcher });
+  if (lang === getLang()) opt.setAttribute('selected', 'selected');
+});
 
 const region = dialog.getContentElement().querySelector('.region');
 const level = dialog.getContentElement().querySelector('.level');
@@ -51,7 +67,7 @@ region.value = Math.floor(Math.random() * regions.length);
 // Road length / difficulty
 length.addEventListener('change', () => {
   const opt = length.options[length.selectedIndex];
-  length.nextElementSibling.innerText = opt.dataset.txt;
+  length.nextElementSibling.innerText = _T('intro:' + opt.dataset.txt);
   length.nextElementSibling.dataset.diff = opt.dataset.txt;
   localStorage.setItem('vagabondage@length', length.value);
 });

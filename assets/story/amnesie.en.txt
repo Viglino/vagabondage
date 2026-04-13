@@ -1,0 +1,48 @@
+########
+#title: Amnesiac
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/amnesie.jpg
+#start:
+#end:
+#--------------
+#introduction:
+You wake up inside a car, head pounding, a lump throbbing at your temple.
+You drag yourself out of the vehicle, which is parked on the roadside, %routeInfo%.
+<>
+On the front seat you find an IGN map of the area, a red circle marking a meeting point %distance% away from where you are now.
+A yellow sticky note is stuck to the map with the words: "Don't trust anyone!"
+<>
+You have no memory of who you are or what you're doing here.
+You search your pockets — nothing.
+Something is very wrong. What are you doing lost out here, %biome%?
+And that sticky note is giving you a very bad feeling...
+<>
+The only way to find out what's going on seems to be to make your way to this "meeting point", keeping to the back roads to avoid any unwanted encounters...
+#--------------
+#missed:
+A car pulls up along the road! Two men step out, one of them armed!
+You sprint off in a desperate run and throw yourself breathless %hiddingPlace% — they didn't see you!
+<>
+That was close! You'll have to stay well clear of that kind of encounter...
+#fail:
+A car screeches to a halt and two men step out with weapons drawn. They've spotted you.
+You try to run but they're already on you, your legs giving way as they drag you back.
+#--------------
+#failConclusion:
+You approach the meeting point. Everything seems quiet — but something feels wrong...
+Just as you're about to knock on the door, a rustling makes you spin around. Two armed men block your path.
+<>
+"That's enough. The road ends here for you..."
+#conclusion:
+The door opens at the first knock. A face — vaguely familiar — appears in the doorway.
+"Where have you been! Get in!" he says, casting a quick glance behind you.
+<>
+A young woman with an anxious look throws herself around your neck.
+A name surfaces: Jessica!
+<>
+Slowly, the memories begin to come back.

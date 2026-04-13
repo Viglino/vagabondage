@@ -57,16 +57,16 @@
   font-style: italic;
   padding: 0 .5em;
 }
-.ol-ext-dialog.intro form [data-diff="facile"] {
+.ol-ext-dialog.intro form [data-diff="easy"] {
   color: #080;
 }
-.ol-ext-dialog.intro form [data-diff="moyen"] {
+.ol-ext-dialog.intro form [data-diff="medium"] {
   color: #f80;
 }
-.ol-ext-dialog.intro form [data-diff="difficile"] {
+.ol-ext-dialog.intro form [data-diff="hard"] {
   color: #e00;
 }
-.ol-ext-dialog.intro form [data-diff="sportif"] {
+.ol-ext-dialog.intro form [data-diff="sport"] {
   color: #800;
 }
 
@@ -88,4 +88,11 @@
 
 .ol-ext-dialog.intro .ol-content {
   max-height: calc(100vh - 5em);
+}
+
+.ol-ext-dialog.intro .lang-switcher {
+  position: absolute;
+  top: .5em;
+  right: 5em;
+  font-size: .85em;
 }
