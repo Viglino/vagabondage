@@ -1,0 +1,10 @@
+{
+  "extends": ["@parcel/config-default"],
+  "reporters":  ["...", "parcel-reporter-static-files-copy"],
+  "transformers": {
+    "*.txt": ["...", "@parcel/transformer-inline-string"],
+    "intro.html": ["...", "@parcel/transformer-inline-string"],
+    "[a-h|j-z]*.html": ["...", "@parcel/transformer-inline-string"],
+    "page*.html": ["...", "@parcel/transformer-inline-string"]
+  }
+}
