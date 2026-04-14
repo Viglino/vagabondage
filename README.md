@@ -20,7 +20,7 @@ Between survival and encounters, you play a character on the run in the French c
 >
 
 > [!TIP]
-> > <img src="[https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg](https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg)" height=20 float=left /> Vagabondage — однокористувацька рольова гра, що грається онлайн на картах та аерофотознімках IGN. Між виживанням та зустрічами ви граєте за персонажа, що переховується у французькій провінції.
+> <img src="[https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg](https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg)" height=20 float=left /> Vagabondage — однокористувацька рольова гра, що грається онлайн на картах та аерофотознімках IGN. Між виживанням та зустрічами ви граєте за персонажа, що переховується у французькій провінції.
 >
 > Ваш єдиний шанс вижити: вміти читати карту!
 > 
