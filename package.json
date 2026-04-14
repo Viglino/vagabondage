@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel --dist-dir ./.dist ./src/index.html",
     "lint": "eslint --fix src/ || exit 0",
-    "build": "parcel build --dist-dir ./maps ./src/index.html --public-url ./ --no-source-maps"
+    "build": "parcel build --dist-dir ./docs ./src/index.html --public-url ./ --no-source-maps"
   },
   "repository": {
     "type": "git",
