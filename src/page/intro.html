@@ -1,6 +1,6 @@
 <a href="https://github.com/Viglino/vagabondage" title="fork me on github!" class="icss-github-corner" target="github"><i></i></a>
 <h1>
-  <img src="../img/dices.png"> Vagabondage
+  <img src="../img/dices.png" alt="dices"> Vagab&#x1F9ED;ndage
 </h1>
 <div class="social-buttons">
   <a class="github-button" href="https://github.com/viglino/vagabondage" data-icon="octicon-star" data-show-count="true" aria-label="Star viglino/vagabondage on GitHub">Star</a>
@@ -9,43 +9,44 @@
     Tweet
   </a>
 </div>
-<p>
-  Jeu de rôle en solitaire, Vagabondage permet d’incarner un protagoniste en fuite dans la campagne
-  française. Entre survie et rencontres, il se base sur l’utilisation du portail web des cartes et
-  photographies aériennes de l’IGN.
+<p data-i18n-html="intro:desc">
+  Jeu de rôle en solitaire, Vagabondage permet d'incarner un protagoniste en fuite dans la campagne
+  française. Entre survie et rencontres, il se base sur l'utilisation du portail web des cartes et
+  photographies aériennes de l'IGN.
   <br/>
   <a href="https://github.com/Viglino/vagabondage/wiki" target="wiki">plus d'aide...</a>
 </p>
 <ul>
   <li>
-    <label>
-      Voyager en : 
+    <label data-i18n="intro:travelIn">
+      Voyager en :
     </label><select class="region">
     </select>
   </li><li>
-    <label>
+    <label data-i18n="intro:level">
       Niveau :
     </label><select class="level">
-      <option value="10">débutant</option>
-      <option value="5">avancé</option>
-      <option value="0">cartographe</option>
+      <option value="10" data-i18n="intro:beginner">débutant</option>
+      <option value="5" data-i18n="intro:advanced">avancé</option>
+      <option value="0" data-i18n="intro:cartographer">cartographe</option>
     </select>
-    <img src="../img/compass.png" /><span class="count">(10)</span>
+    <img src="../img/compass.png" alt="compass" /><span class="count">(10)</span>
   </li><li>
-    <label>
+    <label data-i18n="intro:length">
       Longueur du trajet :
     </label><select class="length">
-      <option value="10" data-txt="facile">10 - 15 km</option>
-      <option value="20" data-txt="moyen">20 - 25 km</option>
-      <option value="30" data-txt="difficile">30 - 35 km</option>
-      <option value="40" data-txt="sportif">40 - 45 km</option>
+      <option value="10" data-txt="easy" data-i18n-title="intro:easy">10 - 15 km</option>
+      <option value="20" data-txt="medium" data-i18n-title="intro:medium">20 - 25 km</option>
+      <option value="30" data-txt="hard" data-i18n-title="intro:hard">30 - 35 km</option>
+      <option value="40" data-txt="sport" data-i18n-title="intro:sport">40 - 45 km</option>
     </select>
-    <span data-diff="facile">facile</span>
+    <span data-diff="easy" data-i18n="intro:easy">easy</span>
   </li><li style="display:none;">
-    <label>Date du trajet : </label>
+    <label data-i18n="intro:date">Date du trajet : </label>
     <select class="month"></select>
   </li>
 </ul>
 <label class="helpBt ol-ext-toggle-switch">
-  <input type="checkbox" /><span></span> afficher l'aide en ligne
+  <input type="checkbox" /><span></span> <div data-i18n="intro:showHelp" style="display: inline
+  ;">afficher l'aide en ligne</div>
 </label>

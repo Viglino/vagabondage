@@ -1,0 +1,45 @@
+########
+#title: Pandemic
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/filsl.jpg
+#start:
+#end:
+#--------------
+#introduction:
+Year %year+3%: the ZA13 variant is wreaking havoc across the population.
+The only hope is to find a cure. For that, you've been entrusted with Kee — a young woman who appears to be immune to the virus.
+Your one mission: bring her to the meeting point undetected, and protect her at any cost.
+<>
+And here you are, lost %biome%. The car has completely broken down.
+Stranded %distance% from your meeting point, %routeInfo%.
+<>
+You grab the IGN map of the area, the meeting point circled in red.
+You lead Kee away with you, keeping to the back roads to stay ahead of your pursuers...
+#--------------
+#missed:
+A car pulls up along the road! It's them!
+You pull Kee along and throw yourselves breathless %hiddingPlace% — they didn't see you!
+<>
+That was close! You'll have to stay well clear of busy places...
+#fail:
+A car screeches to a halt and two armed men step out. They've spotted you.
+You try to run but Kee has already been caught.
+#--------------
+#failConclusion:
+You approach the house. Everything seems quiet — but something feels wrong...
+Just as you're about to ring the doorbell, a rustling makes you spin around. Two armed men block your path.
+<>
+They lunge at Kee and drag her away with them.
+#conclusion:
+The door opens at the first ring. A man with the look of a hippie in a white lab coat ushers you both inside.
+"What took you so long! Come in!" he says, glancing quickly behind you. "You weren't followed?"
+<>
+Inside, a young woman is already attending to Kee.
+"This is incredible! You actually made it through!"
+<>
+You collapse onto the living room sofa with a long exhale. That was far too close!

@@ -1,4 +1,8 @@
 import { addLang } from './i18n'
-import lang from './lang.fr.json'
+import langFR from './lang.fr.json'
+import langEN from './lang.en.json'
+import langUK from './lang.uk.json'
 
-addLang(lang, 'fr');
+addLang(langFR, 'fr');
+addLang(langEN, 'en');
+addLang(langUK, 'uk');

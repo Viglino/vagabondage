@@ -1,5 +1,7 @@
 import dialog from '../map/dialog'
 import helpInfo from '../game/helpInfo';
+import _T from '../i18n/i18n'
+import applyI18n from '../i18n/applyI18n'
 
 import legendHTML from './legend.html'
 import legendHelpHTML from './legendHelp.html'
@@ -10,20 +12,22 @@ const pages = {};
 pages.showLegend = function() {
   dialog.show({
     className: 'legendDialog',
-    title: 'Légende',
+    title: _T('legendTitle'),
     content: legendHTML
   })
+  applyI18n(dialog.getContentElement());
   document.querySelector('.ol-content').scrollTop = 0;
 }
 
-helpInfo.create('legend2', 'retrouve la légende ici...');
+helpInfo.create('legend2', _T('findLegend'));
 
 pages.showHelpLegend = function() {
   dialog.show({
     className: 'legendDialog smooth',
-    title: 'Légende',
+    title: _T('legendTitle'),
     content: legendHelpHTML
   })
+  applyI18n(dialog.getContentElement());
   // Help steps
   dialog.getContentElement().classList.add('help');
   dialog.getContentElement().classList.add('help1');

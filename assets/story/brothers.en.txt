@@ -1,0 +1,48 @@
+########
+#title: Brother's
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/brothers.jpg
+#start:
+#end:
+#--------------
+#introduction:
+"Give me that map!" you snap, snatching it out of Delmar's hands.
+"We're not even close to being there!"
+<>
+You knew you were making a mistake breaking out with these two idiots.
+"We're %distance% from the meeting point, %routeInfo%. Lost out here %biome%!
+Look — the meeting spot has a red circle on the map, it really isn't that complicated!"
+<>
+Officer Cooley has no doubt mobilised his entire force to track you down...
+You'll have to take the back roads to dodge the roadblocks and the patrols...
+#--------------
+#missed:
+A police car pulls up along the road!
+You all bolt in a desperate sprint and throw yourselves breathless %hiddingPlace% — they didn't spot you!
+<>
+That was close!
+You look at Delmar and Pete — you'll have to keep away from busy places if you don't want to get caught with these two dimwits...
+#fail:
+A police car screeches to a halt in front of you, another pulls up from behind.
+Officers step out with their weapons trained on all three of you.
+You raise your hands in the air...
+#--------------
+#failConclusion:
+You approach the house. Everything seems quiet — but something feels off...
+Just as you're about to ring the bell, a whole regiment of police appears from nowhere and takes aim.
+<>
+"You are under arrest — freeze!"
+You raise your hands in the air...
+#conclusion:
+The door opens at the first ring. Your brother's face fills the doorway.
+"What took you so long! Get in! Who are these two?"
+<>
+"It's a long story!"
+"Good to see you, bro!"
+<>
+You're safe at last. Now to shake off your partners in crime and get as far away from here as possible!

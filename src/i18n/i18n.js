@@ -1,11 +1,14 @@
 /** Internationalization
  * @author Jean-Marc VIGLINO (https://github.com/Viglino)
  */
-let navLang = (navigator.language || navigator.userLanguage).split('-').shift();
+let navLang = localStorage.getItem('vagabondage@lang')
+  || (navigator.language || navigator.userLanguage).split('-').shift()
+  || 'en';
 
 // Global i18n
 const i18n = {
-  fr: {}
+  fr: {},
+  en: {}
 };
 
 /** Load languages
@@ -20,17 +23,25 @@ function addLang(values, lang) {
   })
 }
 
-/** Set default languages
+/** Set default language and persist choice
  * @param {string} lang
  */
 function setLang(lang) {
   navLang = lang;
+  localStorage.setItem('vagabondage@lang', lang);
+}
+
+/** Get current language
+ * @returns {string}
+ */
+function getLang() {
+  return navLang;
 }
 
 // Global function
 const _T = function(k) {
-  return (i18n[navLang] || i18n.fr)[k] || i18n.fr[k] || k;
+  return (i18n[navLang] || i18n.en)[k] || i18n.en[k] || i18n.fr[k] || k;
 };
 
-export { setLang, addLang }
+export { setLang, getLang, addLang }
 export default _T

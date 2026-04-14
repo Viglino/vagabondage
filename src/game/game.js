@@ -62,17 +62,17 @@ class Game extends olObject {
       parent: document.body
     })
     element.create('LI', {
-      html: '<i class="fg-position"></i> Ta position',
+      html: _T('yourPosition'),
       click: () => this.flyTo(this.get('position')),
       parent: d
     })
     element.create('LI', {
-      html: '<i class="fg-location-arrow"></i> Ta destination',
+      html: _T('yourDestination'),
       click: () => this.flyTo(this.get('end')),
       parent: d
     })
     element.create('LI', {
-      html: '<i class="fg-map-legend"></i> Legende',
+      html: _T('legendItem'),
       click: () => pages.showLegend(),
       parent: d
     })
@@ -80,7 +80,7 @@ class Game extends olObject {
     this.routing_ = routing;
     routing.on('routing', e => this.nextStep(e));
     // help info
-    helpInfo.create('carte', 'afficher / masquer la carte...')
+    helpInfo.create('carte', _T('showHideMap'))
   }
 }
 
@@ -299,9 +299,9 @@ Game.prototype.begin = function() {
   intro = intro.replace('%biome%', info.biome);
   intro = intro.replace('%distance%', m2km(this.get('tDistance')));
   if (info.roadClass && info.road) {
-    intro = intro.replace('%routeInfo%', 'sur la ' + info.roadClass.toLocaleLowerCase() + ' ' + info.road);
+    intro = intro.replace('%routeInfo%', _T('routeInfo:onRoad') + info.roadClass.toLocaleLowerCase() + ' ' + info.road);
   } else {
-    intro = intro.replace('%routeInfo%', 'à côté de ' + info.commune);
+    intro = intro.replace('%routeInfo%', _T('routeInfo:nearTown') + info.commune);
   }
   showDialogInfo(intro, this.story, () => {
     // Show help

@@ -1,0 +1,40 @@
+########
+#title: North by Northwest
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/trousses.jpg
+#start:
+#end:
+#--------------
+#introduction:
+You've really got yourself into a fine mess this time. With the police, the secret services and the Vandamm network all on your tail, you'll have to play this very carefully...
+<>
+Your only hope is to reach the meeting point %distance% away to find Eve.
+Fortunately you thought to mark the spot with a red circle on an IGN map.
+<>
+Lost %biome%, %routeInfo% — you'll need to stay inconspicuous and keep to the back roads to avoid any unwanted encounters...
+#--------------
+#missed:
+A car pulls up along the road! Two men step out, one of them armed!
+You sprint off in a desperate run and throw yourself breathless %hiddingPlace% — they didn't see you!
+<>
+That was close! You'll have to avoid that kind of encounter from now on...
+#fail:
+A car screeches to a halt and two armed men step out. They've spotted you.
+You try to run but they're already on you, your legs giving way as they close in.
+#--------------
+#failConclusion:
+You approach the meeting point. Everything seems quiet — but something feels wrong...
+Just as you're about to ring the doorbell, a rustling makes you spin around. Two armed men block your path.
+<>
+"Game over. Your road ends here..."
+#conclusion:
+Through the living room window, you catch a conversation between Vandamm and Leonard — they've discovered that Eve is a double agent.
+<>
+You slip in through the back door and, without being noticed, free Eve who has been locked in an upstairs bedroom.
+<>
+Before leaving, Eve grabs the statuette containing the microfilms that Vandamm was about to hand over to a foreign power, and the two of you flee in the villains' car...

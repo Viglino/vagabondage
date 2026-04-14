@@ -1,0 +1,47 @@
+########
+#title: Whistleblower
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/default.jpg
+#start: 0.27566, 48.84994
+#end: 0.27566, 48.84994
+#--------------
+#introduction:
+It had to happen — the car just gave up the ghost!
+You pull over to the side of the road, cursing your bad luck. You're stuck %distance% from your meeting point, %routeInfo%.
+<>
+You grab the file containing the proof of their wrongdoings. Once it's published online, they won't be able to touch you. But until then, they'll do anything to get it back.
+You somewhat regret getting rid of your smartphone — it would have come in handy now, lost out here %biome%.
+But it was too risky; they could have tracked you far too easily.
+<>
+You slip the file into your backpack.
+In the glove compartment you find an IGN map of the area. A red circle marks the meeting point.
+All you have to do now is get there, sticking to the back roads to shake off your pursuers...
+#--------------
+#missed:
+A car pulls up along the road! It's them!
+You sprint off in a desperate run and throw yourself breathless %hiddingPlace% — they didn't see you!
+<>
+That was close! You'll have to avoid busy places from now on...
+#fail:
+A car screeches to a halt and two men step out with weapons drawn. They've spotted you.
+You try to run but they're already on you, your legs giving way as they close in.
+"Game over! Now hand over the file!" says the man, tearing your bag from you.
+#--------------
+#failConclusion:
+You approach the house. Everything seems quiet — but something feels wrong...
+Just as you're about to ring the doorbell, you hear a rustling behind you. Two men block your path, weapons raised.
+<>
+"Smart guy's game is over! Hand over the file — now!"
+#conclusion:
+The door opens on the first ring. Denis' dishevelled head appears in the doorway, looking like he's been pulled through a hedge backwards.
+"What took you so long! Get in!" he says, glancing over your shoulder. "You weren't followed?"
+<>
+You collapse onto the living room sofa while Denis flips through the file you handed him.
+"This is huge!" he says, scanning the first pages. "I'm sending it to the others right now..."
+<>
+This time, for certain, they'll pay for it.

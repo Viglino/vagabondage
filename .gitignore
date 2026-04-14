@@ -2,5 +2,4 @@ node_modules
 .*
 *.url
 data0
-assets
 utils

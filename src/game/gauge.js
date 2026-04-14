@@ -3,21 +3,24 @@ import Gauge from 'ol-ext/control/Gauge'
 import dialog from '../map/dialog';
 import gaugeInfo from './gauge.html'
 import roadInfo from './roadGauge.html'
+import applyI18n from '../i18n/applyI18n'
+import _T from '../i18n/i18n'
 
 import './gauge.css'
 
 const gauge = new Gauge({
-  title: '+6', 
+  title: '+6',
   max: 8,
   val: 8
 });
 gauge.element.addEventListener('click', () => {
   dialog.show({
-    title: 'Ton état',
+    title: _T('yourState'),
     className: 'life',
     content: gaugeInfo,
     buttons: ['ok']
   })
+  applyI18n(dialog.getContentElement());
   const hydro = gauge.get('hydro') ? 0 : 1;
   const food = gauge.get('food') ? 0 : 1;
   dialog.getContentElement().querySelector('.hydro span').innerText = hydro;
@@ -38,11 +41,12 @@ const roadGauge = new Gauge({
 });
 roadGauge.element.addEventListener('click', () => {
   dialog.show({
-    title: 'Cheminement',
+    title: _T('pathfinding'),
     className: 'roads',
     content: roadInfo,
     buttons: ['ok']
   })
+  applyI18n(dialog.getContentElement());
   const good = roadGauge.val() < 100;
   dialog.getContentElement().classList.add(good ? 'good' : 'bad');
 })

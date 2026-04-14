@@ -1,0 +1,46 @@
+########
+#title: Breakdown
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/adieu.jpg
+#start:
+#end:
+#--------------
+#introduction:
+Just when you thought things couldn't get any worse.
+"What's happening? Why have we stopped?" asks Serge from the back seat...
+The car has broken down %routeInfo%, %biome%.
+<>
+"The car's dead and we've still got %distance% to go before the rendezvous point," says JB, consulting the IGN map.
+"You didn't fill up?" Serge helpfully adds.
+<>
+You'll have to take the back roads to reach the address given by Doctor Lint, while dodging the police on your tail...
+#--------------
+#missed:
+A police car pulls up along the road!
+JB pulls you and the blind man aside %hiddingPlace% — they didn't see you!
+<>
+That was close! You'll have to avoid that kind of encounter from now on...
+#fail:
+A police car pulls over and officers step out. They've spotted you.
+"No, not the police!" screams Serge.
+But they're already on you, blocking any escape.
+#--------------
+#failConclusion:
+You move in slowly. Everything seems quiet — and yet...
+Just as you're about to ring the bell, you're blinded by the beam of a spotlight...
+<>
+A voice crackles from a megaphone.
+"Give yourselves up — you're surrounded!"
+#conclusion:
+You walk up to the door while Serge and JB cheer you on from the street.
+Through the living room window you can make out a young man reading a book.
+<>
+You ring the bell, a little apprehensive all the same.
+"What is she doing?" whispers Serge behind you.
+<>
+The young man comes to open the door and smiles at you...

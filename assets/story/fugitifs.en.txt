@@ -1,0 +1,53 @@
+########
+#title: The Fugitives
+########
+#lang: en
+#type: classic
+#author: @JMViglino
+#authorURL: https://twitter.com/jmviglino
+#-------------- info
+#img: ./affiches/fugitifs.jpg
+#start:
+#end:
+#--------------
+#introduction:
+You can't believe it — that idiot Pignon just fired a bullet straight into the engine!
+A plume of white smoke billows from under the bonnet...
+<>
+"Those things are awfully sensitive!" he says, waving the revolver in your face!
+"Stop clowning around, Pignon! And give me that before you hurt someone!"
+You snatch the revolver from him — not that it'll be much use now, seeing as the last bullet is lodged in the engine...
+<>
+And here you are, stuck with this buffoon, %distance% from your meeting point, %routeInfo%.
+You climb out of the car, fuming, and hope nobody noticed you out here, lost %biome%.
+<>
+You grab the IGN map from the car, the meeting point circled in red, and drag Pignon along with you.
+You slip away quietly — all that's left is to reach the meeting point along the back roads and stay out of trouble.
+Not going to be easy with that idiot tagging along...
+#--------------
+#missed:
+A car pulls up along the road! Two men step out, one of them armed!
+You bolt in a desperate sprint and throw yourself breathless %hiddingPlace% — they didn't see you!
+<>
+That was close!
+You look at Pignon and sigh — the idiot has managed to twist his ankle!
+You'll have to keep well clear of busy places...
+#fail:
+A car screeches to a halt and two armed men step out. Pignon's managed to get you spotted.
+You try to run but they've already grabbed Pignon.
+"Enough games, Lucas! You're coming with us — both of you!"
+#--------------
+#failConclusion:
+You approach the house. Everything seems quiet — but something feels wrong...
+Just as you're about to ring the bell, a rustling makes you spin around.
+Two armed men block your path, one of them holding Pignon by the collar.
+<>
+"Enough games, Lucas! You're coming with us right now!"
+#conclusion:
+The door opens at the first ring. Martin's face appears in the doorway.
+"What took you so long! Get in!" he says, glancing quickly behind you. "Who's that?"
+<>
+"Don't worry, I'll explain everything!"
+Pignon crashes onto the sofa, knocking over a lamp that had the misfortune of being on the coffee table.
+<>
+You're safe at last. Now to get rid of Pignon... or maybe not.
