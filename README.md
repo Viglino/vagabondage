@@ -8,9 +8,22 @@ Entre survie et rencontres, vous incarnez un personnage en fuite dans la campagn
 *La seul chance de t'en sortir : savoir lire une carte !*
 
 [Un jeu de Thomas Solonce](https://solonce.itch.io/vagabondage)    
-[<img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg" height="15"/> @matthieub_](https://twitter.com/matthieub_/status/1503490106983915520) - [@TSolonce](https://twitter.com/TSolonce)    
+[<img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Twitter_and_X_logos.svg" height="15"/> @matthieub_](https://twitter.com/matthieub_/status/1503490106983915520) - [@TSolonce](https://twitter.com/TSolonce)    
 [<img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" height="20"/> PDF](https://drive.google.com/file/d/1q_zbQSIQdtNhsl_mn7X61ZDLFONUcgcg/view)    
-[<img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg" height="15"/> @jmviglino](https://twitter.com/jmviglino/status/1576606011804164100)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Twitter_and_X_logos.svg" height="15"/> @jmviglino](https://twitter.com/jmviglino/status/1576606011804164100)
+
+> [!NOTE]
+> <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg" height=20 float=left /> Vagabondage is a solo role-playing game played online on IGN's maps and aerial photographs.
+Between survival and encounters, you play a character on the run in the French countryside.
+> 
+> *Your only chance to survive: know how to read a map!*
+>
+
+> [!TIP]
+> > <img src="[https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg](https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg)" height=20 float=left /> Vagabondage — однокористувацька рольова гра, що грається онлайн на картах та аерофотознімках IGN. Між виживанням та зустрічами ви граєте за персонажа, що переховується у французькій провінції.
+>
+> Ваш єдиний шанс вижити: вміти читати карту!
+> 
 
 ## Resources
 
