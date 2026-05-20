@@ -5,7 +5,10 @@ Entre survie et rencontres, vous incarnez un personnage en fuite dans la campagn
 
 ![](https://github.com/Viglino/vagabondage/raw/main/assets/img/banner.jpg)
 
-*La seul chance de t'en sortir : savoir lire une carte !*
+*La seul chance de t'en sortir : savoir lire une carte !*   
+[🎲 Jouer en ligne](https://viglino.github.io/vagabondage/)
+
+----
 
 [Un jeu de Thomas Solonce](https://solonce.itch.io/vagabondage)    
 [<img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Twitter_and_X_logos.svg" height="15"/> @matthieub_](https://twitter.com/matthieub_/status/1503490106983915520) - [@TSolonce](https://twitter.com/TSolonce)    
